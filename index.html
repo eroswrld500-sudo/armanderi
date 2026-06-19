@@ -3,34 +3,37 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<meta name="description" content="Premium minimal luxury web experience" />
-<title>NOIR — Premium Experience</title>
+
+<title>Arman Deri | Zamansız Lüks</title>
+
+<meta name="description" content="Arman Deri - Zamansız lüks, modern deri tasarımlar ve premium el işçiliği." />
+<meta name="keywords" content="arman deri, deri ceket, premium moda, lüks giyim, türk deri markası" />
 
 <style>
 /* =========================
-   DESIGN TOKENS (LUXURY SYSTEM)
+   DESIGN SYSTEM (LUXURY MINIMAL)
 ========================= */
 :root {
-  --bg: #0b0c10;
-  --fg: #f5f5f7;
-  --muted: rgba(245,245,247,0.65);
+  --bg: #0b0c0e;
+  --fg: #f4f4f4;
+  --muted: rgba(244,244,244,0.65);
+  --gold: #c8a96a;
   --card: rgba(255,255,255,0.06);
-  --accent: #d6b46d; /* luxury gold */
-  --radius: 18px;
-  --max: 1200px;
+  --border: rgba(255,255,255,0.10);
+  --radius: 20px;
+  --max: 1180px;
   --transition: 0.6s cubic-bezier(.2,.8,.2,1);
 }
 
 [data-theme="light"] {
-  --bg: #f5f5f7;
-  --fg: #0b0c10;
-  --muted: rgba(0,0,0,0.55);
+  --bg: #f5f5f5;
+  --fg: #0d0d0d;
+  --muted: rgba(0,0,0,0.6);
   --card: rgba(0,0,0,0.05);
+  --border: rgba(0,0,0,0.12);
 }
 
-/* =========================
-   BASE RESET
-========================= */
+/* RESET */
 * {
   margin: 0;
   padding: 0;
@@ -38,39 +41,37 @@
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", Inter, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Inter", sans-serif;
   background: var(--bg);
   color: var(--fg);
+  transition: var(--transition);
   overflow-x: hidden;
-  transition: background var(--transition), color var(--transition);
 }
 
-/* =========================
-   LAYOUT SYSTEM
-========================= */
+/* LAYOUT */
 .container {
   max-width: var(--max);
   margin: 0 auto;
   padding: 0 24px;
 }
 
+/* NAV */
 nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 24px 0;
+  padding: 26px 0;
 }
 
 .logo {
+  font-size: 14px;
   letter-spacing: 6px;
   font-weight: 300;
-  font-size: 14px;
-  color: var(--fg);
 }
 
 .menu {
   display: flex;
-  gap: 28px;
+  gap: 26px;
   font-size: 13px;
   color: var(--muted);
 }
@@ -85,20 +86,34 @@ nav {
   color: var(--fg);
 }
 
-/* =========================
-   HERO SECTION (APPLE-STYLE SPACING)
-========================= */
+/* BUTTON */
+.btn {
+  padding: 12px 22px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--fg);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.btn:hover {
+  border-color: var(--gold);
+  transform: translateY(-2px);
+}
+
+/* HERO */
 .hero {
-  height: 85vh;
+  height: 86vh;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
 }
 
 .hero h1 {
-  font-size: clamp(40px, 6vw, 84px);
+  font-size: clamp(42px, 6vw, 86px);
   font-weight: 300;
   letter-spacing: -1px;
 }
@@ -107,32 +122,10 @@ nav {
   margin-top: 18px;
   max-width: 520px;
   color: var(--muted);
-  line-height: 1.6;
+  line-height: 1.7;
 }
 
-/* =========================
-   BUTTON (LUXURY MINIMAL)
-========================= */
-.btn {
-  margin-top: 32px;
-  padding: 14px 28px;
-  border: 1px solid var(--card);
-  border-radius: 999px;
-  background: transparent;
-  color: var(--fg);
-  cursor: pointer;
-  transition: var(--transition);
-  backdrop-filter: blur(10px);
-}
-
-.btn:hover {
-  border-color: var(--accent);
-  transform: translateY(-2px);
-}
-
-/* =========================
-   SECTIONS
-========================= */
+/* SECTIONS */
 .section {
   padding: 120px 0;
 }
@@ -140,26 +133,43 @@ nav {
 .grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
+  gap: 22px;
 }
 
 .card {
-  padding: 28px;
+  padding: 26px;
   border-radius: var(--radius);
   background: var(--card);
-  border: 1px solid rgba(255,255,255,0.06);
+  border: 1px solid var(--border);
   transition: var(--transition);
 }
 
 .card:hover {
   transform: translateY(-6px);
-  border-color: var(--accent);
+  border-color: var(--gold);
 }
 
-/* =========================
-   MICRO INTERACTIONS
-========================= */
-.fade-in {
+.card h3 {
+  font-weight: 400;
+  margin-bottom: 10px;
+}
+
+.card p {
+  color: var(--muted);
+  line-height: 1.6;
+  font-size: 14px;
+}
+
+/* FOOTER */
+footer {
+  padding: 60px 0;
+  text-align: center;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+/* ANIMATION */
+.fade {
   opacity: 0;
   transform: translateY(20px);
   animation: fadeIn 1s forwards;
@@ -172,19 +182,7 @@ nav {
   }
 }
 
-/* =========================
-   FOOTER
-========================= */
-footer {
-  padding: 60px 0;
-  text-align: center;
-  color: var(--muted);
-  font-size: 12px;
-}
-
-/* =========================
-   RESPONSIVE
-========================= */
+/* RESPONSIVE */
 @media (max-width: 900px) {
   .grid {
     grid-template-columns: 1fr;
@@ -198,58 +196,58 @@ footer {
 </head>
 
 <body>
+
 <div class="container">
 
   <!-- NAV -->
   <nav>
-    <div class="logo">NOIR</div>
+    <div class="logo">ARMAN DERİ</div>
+
     <div class="menu">
-      <a href="#">Vision</a>
-      <a href="#">Studio</a>
-      <a href="#">Work</a>
-      <a href="#">Contact</a>
+      <a href="#">Koleksiyon</a>
+      <a href="#">Hikaye</a>
+      <a href="#">Atölye</a>
+      <a href="#">İletişim</a>
     </div>
-    <button class="btn" onclick="toggleTheme()">Theme</button>
+
+    <button class="btn" onclick="toggleTheme()">Tema</button>
   </nav>
 
   <!-- HERO -->
-  <section class="hero fade-in">
-    <h1>Design Beyond Luxury</h1>
+  <section class="hero fade">
+    <h1>Zamansız Lüks</h1>
     <p>
-      Ultra-minimal interface design system crafted with precision, silence and spatial intelligence.
+      Arman Deri, ustalıkla işlenmiş premium deri koleksiyonlarıyla modern
+      zarafeti yeniden tanımlar.
     </p>
-    <button class="btn">Explore Experience</button>
+    <button class="btn" style="margin-top:30px;">Koleksiyonu Keşfet</button>
   </section>
 
   <!-- FEATURES -->
   <section class="section">
     <div class="grid">
+
       <div class="card">
-        <h3>Minimal Architecture</h3>
-        <p style="color:var(--muted); margin-top:10px;">
-          Every pixel is intentional. Nothing is decorative.
-        </p>
+        <h3>El İşçiliği</h3>
+        <p>Her ürün, usta zanaatkârların yıllara dayanan deneyimiyle üretilir.</p>
       </div>
 
       <div class="card">
-        <h3>Performance First</h3>
-        <p style="color:var(--muted); margin-top:10px;">
-          Lightweight structure, instant load, zero friction UX.
-        </p>
+        <h3>Premium Deri</h3>
+        <p>Seçilmiş en kaliteli deri materyaller ile zamansız tasarımlar.</p>
       </div>
 
       <div class="card">
-        <h3>Premium Aesthetic</h3>
-        <p style="color:var(--muted); margin-top:10px;">
-          Inspired by Apple precision, Tesla clarity, Rolex prestige.
-        </p>
+        <h3>Modern Minimalizm</h3>
+        <p>Gereksiz hiçbir detay yok. Sadece form, fonksiyon ve prestij.</p>
       </div>
+
     </div>
   </section>
 
   <!-- FOOTER -->
   <footer>
-    © 2026 NOIR — All experiences are intentionally minimal.
+    © 2026 Arman Deri — Tüm hakları saklıdır.
   </footer>
 
 </div>
@@ -261,8 +259,10 @@ function toggleTheme() {
   root.setAttribute("data-theme", current === "light" ? "dark" : "light");
 }
 
-/* subtle scroll reveal */
-const observer = new IntersectionObserver((entries) => {
+/* smooth reveal */
+const els = document.querySelectorAll(".card");
+
+const obs = new IntersectionObserver((entries) => {
   entries.forEach(e => {
     if (e.isIntersecting) {
       e.target.style.opacity = 1;
@@ -271,11 +271,11 @@ const observer = new IntersectionObserver((entries) => {
   });
 });
 
-document.querySelectorAll(".card").forEach(el => {
+els.forEach(el => {
   el.style.opacity = 0;
-  el.style.transform = "translateY(20px)";
+  el.style.transform = "translateY(18px)";
   el.style.transition = "1s cubic-bezier(.2,.8,.2,1)";
-  observer.observe(el);
+  obs.observe(el);
 });
 </script>
 
