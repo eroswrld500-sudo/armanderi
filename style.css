@@ -1,3 +1,4 @@
+/* Temel Ayarlar */
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 body { 
@@ -9,12 +10,18 @@ body {
     flex-direction: column;
 }
 
+/* Navbar: Sabit ve Lüks */
 .navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 3rem 8%;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    position: sticky;
+    top: 0;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(20px);
+    z-index: 1000;
 }
 
 .logo {
@@ -33,22 +40,12 @@ body {
     letter-spacing: 0.15rem;
     text-transform: uppercase;
     opacity: 0.7;
+    transition: all 0.3s ease;
 }
-
-.footer {
-    margin-top: auto;
-    padding: 2rem;
-    text-align: center;
-    font-size: 0.6rem;
-    letter-spacing: 0.2rem;
-    text-transform: uppercase;
-    opacity: 0.3;
-}
+.nav-links a:hover { opacity: 1; }
 
 /* Koleksiyon Bölümü */
-.collection {
-    padding: 6rem 8%;
-}
+.collection { padding: 6rem 8%; }
 
 .section-title {
     font-family: 'Cinzel', serif;
@@ -59,27 +56,40 @@ body {
     opacity: 0.8;
 }
 
+/* Grid Yapısı */
 .grid-container {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
     gap: 3rem;
 }
 
 .grid-item {
     height: 450px;
-    background-color: #111; /* Görseller gelene kadar placeholder */
+    background-color: #111; /* Ürün görseli ekleyince burayı değiştir */
     border: 1px solid rgba(255, 255, 255, 0.05);
-    transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1), opacity 0.6s ease;
+    transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
     cursor: pointer;
 }
 
-/* Hover Efekti: Lüks geçiş */
 .grid-item:hover {
     transform: translateY(-10px);
     border-color: rgba(255, 255, 255, 0.3);
 }
 
-/* Responsive Düzen */
+/* Footer */
+.footer {
+    padding: 2rem;
+    text-align: center;
+    font-size: 0.6rem;
+    letter-spacing: 0.2rem;
+    text-transform: uppercase;
+    opacity: 0.3;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    margin-top: auto;
+}
+
+/* Mobil Uyum */
 @media (max-width: 768px) {
+    .nav-links { display: none; } /* Mobilde menü gizli */
     .grid-container { grid-template-columns: 1fr; }
 }
