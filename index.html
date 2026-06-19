@@ -1,103 +1,413 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="tr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Maison Valen — Leather Atelier</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Arman Deri | Luxury Leather Craft</title>
 
-  <link rel="stylesheet" href="style.css"/>
-  <script defer src="script.js"></script>
+<!-- Premium Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+/* =======================
+   ROOT DESIGN SYSTEM
+======================= */
+:root{
+  --black:#0A0A0A;
+  --surface:#151515;
+  --surface-2:#222;
+  --gold:#C8A45D;
+  --white:#F5F5F5;
+}
+
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  background:var(--black);
+  color:var(--white);
+  font-family:Inter, sans-serif;
+  overflow-x:hidden;
+}
+
+/* =======================
+   CUSTOM CURSOR
+======================= */
+.cursor{
+  position:fixed;
+  width:12px;height:12px;
+  border-radius:50%;
+  background:var(--gold);
+  pointer-events:none;
+  mix-blend-mode:difference;
+  transform:translate(-50%,-50%);
+  z-index:9999;
+  box-shadow:0 0 20px var(--gold);
+}
+
+/* =======================
+   PRELOADER
+======================= */
+#preloader{
+  position:fixed;
+  inset:0;
+  background:var(--black);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  z-index:99999;
+}
+
+.loader-line{
+  width:200px;
+  height:1px;
+  background:#333;
+  margin-top:20px;
+  overflow:hidden;
+}
+
+.loader-line::after{
+  content:'';
+  display:block;
+  height:100%;
+  width:40%;
+  background:var(--gold);
+  animation:load 2s infinite;
+}
+
+@keyframes load{
+  0%{transform:translateX(-100%);}
+  100%{transform:translateX(250%);}
+}
+
+/* =======================
+   NAVBAR
+======================= */
+nav{
+  position:fixed;
+  top:0;
+  width:100%;
+  padding:20px 50px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  z-index:999;
+  backdrop-filter:blur(10px);
+  background:rgba(10,10,10,0.4);
+}
+
+nav h1{
+  font-family:Cinzel;
+  letter-spacing:4px;
+  font-size:14px;
+  color:var(--gold);
+}
+
+nav a{
+  color:var(--white);
+  margin-left:20px;
+  text-decoration:none;
+  font-size:13px;
+  opacity:0.8;
+}
+
+/* =======================
+   HERO
+======================= */
+.hero{
+  height:100vh;
+  position:relative;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  overflow:hidden;
+}
+
+.hero video{
+  position:absolute;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  opacity:0.4;
+}
+
+.overlay{
+  position:absolute;
+  inset:0;
+  background:radial-gradient(circle,transparent,black 70%);
+}
+
+.hero h1{
+  font-family:Cinzel;
+  font-size:72px;
+  letter-spacing:10px;
+  z-index:2;
+}
+
+.hero p{
+  margin-top:10px;
+  opacity:0.7;
+}
+
+.btn{
+  margin-top:30px;
+  padding:12px 28px;
+  border:1px solid var(--gold);
+  background:transparent;
+  color:var(--white);
+  cursor:pointer;
+  transition:0.4s;
+}
+
+.btn:hover{
+  background:var(--gold);
+  color:black;
+  box-shadow:0 0 20px var(--gold);
+}
+
+/* =======================
+   SECTIONS
+======================= */
+section{
+  padding:120px 10%;
+}
+
+.title{
+  font-family:Cinzel;
+  color:var(--gold);
+  margin-bottom:20px;
+  letter-spacing:3px;
+}
+
+/* STORY */
+.story p{
+  max-width:600px;
+  opacity:0.8;
+  line-height:1.7;
+}
+
+/* COLLECTION */
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:30px;
+}
+
+.card{
+  background:var(--surface);
+  padding:20px;
+  border:1px solid #1f1f1f;
+  transition:0.4s;
+  position:relative;
+}
+
+.card:hover{
+  transform:translateY(-10px);
+  border-color:var(--gold);
+  box-shadow:0 10px 40px rgba(200,164,93,0.2);
+}
+
+.card h3{
+  font-family:Cinzel;
+  margin-bottom:10px;
+}
+
+.card span{
+  font-size:12px;
+  opacity:0.6;
+}
+
+/* FEATURES */
+.features{
+  display:flex;
+  gap:30px;
+}
+
+.feature{
+  flex:1;
+  background:var(--surface);
+  padding:30px;
+  border-left:2px solid var(--gold);
+}
+
+/* TESTIMONIALS */
+.slider{
+  display:flex;
+  overflow-x:auto;
+  gap:20px;
+}
+
+.testimonial{
+  min-width:300px;
+  background:var(--surface);
+  padding:20px;
+  border-left:2px solid var(--gold);
+}
+
+/* CTA */
+.cta{
+  text-align:center;
+  padding:150px 10%;
+  background:linear-gradient(180deg,var(--black),#111);
+}
+
+.cta h2{
+  font-family:Cinzel;
+  font-size:40px;
+}
+
+.cta button{
+  margin-top:30px;
+  padding:16px 40px;
+  border:none;
+  background:var(--gold);
+  cursor:pointer;
+}
+
+/* FOOTER */
+footer{
+  padding:40px;
+  text-align:center;
+  border-top:1px solid #222;
+  font-size:12px;
+  opacity:0.6;
+}
+
+/* ANIMATIONS */
+.fade{
+  opacity:0;
+  transform:translateY(30px);
+  transition:1s;
+}
+
+.fade.show{
+  opacity:1;
+  transform:translateY(0);
+}
+
+/* MOBILE */
+@media(max-width:768px){
+  .hero h1{font-size:40px;}
+  nav{padding:15px;}
+  .features{flex-direction:column;}
+}
+</style>
 </head>
 
 <body>
 
+<div class="cursor"></div>
+
+<!-- PRELOADER -->
+<div id="preloader">
+  <h1 style="font-family:Cinzel; color:#C8A45D;">ARMAN DERİ</h1>
+  <div class="loader-line"></div>
+</div>
+
 <!-- NAV -->
-<header class="nav">
-  <div class="logo">MAISON VALEN</div>
-
-  <nav>
-    <a href="#">Collections</a>
-    <a href="#">Craft</a>
-    <a href="#">Heritage</a>
-    <a href="#">Studio</a>
-  </nav>
-
-  <div class="nav-right">
-    <span>Cart (0)</span>
+<nav>
+  <h1>ARMAN DERİ</h1>
+  <div>
+    <a href="#story">Hikaye</a>
+    <a href="#collection">Koleksiyon</a>
+    <a href="#cta">Keşfet</a>
   </div>
-</header>
+</nav>
 
 <!-- HERO -->
-<section class="hero">
-  <div class="hero-content">
-    <p class="tag">HANDCRAFTED IN EUROPE</p>
-    <h1>Leather refined to its purest form</h1>
-    <p class="sub">
-      Timeless silhouettes. Silent luxury. Built for generations, not seasons.
-    </p>
+<div class="hero">
+  <video autoplay muted loop>
+    <source src="https://assets.mixkit.co/videos/preview/mixkit-handmade-leather-work-39810-large.mp4">
+  </video>
+  <div class="overlay"></div>
 
-    <button>Explore Collection</button>
+  <div>
+    <h1>ARMAN DERİ</h1>
+    <p>El işçiliği ile zamansız lüks</p>
+    <button class="btn">Koleksiyonu Keşfet</button>
   </div>
-</section>
+</div>
 
-<!-- FEATURE STRIP -->
-<section class="strip">
-  <div>Full-grain Italian leather</div>
-  <div>Hand stitched craftsmanship</div>
-  <div>Lifetime repair service</div>
+<!-- STORY -->
+<section id="story" class="story fade">
+  <h2 class="title">MARKA HİKAYESİ</h2>
+  <p>1987’den beri ustalıkla işlenen deri. Her ürün bir karakter taşır, her dikiş bir hikaye anlatır.</p>
 </section>
 
 <!-- COLLECTION -->
-<section class="collection">
-  <h2>Signature Collection</h2>
+<section id="collection" class="fade">
+  <h2 class="title">KOLEKSİYON</h2>
 
   <div class="grid">
-    <div class="card">
-      <div class="img img1"></div>
-      <h3>The Valen Tote</h3>
-      <p>€890</p>
-    </div>
-
-    <div class="card">
-      <div class="img img2"></div>
-      <h3>Heritage Briefcase</h3>
-      <p>€1,250</p>
-    </div>
-
-    <div class="card">
-      <div class="img img3"></div>
-      <h3>Minimal Wallet</h3>
-      <p>€320</p>
-    </div>
+    <div class="card"><h3>Ceketler</h3><span>El yapımı</span></div>
+    <div class="card"><h3>Çantalar</h3><span>Full grain deri</span></div>
+    <div class="card"><h3>Yelekler</h3><span>Usta işçilik</span></div>
+    <div class="card"><h3>Çocuk Koleksiyonu</h3><span>Premium seri</span></div>
   </div>
 </section>
 
-<!-- CRAFT SECTION -->
-<section class="craft">
-  <div class="craft-left"></div>
+<!-- FEATURES -->
+<section class="fade">
+  <h2 class="title">MALZEME KALİTESİ</h2>
 
-  <div class="craft-right">
-    <h2>Craft is our language</h2>
-    <p>
-      Every piece is cut, stitched and finished by master artisans.
-      We believe imperfection is noise — and silence is luxury.
-    </p>
+  <div class="features">
+    <div class="feature">%100 Full Grain Deri</div>
+    <div class="feature">El Dikişi Ustalığı</div>
+    <div class="feature">Ömür Boyu Dayanıklılık</div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="fade">
+  <h2 class="title">MÜŞTERİ YORUMLARI</h2>
+
+  <div class="slider">
+    <div class="testimonial">“Kaliteyi ilk dokunuşta hissediyorsunuz.”</div>
+    <div class="testimonial">“Gerçek lüks budur.”</div>
+    <div class="testimonial">“Site bile premium hissettiriyor.”</div>
   </div>
 </section>
 
 <!-- CTA -->
-<section class="cta">
-  <h2>Join the Atelier</h2>
-  <p>Exclusive drops, private access, early releases.</p>
-  <input type="email" placeholder="Email address"/>
-  <button>Subscribe</button>
+<section id="cta" class="cta fade">
+  <h2>ARMAN DERİ KOLEKSİYONUNU KEŞFET</h2>
+  <button>ALIŞVERİŞE BAŞLA</button>
 </section>
 
 <footer>
-  <p>© 2026 Maison Valen. All rights reserved.</p>
+  © 2026 Arman Deri — All rights reserved
 </footer>
+
+<script>
+// PRELOADER
+window.addEventListener("load", () => {
+  setTimeout(() => {
+    document.getElementById("preloader").style.opacity = "0";
+    document.getElementById("preloader").style.pointerEvents = "none";
+  }, 2000);
+});
+
+// CURSOR
+const cursor = document.querySelector(".cursor");
+document.addEventListener("mousemove", (e)=>{
+  cursor.style.left = e.clientX + "px";
+  cursor.style.top = e.clientY + "px";
+});
+
+// SCROLL REVEAL
+const observer = new IntersectionObserver(entries=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      entry.target.classList.add("show");
+    }
+  });
+});
+
+document.querySelectorAll(".fade").forEach(el=>{
+  observer.observe(el);
+});
+</script>
 
 </body>
 </html>
