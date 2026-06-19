@@ -1,21 +1,269 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-<meta charset="UTF-8">
-<title>Arman Deri</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Armanderi | Deri Zanaatı</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+
 <style>
-body{
-    font-family:Arial;
-    text-align:center;
-    padding-top:100px;
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
 }
-h1{
-    color:brown;
+
+body{
+background:#070707;
+color:#fff;
+font-family:Inter;
+overflow-x:hidden;
+}
+
+/* CURSOR */
+.cursor{
+width:22px;
+height:22px;
+border:1px solid rgba(200,161,90,0.8);
+border-radius:50%;
+position:fixed;
+pointer-events:none;
+transform:translate(-50%,-50%);
+transition:0.08s linear;
+z-index:9999;
+}
+
+/* INTRO */
+#intro{
+position:fixed;
+inset:0;
+background:#000;
+display:flex;
+align-items:center;
+justify-content:center;
+flex-direction:column;
+z-index:99999;
+}
+
+#intro h1{
+font-family:"Playfair Display";
+font-size:54px;
+letter-spacing:6px;
+animation:fadeUp 1.5s ease forwards;
+opacity:0;
+}
+
+#intro p{
+color:#aaa;
+margin-top:10px;
+opacity:0;
+animation:fadeUp 1.5s ease 0.6s forwards;
+}
+
+@keyframes fadeUp{
+from{opacity:0; transform:translateY(20px);}
+to{opacity:1; transform:translateY(0);}
+}
+
+/* HERO */
+.hero{
+height:100vh;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+text-align:center;
+position:relative;
+background:url('https://images.unsplash.com/photo-1520975916090-3105956dac38') center/cover;
+}
+
+.hero::after{
+content:"";
+position:absolute;
+inset:0;
+background:rgba(0,0,0,0.6);
+}
+
+.hero h1{
+font-family:"Playfair Display";
+font-size:78px;
+z-index:2;
+opacity:0;
+transform:translateY(20px);
+transition:1s;
+}
+
+.hero p{
+color:#bbb;
+margin-top:10px;
+z-index:2;
+opacity:0;
+transition:1s;
+}
+
+.btn{
+margin-top:20px;
+padding:12px 26px;
+border:1px solid #c8a15a;
+color:#c8a15a;
+background:none;
+cursor:pointer;
+transition:.3s;
+z-index:2;
+}
+
+.btn:hover{
+background:#c8a15a;
+color:#000;
+transform:scale(1.05);
+}
+
+/* SECTION */
+.section{
+padding:120px 10%;
+text-align:center;
+}
+
+.section h2{
+font-family:"Playfair Display";
+font-size:42px;
+margin-bottom:20px;
+opacity:0;
+transform:translateY(40px);
+transition:1s;
+}
+
+.section p{
+color:#aaa;
+max-width:700px;
+margin:auto;
+line-height:1.8;
+opacity:0;
+transform:translateY(40px);
+transition:1s;
+}
+
+/* GRID */
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+gap:30px;
+margin-top:60px;
+}
+
+.card{
+background:#0f0f0f;
+border:1px solid #1c1c1c;
+padding:18px;
+transition:.5s;
+opacity:0;
+transform:translateY(40px);
+}
+
+.card:hover{
+transform:translateY(-10px);
+border-color:#c8a15a;
+}
+
+.card img{
+width:100%;
+height:280px;
+object-fit:cover;
+}
+
+.card p{
+margin-top:10px;
+color:#aaa;
+}
+
+/* SHOW CLASS */
+.show{
+opacity:1 !important;
+transform:translateY(0) !important;
 }
 </style>
 </head>
+
 <body>
-<h1>Arman Deri</h1>
-<p>Sitemiz yakında açılıyor.</p>
+
+<div class="cursor"></div>
+
+<!-- INTRO -->
+<div id="intro">
+<h1>ARMANDERI</h1>
+<p>Deriyle Şekillenen Zamansız Stil</p>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+<h1 id="h1">ZAMANSIZ DERİ</h1>
+<p id="p">Ustalıkla üretilir, ömür boyu yaşar</p>
+<button class="btn">Koleksiyonu Keşfet</button>
+</section>
+
+<!-- SECTION -->
+<section class="section">
+<h2 class="reveal">Koleksiyon</h2>
+<p class="reveal">Her parça ustalık, sabır ve gerçek deri işçiliği ile üretilir.</p>
+
+<div class="grid">
+
+<div class="card reveal">
+<img src="https://images.unsplash.com/photo-1520975954732-35dd2229969b"/>
+<p>Klasik Deri Ceket</p>
+</div>
+
+<div class="card reveal">
+<img src="https://images.unsplash.com/photo-1602810318383-5c1e5d2e0a6c"/>
+<p>Deri Bot</p>
+</div>
+
+<div class="card reveal">
+<img src="https://images.unsplash.com/photo-1584917865442-de89df76afd3"/>
+<p>Lüks Cüzdan</p>
+</div>
+
+</div>
+</section>
+
+<script>
+
+/* INTRO */
+setTimeout(()=>{
+document.getElementById("intro").style.opacity="0";
+setTimeout(()=>document.getElementById("intro").style.display="none",800);
+},2500);
+
+/* HERO SHOW */
+window.addEventListener("load",()=>{
+setTimeout(()=>{
+h1.style.opacity=1;
+h1.style.transform="translateY(0)";
+p.style.opacity=1;
+},400);
+});
+
+/* CURSOR */
+const cursor=document.querySelector(".cursor");
+document.addEventListener("mousemove",(e)=>{
+cursor.style.left=e.clientX+"px";
+cursor.style.top=e.clientY+"px";
+});
+
+/* REVEAL */
+const els=document.querySelectorAll(".reveal");
+const obs=new IntersectionObserver(entries=>{
+entries.forEach(e=>{
+if(e.isIntersecting){
+e.target.classList.add("show");
+}
+});
+},{threshold:0.2});
+
+els.forEach(el=>obs.observe(el));
+
+</script>
+
 </body>
 </html>
