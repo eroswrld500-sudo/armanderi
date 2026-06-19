@@ -30,15 +30,15 @@ body {
     to { opacity: 1; transform: translateY(0); }
 }
 
-/* --- 4. Üst Menü (Navbar) Tasarımı --- */
+/* --- 4. Üst Menü (Navbar) Tasarımı (Siyah Arka Plan Güncellemesi) --- */
 .site-header {
-    background-color: rgba(250, 248, 245, 0.95); /* Yarı saydam krem, lüks his */
+    background-color: rgba(13, 13, 13, 0.95); /* Derin siyah arka plan, yarı saydam */
     backdrop-filter: blur(10px); /* Arka planı hafif bulanıklaştırma */
     position: sticky;
     top: 0;
     width: 100%;
     z-index: 1000;
-    border-bottom: 1px solid rgba(197, 160, 89, 0.1); /* Çok ince bronz çizgi */
+    border-bottom: 1px solid rgba(197, 160, 89, 0.2); /* Siyah üzerine ince altın/bronz çizgi */
     transition: all 0.3s ease;
 }
 
@@ -56,7 +56,7 @@ body {
     font-family: var(--font-heading);
     font-size: 1.8rem;
     font-weight: 600;
-    color: var(--color-black);
+    color: var(--color-cream); /* Siyah arka planda öne çıkması için Krem renk */
     text-decoration: none;
     letter-spacing: 1px;
     transition: color 0.3s ease;
@@ -74,7 +74,7 @@ body {
 
 .nav-links a {
     text-decoration: none;
-    color: var(--color-anthracite);
+    color: var(--color-cream); /* Menü linkleri krem rengi */
     font-size: 0.85rem;
     font-weight: 500;
     text-transform: uppercase;
@@ -91,7 +91,7 @@ body {
     height: 1px;
     bottom: -5px;
     left: 0;
-    background-color: var(--color-gold);
+    background-color: var(--color-gold); /* Altın rengi vurgu çizgisi */
     transition: width 0.3s ease;
 }
 
