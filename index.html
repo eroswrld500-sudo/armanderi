@@ -3,31 +3,141 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ARMAN DERİ | Modern Leather Luxury</title>
+    <title>ARMAN DERİ | Haute Couture Leather</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Syne:wght@800&display=swap" rel="stylesheet">
-    
-    <!-- CSS Dosyamız -->
-    <link rel="stylesheet" href="style.css">
-    
-    <!-- Supabase Kütüphanesi -->
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <style>
+        :root {
+            --gold: #c5a880;
+            --black: #0a0a0a;
+            --grey: #777777;
+            --border: #e5e5e5;
+            --smooth: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; outline: none; }
+        body { font-family: 'Montserrat', sans-serif; background: #fff; color: #111; overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+        .container { max-width: 1400px; margin: 0 auto; padding: 0 30px; }
+        
+        /* HEADER */
+        header { position: fixed; top: 0; left: 0; width: 100%; background: rgba(255,255,255,0.95); backdrop-filter: blur(15px); border-bottom: 1px solid rgba(0,0,0,0.05); z-index: 1000; }
+        .nav-container { display: flex; justify-content: space-between; align-items: center; height: 90px; }
+        .logo { font-family: 'Cinzel', serif; font-size: 26px; font-weight: 700; letter-spacing: 3px; text-decoration: none; color: #111; }
+        .logo span { color: var(--gold); }
+        .nav-right { display: flex; align-items: center; gap: 30px; }
+        
+        /* AUTH & USER */
+        .btn-auth-trigger { background: none; border: none; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; cursor: pointer; color: #111; position: relative; padding: 5px 0; }
+        .btn-auth-trigger::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 1px; background: var(--gold); transition: var(--smooth); }
+        .btn-auth-trigger:hover::after { width: 100%; }
+        .user-menu { display: flex; align-items: center; gap: 15px; font-size: 11px; font-weight: 700; letter-spacing: 1px; }
+        .user-name { color: var(--gold); text-transform: uppercase; }
+        .btn-logout { background: none; border: none; color: #ff3b30; font-size: 10px; font-weight: 700; cursor: pointer; text-transform: uppercase; }
+        
+        /* CART BUTTON */
+        .cart-btn { background: none; border: none; cursor: pointer; position: relative; display: flex; align-items: center; width: 35px; height: 35px; }
+        .cart-btn svg { width: 22px; height: 22px; fill: none; stroke: #111; stroke-width: 1.5; transition: var(--smooth); }
+        .cart-btn:hover svg { stroke: var(--gold); }
+        .cart-badge { position: absolute; top: 0; right: 0; background: #111; color: #fff; font-size: 9px; font-weight: 700; width: 16px; height: 16px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+
+        /* HERO */
+        #hero { padding: 200px 0 100px 0; background: #fafafa; text-align: center; }
+        .hero-subtitle { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 5px; color: var(--gold); margin-bottom: 15px; }
+        .hero-title { font-family: 'Cinzel', serif; font-size: clamp(36px, 5vw, 65px); font-weight: 400; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 20px; }
+        .hero-title span { font-weight: 900; }
+        .hero-desc { font-size: 14px; color: var(--grey); max-width: 600px; margin: 0 auto; line-height: 1.8; font-weight: 300; }
+
+        /* FILTERS */
+        .filter-section { padding: 60px 0 20px 0; border-top: 1px solid var(--border); display: flex; flex-direction: column; align-items: center; gap: 20px; }
+        .filter-group { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
+        .btn-filter { background: none; border: 1px solid var(--border); padding: 10px 24px; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; cursor: pointer; transition: var(--smooth); }
+        .btn-filter.active, .btn-filter:hover { background: #111; color: #fff; border-color: #111; }
+        .btn-sub { background: none; border: none; padding: 5px 15px; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; color: var(--grey); cursor: pointer; position: relative; transition: var(--smooth); }
+        .btn-sub::after { content: ''; position: absolute; bottom: 0; left: 50%; width: 0; height: 1px; background: var(--gold); transition: var(--smooth); transform: translateX(-50%); }
+        .btn-sub.active, .btn-sub:hover { color: #111; }
+        .btn-sub.active::after { width: 15px; }
+
+        /* PRODUCTS GRID */
+        .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 40px; padding: 40px 0 100px 0; }
+        .product-card { background: #fff; border: 1px solid rgba(0,0,0,0.02); padding: 15px; display: flex; flex-direction: column; transition: var(--smooth); }
+        .product-card:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rgba(0,0,0,0.05); border-color: var(--gold); }
+        .img-container { aspect-ratio: 3/4; background: #f5f5f5; overflow: hidden; margin-bottom: 20px; }
+        .img-container img { width: 100%; height: 100%; object-fit: cover; transition: transform 1s ease; }
+        .product-card:hover img { transform: scale(1.05); }
+        .prod-meta { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 15px; }
+        .prod-cat { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; color: var(--gold); }
+        .prod-name { font-family: 'Cinzel', serif; font-size: 18px; font-weight: 700; text-transform: uppercase; margin-top: 3px; }
+        .prod-target { font-size: 11px; color: var(--grey); margin-top: 3px; }
+        .prod-price { font-size: 16px; font-weight: 700; }
+        .btn-add-cart { width: 100%; padding: 14px; background: none; border: 1px solid #111; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; cursor: pointer; transition: var(--smooth); }
+        .product-card:hover .btn-add-cart { background: #111; color: #fff; }
+
+        /* CART DRAWER */
+        .cart-drawer { position: fixed; top: 0; right: -450px; width: 450px; height: 100vh; background: #fff; box-shadow: -15px 0 45px rgba(0,0,0,0.08); z-index: 2000; transition: var(--smooth); display: flex; flex-direction: column; }
+        .cart-drawer.open { right: 0; }
+        .cart-header { padding: 30px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+        .cart-header h3 { font-family: 'Cinzel', serif; font-size: 20px; text-transform: uppercase; letter-spacing: 1.5px; }
+        .close-cart { background: none; border: none; font-size: 26px; cursor: pointer; }
+        .cart-items { flex: 1; overflow-y: auto; padding: 30px; }
+        .cart-item { display: flex; gap: 15px; align-items: center; padding-bottom: 20px; margin-bottom: 20px; border-bottom: 1px solid var(--border); }
+        .cart-item img { width: 60px; height: 80px; object-fit: cover; }
+        .cart-item-details { flex: 1; }
+        .cart-item-name { font-family: 'Cinzel', serif; font-size: 13px; font-weight: 700; text-transform: uppercase; }
+        .cart-item-price { font-size: 12px; color: var(--gold); font-weight: 600; margin-top: 3px; }
+        .btn-remove { background: none; border: none; color: #ff3b30; font-size: 10px; font-weight: 700; text-transform: uppercase; cursor: pointer; margin-top: 5px; }
+        .cart-footer { padding: 30px; border-top: 1px solid var(--border); background: #fafafa; }
+        .cart-total { display: flex; justify-content: space-between; font-size: 16px; font-weight: 700; margin-bottom: 20px; }
+        .btn-checkout { width: 100%; padding: 18px; background: #111; color: #fff; border: none; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; cursor: pointer; transition: var(--smooth); }
+        .btn-checkout:hover { background: var(--gold); }
+
+        /* AUTH MODAL */
+        .auth-modal { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.95); width: 420px; background: #fff; border: 1px solid var(--border); padding: 40px; z-index: 3000; box-shadow: 0 30px 80px rgba(0,0,0,0.1); display: none; flex-direction: column; transition: var(--smooth); }
+        .auth-modal.active { display: flex; transform: translate(-50%, -50%) scale(1); }
+        .auth-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
+        .auth-tabs { display: flex; gap: 20px; }
+        .auth-tab { background: none; border: none; font-family: 'Cinzel', serif; font-size: 16px; font-weight: 700; color: var(--grey); cursor: pointer; text-transform: uppercase; padding-bottom: 5px; }
+        .auth-tab.active { color: #111; border-bottom: 2px solid var(--gold); }
+        .close-auth { background: none; border: none; font-size: 26px; cursor: pointer; }
+        .auth-form { display: flex; flex-direction: column; gap: 20px; }
+        .auth-form.hidden { display: none; }
+        .form-group { display: flex; flex-direction: column; gap: 6px; }
+        .form-group label { font-size: 10px; text-transform: uppercase; letter-spacing: 1px; font-weight: 700; }
+        .form-input { padding: 12px; border: 1px solid var(--border); font-family: 'Montserrat', sans-serif; font-size: 13px; background: #fafafa; transition: var(--smooth); }
+        .form-input:focus { border-color: #111; background: #fff; }
+        .btn-submit { background: #111; color: #fff; border: none; padding: 15px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; cursor: pointer; margin-top: 10px; transition: var(--smooth); }
+        .btn-submit:hover { background: var(--gold); }
+
+        /* OVERLAY */
+        .global-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.4); backdrop-filter: blur(4px); z-index: 1500; display: none; }
+        .global-overlay.active { display: block; }
+
+        /* FOOTER */
+        footer { background: var(--black); color: #fff; padding: 60px 0; text-align: center; }
+        footer p { font-size: 11px; opacity: 0.4; letter-spacing: 1px; margin-top: 10px; }
+
+        @media (max-width: 768px) {
+            .nav-container { height: 75px; }
+            .logo { font-size: 20px; }
+            #hero { padding: 150px 0 70px 0; }
+            .cart-drawer { width: 100%; right: -100%; }
+            .auth-modal { width: 90%; padding: 25px; }
+        }
+    </style>
 </head>
 <body>
 
     <div class="global-overlay" id="globalOverlay"></div>
 
-    <!-- ÜYELİK PANELİ (AUTH MODAL) -->
+    <!-- AUTH MODAL -->
     <div class="auth-modal" id="authModal">
         <div class="auth-header">
             <div class="auth-tabs">
-                <button class="auth-tab active" id="tabLogin">Giriş Yap</button>
-                <button class="auth-tab" id="tabRegister">Kayıt Ol</button>
+                <button class="auth-tab active" id="tabLogin">Giriş</button>
+                <button class="auth-tab" id="tabRegister">Kayıt</button>
             </div>
             <button class="close-auth" id="closeAuth">&times;</button>
         </div>
-
         <form class="auth-form" id="loginForm">
             <div class="form-group">
                 <label>E-Posta</label>
@@ -39,7 +149,6 @@
             </div>
             <button type="submit" class="btn-submit">Giriş Yap</button>
         </form>
-
         <form class="auth-form hidden" id="registerForm">
             <div class="form-group">
                 <label>Ad Soyad</label>
@@ -57,15 +166,13 @@
         </form>
     </div>
 
-    <!-- SEPET PANELİ (CART DRAWER) -->
+    <!-- CART DRAWER -->
     <div class="cart-drawer" id="cartDrawer">
         <div class="cart-header">
             <h3>Sepetiniz</h3>
             <button class="close-cart" id="closeCart">&times;</button>
         </div>
-        <div class="cart-items" id="cartItems">
-            <p class="empty-cart-text">Sepetiniz boş.</p>
-        </div>
+        <div class="cart-items" id="cartItems"></div>
         <div class="cart-footer">
             <div class="cart-total">
                 <span>Toplam:</span>
@@ -75,7 +182,7 @@
         </div>
     </div>
 
-    <!-- ÜST MENÜ (HEADER) -->
+    <!-- HEADER -->
     <header>
         <div class="container nav-container">
             <a href="#" class="logo">ARMAN<span>.</span>DERİ</a>
@@ -93,528 +200,101 @@
         </div>
     </header>
 
-    <!-- TANITIM (HERO) -->
+    <!-- HERO -->
     <section id="hero">
         <div class="container">
-            <h1 class="hero-title">ZAMANSIZ<br><span>STİL.</span></h1>
-            <p class="hero-desc">Erkek, kadın ve çocuk için en üst kalite işçilikle üretilen modern deri koleksiyonu.</p>
+            <span class="hero-subtitle">Haute Couture Leather</span>
+            <h1 class="hero-title">ZAMANSIZ<br><span>PREMİUM STİL.</span></h1>
+            <p class="hero-desc">En üst kalite el işçiliğiyle üretilen modern deri mont, yelek ve şapka koleksiyonu.</p>
         </div>
     </section>
 
-    <!-- FİLTRELER -->
-    <div class="filter-section">
-        <div class="container">
-            <div class="filter-group">
-                <button class="btn-filter active" data-cat="all">Tüm Ürünler</button>
-                <button class="btn-filter" data-cat="mont">Deri Mont</button>
-                <button class="btn-filter" data-cat="yelek">Deri Yelek</button>
-                <button class="btn-filter" data-cat="sapka">Deri Şapka</button>
-            </div>
-            <div class="filter-group">
-                <button class="btn-sub active" data-target="all">Herkes İçin</button>
-                <button class="btn-sub" data-target="erkek">Erkek</button>
-                <button class="btn-sub" data-target="kadin">Kadın</button>
-                <button class="btn-sub" data-target="cocuk">Çocuk</button>
-            </div>
+    <!-- FILTERS -->
+    <div class="filter-section container">
+        <div class="filter-group">
+            <button class="btn-filter active" data-cat="all">Tüm Ürünler</button>
+            <button class="btn-filter" data-cat="mont">Deri Mont</button>
+            <button class="btn-filter" data-cat="yelek">Deri Yelek</button>
+            <button class="btn-filter" data-cat="sapka">Deri Şapka</button>
+        </div>
+        <div class="filter-group">
+            <button class="btn-sub active" data-target="all">Herkes İçin</button>
+            <button class="btn-sub" data-target="erkek">Erkek</button>
+            <button class="btn-sub" data-target="kadin">Kadın</button>
+            <button class="btn-sub" data-target="cocuk">Çocuk</button>
         </div>
     </div>
 
-    <!-- ÜRÜNLER ALANI -->
+    <!-- PRODUCTS -->
     <section class="container">
-        <div class="products-grid" id="productsGrid">
-            
-            <!-- Ürün 1 -->
-            <div class="product-card" data-cat="mont" data-target="erkek" data-id="1">
-                <div class="img-container">
-                    <img src="https://images.unsplash.com/photo-1551028719-00167b16eac5?q=80&w=600" alt="Erkek Deri Mont">
-                </div>
-                <div class="prod-info">
-                    <div>
-                        <span class="prod-cat">Deri Mont</span>
-                        <h3 class="prod-name">Classic Biker</h3>
-                        <span class="prod-target">Erkek</span>
-                    </div>
-                    <span class="prod-price" data-price="8499">₺8,499</span>
-                </div>
-                <button class="btn-add-cart">Sepete Ekle</button>
-            </div>
-
-            <!-- Ürün 2 -->
-            <div class="product-card" data-cat="mont" data-target="kadin" data-id="2">
-                <div class="img-container">
-                    <img src="https://images.unsplash.com/photo-1521223890158-f9f7c3d5d504?q=80&w=600" alt="Kadın Deri Mont">
-                </div>
-                <div class="prod-info">
-                    <div>
-                        <span class="prod-cat">Deri Mont</span>
-                        <h3 class="prod-name">Slim Fit Bomber</h3>
-                        <span class="prod-target">Kadın</span>
-                    </div>
-                    <span class="prod-price" data-price="7999">₺7,999</span>
-                </div>
-                <button class="btn-add-cart">Sepete Ekle</button>
-            </div>
-
-            <!-- Ürün 3 -->
-            <div class="product-card" data-cat="mont" data-target="cocuk" data-id="3">
-                <div class="img-container">
-                    <img src="https://images.unsplash.com/photo-1519457431-44ccd64a579b?q=80&w=600" alt="Çocuk Deri Mont">
-                </div>
-                <div class="prod-info">
-                    <div>
-                        <span class="prod-cat">Deri Mont</span>
-                        <h3 class="prod-name">Mini Rebel</h3>
-                        <span class="prod-target">Çocuk</span>
-                    </div>
-                    <span class="prod-price" data-price="4599">₺4,599</span>
-                </div>
-                <button class="btn-add-cart">Sepete Ekle</button>
-            </div>
-
-            <!-- Ürün 4 -->
-            <div class="product-card" data-cat="yelek" data-target="erkek" data-id="4">
-                <div class="img-container">
-                    <img src="https://images.unsplash.com/photo-1617137968427-85924c800a22?q=80&w=600" alt="Erkek Deri Yelek">
-                </div>
-                <div class="prod-info">
-                    <div>
-                        <span class="prod-cat">Deri Yelek</span>
-                        <h3 class="prod-name">Gothic Vest</h3>
-                        <span class="prod-target">Erkek</span>
-                    </div>
-                    <span class="prod-price" data-price="5499">₺5,499</span>
-                </div>
-                <button class="btn-add-cart">Sepete Ekle</button>
-            </div>
-
-            <!-- Ürün 5 -->
-            <div class="product-card" data-cat="yelek" data-target="kadin" data-id="5">
-                <div class="img-container">
-                    <img src="https://images.unsplash.com/photo-1485462537746-965f33f7f6a7?q=80&w=600" alt="Kadın Deri Yelek">
-                </div>
-                <div class="prod-info">
-                    <div>
-                        <span class="prod-cat">Deri Yelek</span>
-                        <h3 class="prod-name">Boho Fringe</h3>
-                        <span class="prod-target">Kadın</span>
-                    </div>
-                    <span class="prod-price" data-price="4999">₺4,999</span>
-                </div>
-                <button class="btn-add-cart">Sepete Ekle</button>
-            </div>
-
-            <!-- Ürün 6 -->
-            <div class="product-card" data-cat="sapka" data-target="erkek" data-id="6">
-                <div class="img-container">
-                    <img src="https://images.unsplash.com/photo-1534215754734-18e55d13ce35?q=80&w=600" alt="Erkek Deri Şapka">
-                </div>
-                <div class="prod-info">
-                    <div>
-                        <span class="prod-cat">Deri Şapka</span>
-                        <h3 class="prod-name">Classic Flat Cap</h3>
-                        <span class="prod-target">Erkek</span>
-                    </div>
-                    <span class="prod-price" data-price="1899">₺1,899</span>
-                </div>
-                <button class="btn-add-cart">Sepete Ekle</button>
-            </div>
-
-        </div>
+        <div class="products-grid" id="productsGrid"></div>
     </section>
 
+    <!-- FOOTER -->
     <footer>
         <div class="container">
-            <p>&copy; 2024 ARMAN DERİ. Tüm Hakları Saklıdır. Modern Luxury Experience.</p>
+            <a href="#" class="logo" style="color:#fff;">ARMAN<span>.</span>DERİ</a>
+            <p>&copy; 2024 ARMAN DERİ. Tüm Hakları Saklıdır. Luxury Experience.</p>
         </div>
     </footer>
 
-    <!-- JavaScript Dosyamız -->
-    <script src="app.js"></script>
-</body>
-</html>
-2. Dosya: style.css
-Sitenizin modern, lüks ve mobil uyumlu görünmesini sağlayan stil dosyasıdır.
-
-:root {
-    --bg: #ffffff;
-    --accent: #f8f8f8;
-    --primary: #000000;
-    --secondary: #666666;
-    --gold: #c5a880;
-    --border: #e8e8e8;
-    --transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
-}
-
-* { margin: 0; padding: 0; box-sizing: border-box; }
-html { scroll-behavior: smooth; }
-body {
-    font-family: 'Outfit', sans-serif;
-    background-color: var(--bg);
-    color: var(--primary);
-    overflow-x: hidden;
-}
-
-.container { max-width: 1300px; margin: 0 auto; padding: 0 30px; }
-
-/* HEADER */
-header {
-    position: fixed;
-    top: 0; left: 0; width: 100%;
-    background: rgba(255, 255, 255, 0.95);
-    border-bottom: 1px solid var(--border);
-    z-index: 100;
-    backdrop-filter: blur(10px);
-}
-
-.nav-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height: 90px;
-}
-
-.logo {
-    font-family: 'Syne', sans-serif;
-    font-size: 32px;
-    font-weight: 800;
-    letter-spacing: -1px;
-    text-decoration: none;
-    color: var(--primary);
-}
-
-.logo span { color: var(--gold); }
-.nav-right { display: flex; align-items: center; gap: 25px; }
-
-/* USER PROFILE & AUTH */
-.user-menu {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    font-size: 13px;
-    font-weight: 600;
-}
-
-.user-name {
-    color: var(--primary);
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    max-width: 120px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-
-.btn-logout {
-    background: none;
-    border: none;
-    color: #ff4d4d;
-    font-size: 11px;
-    font-weight: bold;
-    cursor: pointer;
-    text-transform: uppercase;
-}
-
-.btn-auth-trigger {
-    background: none;
-    border: 1px solid var(--primary);
-    padding: 8px 16px;
-    font-family: inherit;
-    font-size: 11px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    cursor: pointer;
-    transition: var(--transition);
-}
-
-.btn-auth-trigger:hover {
-    background: var(--primary);
-    color: white;
-}
-
-.cart-btn {
-    background: none; border: none; cursor: pointer;
-    position: relative; padding: 5px;
-    display: flex; align-items: center;
-}
-
-.cart-btn svg { width: 24px; height: 24px; fill: none; stroke: currentColor; stroke-width: 2; }
-
-.cart-badge {
-    position: absolute; top: -5px; right: -5px;
-    background: var(--gold); color: white;
-    font-size: 10px; font-weight: bold;
-    width: 18px; height: 18px; border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-}
-
-/* HERO */
-#hero {
-    padding: 180px 0 100px 0;
-    background: var(--accent);
-    text-align: center;
-}
-
-.hero-title {
-    font-family: 'Syne', sans-serif;
-    font-size: 72px;
-    text-transform: uppercase;
-    line-height: 1;
-    margin-bottom: 20px;
-}
-
-.hero-title span {
-    color: transparent;
-    -webkit-text-stroke: 1px var(--primary);
-}
-
-.hero-desc {
-    font-size: 18px; color: var(--secondary);
-    max-width: 600px; margin: 0 auto 30px auto;
-    font-weight: 300;
-}
-
-/* FILTERS */
-.filter-section { padding: 60px 0 30px 0; text-align: center; }
-
-.filter-group {
-    display: flex; justify-content: center; gap: 10px; margin-bottom: 15px; flex-wrap: wrap;
-}
-
-.btn-filter {
-    background: none; border: 1px solid var(--border);
-    padding: 10px 24px; font-family: inherit; font-weight: 600;
-    font-size: 12px; text-transform: uppercase; letter-spacing: 1px;
-    cursor: pointer; transition: var(--transition);
-}
-
-.btn-filter.active, .btn-filter:hover {
-    background: var(--primary); color: white; border-color: var(--primary);
-}
-
-.btn-sub {
-    background: none; border: none; color: var(--secondary);
-    padding: 5px 15px; font-family: inherit; font-weight: 600;
-    font-size: 11px; text-transform: uppercase; letter-spacing: 1px;
-    cursor: pointer; position: relative; transition: var(--transition);
-}
-
-.btn-sub.active, .btn-sub:hover { color: var(--primary); }
-.btn-sub::after {
-    content: ''; position: absolute; bottom: 0; left: 50%;
-    width: 0; height: 2px; background: var(--gold);
-    transition: var(--transition); transform: translateX(-50%);
-}
-.btn-sub.active::after { width: 15px; }
-
-/* PRODUCT GRID */
-.products-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 30px; padding-bottom: 100px;
-}
-
-.product-card {
-    border: 1px solid var(--border); padding: 15px;
-    transition: var(--transition); display: flex; flex-direction: column;
-}
-
-.product-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 15px 30px rgba(0,0,0,0.05);
-}
-
-.img-container {
-    aspect-ratio: 1; background: var(--accent);
-    margin-bottom: 15px; overflow: hidden; position: relative;
-}
-
-.img-container img {
-    width: 100%; height: 100%; object-fit: cover;
-    filter: grayscale(100%); transition: var(--transition);
-}
-
-.product-card:hover img { filter: grayscale(0%); transform: scale(1.03); }
-
-.prod-info { display: flex; justify-content: space-between; margin-bottom: 15px; }
-.prod-cat { font-size: 11px; color: var(--gold); text-transform: uppercase; font-weight: 600; }
-.prod-name { font-size: 18px; font-weight: 600; text-transform: uppercase; margin: 2px 0; }
-.prod-target { font-size: 12px; color: var(--secondary); }
-.prod-price { font-size: 18px; font-weight: 800; }
-
-.btn-add-cart {
-    width: 100%; padding: 12px; background: none;
-    border: 1px solid var(--primary); font-family: inherit;
-    font-size: 11px; font-weight: 800; text-transform: uppercase;
-    letter-spacing: 1px; cursor: pointer; transition: var(--transition);
-}
-
-.btn-add-cart:hover { background: var(--primary); color: white; }
-
-/* CART DRAWER */
-.cart-drawer {
-    position: fixed; top: 0; right: -400px; width: 400px; height: 100vh;
-    background: var(--bg); box-shadow: -10px 0 30px rgba(0,0,0,0.05);
-    z-index: 200; transition: var(--transition);
-    display: flex; flex-direction: column;
-}
-
-.cart-drawer.open { right: 0; }
-
-.cart-header {
-    padding: 25px; border-bottom: 1px solid var(--border);
-    display: flex; justify-content: space-between; align-items: center;
-}
-
-.cart-header h3 { font-family: 'Syne', sans-serif; text-transform: uppercase; }
-.close-cart { background: none; border: none; font-size: 24px; cursor: pointer; }
-
-.cart-items { flex: 1; overflow-y: auto; padding: 25px; }
-
-.cart-item {
-    display: flex; gap: 15px; align-items: center;
-    padding-bottom: 15px; margin-bottom: 15px; border-bottom: 1px solid var(--border);
-}
-
-.cart-item img { width: 60px; height: 60px; object-fit: cover; background: var(--accent); }
-.cart-item-details { flex: 1; }
-.cart-item-name { font-size: 14px; font-weight: 600; text-transform: uppercase; }
-.cart-item-price { font-size: 13px; color: var(--gold); font-weight: bold; margin-top: 2px; }
-
-.btn-remove {
-    background: none; border: none; color: #ff4d4d;
-    font-size: 11px; font-weight: bold; cursor: pointer;
-}
-
-.cart-footer { padding: 25px; border-top: 1px solid var(--border); background: var(--accent); }
-.cart-total { display: flex; justify-content: space-between; font-size: 18px; font-weight: 800; margin-bottom: 15px; }
-
-.btn-checkout {
-    width: 100%; padding: 15px; background: var(--primary); color: white;
-    border: none; font-family: inherit; font-size: 12px; font-weight: 800;
-    text-transform: uppercase; letter-spacing: 1px; cursor: pointer; transition: var(--transition);
-}
-
-.btn-checkout:hover { background: var(--gold); }
-
-/* AUTH MODAL */
-.auth-modal {
-    position: fixed;
-    top: 50%; left: 50%;
-    transform: translate(-50%, -50%) scale(0.9);
-    width: 400px;
-    background: var(--bg);
-    border: 1px solid var(--border);
-    padding: 40px;
-    z-index: 300;
-    box-shadow: 0 30px 60px rgba(0,0,0,0.1);
-    display: none;
-    flex-direction: column;
-    transition: var(--transition);
-}
-
-.auth-modal.active {
-    display: flex;
-    transform: translate(-50%, -50%) scale(1);
-}
-
-.auth-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 30px;
-}
-
-.auth-tabs { display: flex; gap: 20px; }
-
-.auth-tab {
-    background: none; border: none;
-    font-family: 'Syne', sans-serif;
-    font-size: 20px; font-weight: 800;
-    color: var(--secondary);
-    cursor: pointer;
-    text-transform: uppercase;
-}
-
-.auth-tab.active {
-    color: var(--primary);
-    border-bottom: 2px solid var(--gold);
-}
-
-.close-auth { background: none; border: none; font-size: 24px; cursor: pointer; }
-
-.auth-form { display: flex; flex-direction: column; gap: 20px; }
-.auth-form.hidden { display: none; }
-
-.form-group { display: flex; flex-direction: column; gap: 8px; }
-.form-group label { font-size: 11px; text-transform: uppercase; letter-spacing: 1px; font-weight: 600; }
-
-.form-input {
-    padding: 12px;
-    border: 1px solid var(--border);
-    font-family: inherit;
-    font-size: 14px;
-    outline: none;
-    transition: var(--transition);
-}
-
-.form-input:focus { border-color: var(--primary); }
-
-.btn-submit {
-    background: var(--primary); color: white; border: none; padding: 14px;
-    font-family: inherit; font-size: 12px; font-weight: 700;
-    text-transform: uppercase; letter-spacing: 1px; cursor: pointer;
-    margin-top: 10px; transition: var(--transition);
-}
-
-.btn-submit:hover { background: var(--gold); }
-
-/* OVERLAYS */
-.global-overlay {
-    position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-    background: rgba(0,0,0,0.4); z-index: 150; display: none;
-    backdrop-filter: blur(3px);
-}
-.global-overlay.active { display: block; }
-
-/* FOOTER */
-footer { background: #000; color: #fff; padding: 40px 0; text-align: center; font-size: 12px; margin-top: 50px; }
-footer p { opacity: 0.5; }
-
-@media (max-width: 768px) {
-    .hero-title { font-size: 48px; }
-    .cart-drawer { width: 100%; right: -100%; }
-    .auth-modal { width: 90%; padding: 25px; }
-}
-3. Dosya: app.js
-Supabase bağlantısı, üyelik işlemleri (giriş/kayıt), sepet yönetimi ve ürün filtreleme mantığının tamamını barındıran beyin dosyasıdır.
-
-Sadece en üstteki YAZILACAK_SUPABASE_URL kısmını kendi Supabase panelinizden alacağınız adresle değiştirin.
-
-// --- SUPABASE BAĞLANTISI ---
-// Kendi Supabase Proje URL'niz ile değiştirin (Örn: https://xyz.supabase.co)
-const SUPABASE_URL = 'https://YAZILACAK_SUPABASE_URL.supabase.co'; 
-const SUPABASE_KEY = 'sb_publishable_LThyUAglHADMOZHFwBqRgA_zG2Nwtz8';
-
-const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-
-// --- DOM ELEMENTLERİ ---
-const authBtn = document.getElementById('authBtn');
-const authModal = document.getElementById('authModal');
-const closeAuth = document.getElementById('closeAuth');
-const globalOverlay = document.getElementById('globalOverlay');
-const tabLogin = document.getElementById('tabLogin');
-const tabRegister = document.getElementById('tabRegister');
-const loginForm = document.getElementById('loginForm');
-const registerForm = document.getElementById('registerForm');
-const userArea = document.getElementById('userArea');
-
-const cartBtn = document.getElementById('cartBtn');
-const cartDrawer = document.getElementById('cartDrawer');
-const closeCart = document.getElementById('closeCart');
-const cartItemsContainer = document.getElementById('cartItems');
-const cartTotal = document.getElementById('cartTotal');
-const cartBadge = document.getElementById('cartBadge');
-
-const filterBtns = document.querySelectorAll('.btn-filter');
-const subBtns = document.querySelectorAll('.btn-sub');
+    <!-- SCRIPT -->
+    <script>
+        // --- SUPABASE BAĞLANTISI ---
+        const SUPABASE_URL = 'https://YAZILACAK_SUPABASE_URL.supabase.co'; // Kendi Supabase URL'nizi buraya yazın
+        const SUPABASE_KEY = 'sb_publishable_LThyUAglHADMOZHFwBqRgA_zG2Nwtz8';
+        const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+        // --- ÜRÜN VERİLERİ (Dinamik Render için) ---
+        const products = [
+            { id: 1, cat: 'mont', target: 'erkek', name: 'Classic Biker', price: 8499, img: 'https://images.unsplash.com/photo-1551028719-00167b16eac5?q=80&w=600' },
+            { id: 2, cat: 'mont', target: 'kadin', name: 'Slim Bomber', price: 7999, img: 'https://images.unsplash.com/photo-1521223890158-f9f7c3d5d504?q=80&w=600' },
+            { id: 3, cat: 'mont', target: 'cocuk', name: 'Mini Rebel', price: 4599, img: 'https://images.unsplash.com/photo-1519457431-44ccd64a579b?q=80&w=600' },
+            { id: 4, cat: 'yelek', target: 'erkek', name: 'Gothic Vest', price: 5499, img: 'https://images.unsplash.com/photo-1617137968427-85924c800a22?q=80&w=600' },
+            { id: 5, cat: 'yelek', target: 'kadin', name: 'Boho Fringe', price: 4999, img: 'https://images.unsplash.com/photo-1485462537746-965f33f7f6a7?q=80&w=600' },
+            { id: 6, cat: 'sapka', target: 'erkek', name: 'Flat Cap', price: 1899, img: 'https://images.unsplash.com/photo-1534215754734-18e55d13ce35?q=80&w=600' }
+        ];
+
+        let cart = [];
+        let activeCat = 'all';
+        let activeTarget = 'all';
+
+        // --- DOM SELECTION ---
+        const productsGrid = document.getElementById('productsGrid');
+        const cartItemsContainer = document.getElementById('cartItems');
+        const cartTotal = document.getElementById('cartTotal');
+        const cartBadge = document.getElementById('cartBadge');
+        const cartDrawer = document.getElementById('cartDrawer');
+        const authModal = document.getElementById('authModal');
+        const globalOverlay = document.getElementById('globalOverlay');
+
+        // --- RENDER PRODUCTS ---
+        function renderProducts() {
+            productsGrid.innerHTML = '';
+            const filtered = products.filter(p => {
+                const catMatch = activeCat === 'all' || p.cat === activeCat;
+                const targetMatch = activeTarget === 'all' || p.target === activeTarget;
+                return catMatch && targetMatch;
+            });
+
+            if(filtered.length === 0) {
+                productsGrid.innerHTML = `<p style="grid-column:1/-1; text-align:center; color:var(--grey); padding: 50px 0;">Aradığınız kriterlerde ürün bulunamadı.</p>`;
+                return;
+            }
+
+            filtered.forEach(p => {
+                const card = document.createElement('div');
+                card.className = 'product-card';
+                card.innerHTML = `
+                    <div class="img-container">
+                        <img src="${p.img}" alt="${p.name}">
+                    </div>
+                    <div class="prod-meta">
+                        <div>
+                            <span class="prod-cat">Deri ${p.cat}</span>
+                            <h3 class="prod-name">${p.name}</h3>
+                            <span class="prod-target">${p.target.toUpperCase()} KOLEKSİYONU</span>
+                        </div>
+                        <span class="prod-price">₺${p.price.toLocaleString('tr-TR')}</span>
+                    </div>
+                    <button class="btn-add-cart" onclick
