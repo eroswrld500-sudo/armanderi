@@ -1,0 +1,106 @@
+/* --- TEMEL AYARLAR --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    color: #222;
+    background-color: #fafafa;
+    line-height: 1.6;
+}
+
+h1, h2, h3, .logo {
+    font-family: 'Playfair Display', serif;
+}
+
+/* --- ÜST MENÜ (NAVBAR) --- */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 30px 10%;
+    background-color: #fff;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    color: #000;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 40px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #555;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+    color: #000;
+}
+
+/* --- KARŞILAMA ALANI (HERO) --- */
+.hero {
+    height: 80vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background-color: #111; /* Buraya ileride şık bir deri arka plan görseli koyacağız */
+    color: #fff;
+    padding: 0 20px;
+}
+
+.hero-content h1 {
+    font-size: 48px;
+    font-weight: 400;
+    margin-bottom: 20px;
+    letter-spacing: 1px;
+}
+
+.hero-content p {
+    font-weight: 300;
+    font-size: 16px;
+    margin-bottom: 40px;
+    color: #ccc;
+    letter-spacing: 1px;
+}
+
+/* --- BUTONLAR --- */
+.btn {
+    text-decoration: none;
+    padding: 15px 40px;
+    background-color: #fff;
+    color: #111;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.btn:hover {
+    background-color: #d4af37; /* Lüks Altın/Taba Rengi */
+    color: #fff;
+}
+
+/* --- ALT BİLGİ (FOOTER) --- */
+footer {
+    text-align: center;
+    padding: 40px 20px;
+    background-color: #fff;
+    font-size: 12px;
+    color: #777;
+    letter-spacing: 1px;
+}
