@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ARMAN DERİ</title>
+    <title>ARMAN DERİ | Modern Leather Luxury</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Syne:wght@800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2 family=Outfit:wght@300;400;600;800&family=Syne:wght@800&display=swap" rel="stylesheet">
     
     <style>
         :root {
@@ -59,14 +59,58 @@
 
         .logo span { color: var(--gold); }
 
-        .nav-right { display: flex; align-items: center; gap: 30px; }
+        .nav-right { display: flex; align-items: center; gap: 25px; }
         
+        /* User Profile & Auth Styles in Header */
+        .user-menu {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .user-name {
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn-logout {
+            background: none;
+            border: none;
+            color: #ff4d4d;
+            font-size: 11px;
+            font-weight: bold;
+            cursor: pointer;
+            text-transform: uppercase;
+        }
+
+        .btn-auth-trigger {
+            background: none;
+            border: 1px solid var(--primary);
+            padding: 8px 16px;
+            font-family: inherit;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .btn-auth-trigger:hover {
+            background: var(--primary);
+            color: white;
+        }
+
         .cart-btn {
             background: none; border: none; cursor: pointer;
             position: relative; padding: 5px;
+            display: flex; align-items: center;
         }
 
-        .cart-btn svg { width: 26px; height: 26px; fill: none; stroke: currentColor; stroke-width: 2; }
+        .cart-btn svg { width: 24px; height: 24px; fill: none; stroke: currentColor; stroke-width: 2; }
         
         .cart-badge {
             position: absolute; top: -5px; right: -5px;
@@ -225,11 +269,119 @@
 
         .btn-checkout:hover { background: var(--gold); }
 
-        .cart-overlay {
-            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-            background: rgba(0,0,0,0.3); z-index: 150; display: none;
+        /* AUTH MODAL (Giriş & Kayıt Paneli) */
+        .auth-modal {
+            position: fixed;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%) scale(0.9);
+            width: 400px;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            padding: 40px;
+            z-index: 300;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.1);
+            display: none;
+            flex-direction: column;
+            transition: var(--transition);
         }
-        .cart-overlay.active { display: block; }
+
+        .auth-modal.active {
+            display: flex;
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        .auth-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .auth-tabs {
+            display: flex;
+            gap: 20px;
+        }
+
+        .auth-tab {
+            background: none; border: none;
+            font-family: 'Syne', sans-serif;
+            font-size: 20px; font-weight: 800;
+            color: var(--secondary);
+            cursor: pointer;
+            text-transform: uppercase;
+        }
+
+        .auth-tab.active {
+            color: var(--primary);
+            border-bottom: 2px solid var(--gold);
+        }
+
+        .close-auth {
+            background: none; border: none; font-size: 24px; cursor: pointer;
+        }
+
+        .auth-form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .auth-form.hidden {
+            display: none;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .form-group label {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+
+        .form-input {
+            padding: 12px;
+            border: 1px solid var(--border);
+            font-family: inherit;
+            font-size: 14px;
+            outline: none;
+            transition: var(--transition);
+        }
+
+        .form-input:focus {
+            border-color: var(--primary);
+        }
+
+        .btn-submit {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 14px;
+            font-family: inherit;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: var(--transition);
+        }
+
+        .btn-submit:hover {
+            background: var(--gold);
+        }
+
+        /* OVERLAYS */
+        .global-overlay {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            background: rgba(0,0,0,0.4); z-index: 150; display: none;
+            backdrop-filter: blur(3px);
+        }
+        .global-overlay.active { display: block; }
 
         /* CONTACT */
         #contact { padding: 80px 0; background: var(--accent); text-align: center; }
@@ -244,12 +396,55 @@
         @media (max-width: 768px) {
             .hero-title { font-size: 48px; }
             .cart-drawer { width: 100%; right: -100%; }
+            .auth-modal { width: 90%; padding: 25px; }
         }
     </style>
 </head>
 <body>
 
-    <div class="cart-overlay" id="cartOverlay"></div>
+    <!-- GLOBAL OVERLAY (Arka Plan Karartma) -->
+    <div class="global-overlay" id="globalOverlay"></div>
+
+    <!-- AUTHENTICATION MODAL (Giriş Yap / Üye Ol) -->
+    <div class="auth-modal" id="authModal">
+        <div class="auth-header">
+            <div class="auth-tabs">
+                <button class="auth-tab active" id="tabLogin">Giriş Yap</button>
+                <button class="auth-tab" id="tabRegister">Kayıt Ol</button>
+            </div>
+            <button class="close-auth" id="closeAuth">&times;</button>
+        </div>
+
+        <!-- Login Form -->
+        <form class="auth-form" id="loginForm">
+            <div class="form-group">
+                <label>E-Posta Adresi</label>
+                <input type="email" class="form-input" id="loginEmail" required placeholder="ornek@mail.com">
+            </div>
+            <div class="form-group">
+                <label>Şifre</label>
+                <input type="password" class="form-input" id="loginPassword" required placeholder="••••••••">
+            </div>
+            <button type="submit" class="btn-submit">Giriş Yap</button>
+        </form>
+
+        <!-- Register Form -->
+        <form class="auth-form hidden" id="registerForm">
+            <div class="form-group">
+                <label>Adınız Soyadınız</label>
+                <input type="text" class="form-input" id="regName" required placeholder="Ahmet Arman">
+            </div>
+            <div class="form-group">
+                <label>E-Posta Adresi</label>
+                <input type="email" class="form-input" id="regEmail" required placeholder="ornek@mail.com">
+            </div>
+            <div class="form-group">
+                <label>Şifre</label>
+                <input type="password" class="form-input" id="regPassword" required placeholder="••••••••">
+            </div>
+            <button type="submit" class="btn-submit">Hesap Oluştur</button>
+        </form>
+    </div>
 
     <!-- CART DRAWER -->
     <div class="cart-drawer" id="cartDrawer">
@@ -274,6 +469,12 @@
         <div class="container nav-container">
             <a href="#" class="logo">ARMAN<span>.</span>DERİ</a>
             <div class="nav-right">
+                <!-- User Profile Area -->
+                <div id="userArea">
+                    <!-- Dynamic Auth State (JS will render here) -->
+                </div>
+                
+                <!-- Cart Button -->
                 <button class="cart-btn" id="cartBtn">
                     <svg viewBox="0 0 24 24">
                         <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4H6zM3 6h18M16 10a4 4 0 01-8 0" />
@@ -295,14 +496,12 @@
     <!-- FILTERS -->
     <div class="filter-section">
         <div class="container">
-            <!-- Ana Kategori -->
             <div class="filter-group">
                 <button class="btn-filter active" data-cat="all">Tüm Ürünler</button>
                 <button class="btn-filter" data-cat="mont">Deri Mont</button>
                 <button class="btn-filter" data-cat="yelek">Deri Yelek</button>
                 <button class="btn-filter" data-cat="sapka">Deri Şapka</button>
             </div>
-            <!-- Hedef Kitle -->
             <div class="filter-group">
                 <button class="btn-sub active" data-target="all">Herkes İçin</button>
                 <button class="btn-sub" data-target="erkek">Erkek</button>
@@ -419,204 +618,4 @@
                         <h3 class="prod-name">Classic Flat Cap</h3>
                         <span class="prod-target">Erkek Koleksiyonu</span>
                     </div>
-                    <span class="prod-price" data-price="1299">₺1,299</span>
-                </div>
-                <button class="btn-add-cart">Sepete Ekle</button>
-            </div>
-
-            <div class="product-card" data-cat="sapka" data-target="kadin" data-id="8">
-                <div class="img-container">
-                    <img src="https://images.unsplash.com/photo-1576871337632-b9aef4c17ab9?q=80&w=600" alt="Kadın Deri Şapka">
-                </div>
-                <div class="prod-info">
-                    <div>
-                        <span class="prod-cat">Deri Şapka</span>
-                        <h3 class="prod-name">Modern Fedora</h3>
-                        <span class="prod-target">Kadın Koleksiyonu</span>
-                    </div>
-                    <span class="prod-price" data-price="1499">₺1,499</span>
-                </div>
-                <button class="btn-add-cart">Sepete Ekle</button>
-            </div>
-
-            <div class="product-card" data-cat="sapka" data-target="cocuk" data-id="9">
-                <div class="img-container">
-                    <img src="https://images.unsplash.com/photo-1519457431-44ccd64a579b?q=80&w=600" alt="Çocuk Deri Şapka">
-                </div>
-                <div class="prod-info">
-                    <div>
-                        <span class="prod-cat">Deri Şapka</span>
-                        <h3 class="prod-name">Junior Beanie</h3>
-                        <span class="prod-target">Çocuk Koleksiyonu</span>
-                    </div>
-                    <span class="prod-price" data-price="999">₺999</span>
-                </div>
-                <button class="btn-add-cart">Sepete Ekle</button>
-            </div>
-
-        </div>
-    </section>
-
-    <!-- CONTACT -->
-    <section id="contact">
-        <div class="container">
-            <div class="contact-info">
-                <h3>İletişim</h3>
-                <p>ARMAN DERİ</p>
-                <p>E-posta: infoarmanderi@gmail.com | Tel: +90 546 658 77 39</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- FOOTER -->
-    <footer>
-        <div class="container">
-            <p>&copy; 2026 ARMAN DERİ. Tüm Hakları Saklıdır.</p>
-        </div>
-    </footer>
-
-    <!-- INTERACTIVE JAVASCRIPT -->
-    <script>
-        // 1. FILTERING LOGIC
-        const filterBtns = document.querySelectorAll('.btn-filter');
-        const subBtns = document.querySelectorAll('.btn-sub');
-        const productCards = document.querySelectorAll('.product-card');
-
-        let activeCat = 'all';
-        let activeTarget = 'all';
-
-        function filterProducts() {
-            productCards.forEach(card => {
-                const cat = card.getAttribute('data-cat');
-                const target = card.getAttribute('data-target');
-
-                const catMatch = (activeCat === 'all' || cat === activeCat);
-                const targetMatch = (activeTarget === 'all' || target === activeTarget);
-
-                if (catMatch && targetMatch) {
-                    card.style.display = 'flex';
-                } else {
-                    card.style.display = 'none';
-                }
-            });
-        }
-
-        filterBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                filterBtns.forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                activeCat = btn.getAttribute('data-cat');
-                filterProducts();
-            });
-        });
-
-        subBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                subBtns.forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                activeTarget = btn.getAttribute('data-target');
-                filterProducts();
-            });
-        });
-
-        // 2. CART LOGIC
-        const cartBtn = document.getElementById('cartBtn');
-        const closeCart = document.getElementById('closeCart');
-        const cartDrawer = document.getElementById('cartDrawer');
-        const cartOverlay = document.getElementById('cartOverlay');
-        const cartItemsContainer = document.getElementById('cartItems');
-        const cartBadge = document.getElementById('cartBadge');
-        const cartTotal = document.getElementById('cartTotal');
-        const checkoutBtn = document.getElementById('checkoutBtn');
-
-        let cart = [];
-
-        // Open & Close Cart
-        cartBtn.addEventListener('click', () => {
-            cartDrawer.classList.add('open');
-            cartOverlay.classList.add('active');
-        });
-
-        const closeCartFunc = () => {
-            cartDrawer.classList.remove('open');
-            cartOverlay.classList.remove('active');
-        };
-
-        closeCart.addEventListener('click', closeCartFunc);
-        cartOverlay.addEventListener('click', closeCartFunc);
-
-        // Add to Cart
-        document.querySelectorAll('.btn-add-cart').forEach(button => {
-            button.addEventListener('click', (e) => {
-                const card = e.target.closest('.product-card');
-                const id = card.getAttribute('data-id');
-                const name = card.querySelector('.prod-name').innerText;
-                const price = parseInt(card.querySelector('.prod-price').getAttribute('data-price'));
-                const img = card.querySelector('img').src;
-
-                addToCart({ id, name, price, img });
-            });
-        });
-
-        function addToCart(product) {
-            const exists = cart.find(item => item.id === product.id);
-            if (exists) {
-                exists.quantity += 1;
-            } else {
-                cart.push({ ...product, quantity: 1 });
-            }
-            updateCart();
-            // Open drawer automatically on add
-            cartDrawer.classList.add('open');
-            cartOverlay.classList.add('active');
-        }
-
-        function removeFromCart(id) {
-            cart = cart.filter(item => item.id !== id);
-            updateCart();
-        }
-
-        function updateCart() {
-            // Update Badge
-            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
-            cartBadge.innerText = totalItems;
-
-            // Render Items
-            if (cart.length === 0) {
-                cartItemsContainer.innerHTML = '<p style="text-align:center; color:var(--secondary); margin-top:30px;">Sepetiniz boş.</p>';
-                cartTotal.innerText = '₺0';
-                return;
-            }
-
-            cartItemsContainer.innerHTML = '';
-            let total = 0;
-
-            cart.forEach(item => {
-                total += item.price * item.quantity;
-                const itemEl = document.createElement('div');
-                itemEl.classList.add('cart-item');
-                itemEl.innerHTML = `
-                    <img src="${item.img}" alt="${item.name}">
-                    <div class="cart-item-details">
-                        <h4 class="cart-item-name">${item.name} (${item.quantity} adet)</h4>
-                        <p class="cart-item-price">₺${(item.price * item.quantity).toLocaleString('tr-TR')}</p>
-                        <button class="btn-remove" onclick="removeFromCart('${item.id}')">Kaldır</button>
-                    </div>
-                `;
-                cartItemsContainer.appendChild(itemEl);
-            });
-
-            cartTotal.innerText = `₺${total.toLocaleString('tr-TR')}`;
-        }
-
-        // Stripe Integration Placeholder
-        checkoutBtn.addEventListener('click', () => {
-            if (cart.length === 0) {
-                alert('Sepetiniz boş!');
-                return;
-            }
-            alert('Stripe Ödeme Sistemine Yönlendiriliyorsunuz...\n(Bu aşamada Stripe API anahtarlarınızı bağlayarak gerçek ödeme almaya başlayabilirsiniz.)');
-        });
-    </script>
-</body>
-</html>
+                    <span class="prod-price" data-price="129
