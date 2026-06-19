@@ -4,379 +4,278 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-<title>Arman Deri | Luxury Craftsmanship</title>
-
-<!-- Fonts -->
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Cinzel:wght@400;600&display=swap" rel="stylesheet">
+<title>Arman Deri | Luxury Experience Engine</title>
 
 <style>
-/* =========================
-   LUXURY DESIGN SYSTEM
-========================= */
-:root{
-  --black:#0A0A0A;
-  --surface:#111111;
-  --elevated:#1C1C1C;
-  --gold:#C8A45D;
-  --white:#EDEDED;
-  --muted:#8A8A8A;
-}
-
-*{margin:0;padding:0;box-sizing:border-box;}
 html,body{
-  background:var(--black);
-  color:var(--white);
-  font-family:Inter, sans-serif;
-  overflow-x:hidden;
-  scroll-behavior:smooth;
+margin:0;
+overflow:hidden;
+background:#0A0A0A;
+font-family:system-ui;
+color:#EDEDED;
 }
 
-/* Custom Cursor */
-.cursor{
-  width:8px;height:8px;
-  background:var(--gold);
-  border-radius:50%;
-  position:fixed;
-  pointer-events:none;
-  z-index:9999;
-  mix-blend-mode:screen;
-  box-shadow:0 0 15px rgba(200,164,93,.6);
-  transform:translate(-50%,-50%);
-}
-
-/* PRELOADER */
-.preloader{
-  position:fixed;
-  inset:0;
-  background:var(--black);
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-  z-index:10000;
-}
-
-.logo{
-  font-family:Cinzel, serif;
-  letter-spacing:6px;
-  font-size:22px;
-  color:var(--white);
-  opacity:0;
-  animation:fadeIn 1.5s forwards;
-}
-
-.bar{
-  width:180px;
-  height:1px;
-  background:#222;
-  margin-top:20px;
-  position:relative;
-  overflow:hidden;
-}
-.bar::after{
-  content:"";
-  position:absolute;
-  left:-100%;
-  width:100%;
-  height:100%;
-  background:var(--gold);
-  animation:load 2s forwards;
-}
-
-@keyframes load{to{left:100%;}}
-@keyframes fadeIn{to{opacity:1;}}
-
-/* NAV */
-nav{
-  position:fixed;
-  top:0;
-  width:100%;
-  padding:24px 40px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  backdrop-filter:blur(10px);
-  background:rgba(10,10,10,.4);
-  z-index:1000;
-}
-
-nav span{
-  font-family:Cinzel;
-  letter-spacing:3px;
-  font-size:14px;
-}
-
-/* HERO */
-.hero{
-  height:100vh;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-  text-align:center;
-  position:relative;
-  background:url('https://images.unsplash.com/photo-1520975922284-9b7c3f1a7c88?auto=format&fit=crop&w=2000&q=80') center/cover;
-}
-
-.hero::after{
-  content:"";
-  position:absolute;
-  inset:0;
-  background:rgba(0,0,0,.65);
-}
-
-.hero h1{
-  font-family:Cinzel;
-  font-size:64px;
-  letter-spacing:4px;
-  z-index:2;
-}
-
-.hero p{
-  margin-top:12px;
-  color:var(--muted);
-  z-index:2;
-  font-size:16px;
-}
-
-.cta{
-  margin-top:30px;
-  display:flex;
-  gap:20px;
-  z-index:2;
-}
-
-.btn{
-  padding:12px 24px;
-  border:1px solid var(--gold);
-  color:var(--gold);
-  background:transparent;
-  cursor:pointer;
-  transition:.6s;
-  letter-spacing:1px;
-}
-
-.btn:hover{
-  background:var(--gold);
-  color:black;
-}
-
-/* SECTIONS */
-section{
-  padding:120px 10%;
+/* UI LAYER */
+#ui{
+position:fixed;
+inset:0;
+pointer-events:none;
+z-index:10;
 }
 
 .title{
-  font-family:Cinzel;
-  font-size:32px;
-  margin-bottom:20px;
+position:absolute;
+top:50%;
+left:50%;
+transform:translate(-50%,-60%);
+text-align:center;
+letter-spacing:4px;
+font-family:serif;
+font-size:54px;
+opacity:0.9;
 }
 
-.text{
-  color:var(--muted);
-  line-height:1.8;
-  max-width:700px;
+.subtitle{
+position:absolute;
+top:58%;
+left:50%;
+transform:translateX(-50%);
+color:#8A8A8A;
+font-size:14px;
 }
 
-/* COLLECTION */
-.grid{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:20px;
+.buttons{
+position:absolute;
+bottom:80px;
+left:50%;
+transform:translateX(-50%);
+display:flex;
+gap:20px;
+pointer-events:auto;
 }
 
-.card{
-  background:var(--surface);
-  padding:20px;
-  border:1px solid #1f1f1f;
-  transition:.6s;
-  position:relative;
-  overflow:hidden;
+.btn{
+border:1px solid #C8A45D;
+background:transparent;
+color:#C8A45D;
+padding:12px 22px;
+cursor:pointer;
+transition:0.6s;
+letter-spacing:1px;
 }
 
-.card:hover{
-  transform:translateY(-10px);
-  border-color:var(--gold);
+.btn:hover{
+background:#C8A45D;
+color:#000;
+transform:translateY(-2px);
 }
 
-.card h3{
-  font-family:Cinzel;
-  margin-bottom:10px;
+/* CURSOR */
+.cursor{
+width:10px;height:10px;
+border-radius:50%;
+background:#C8A45D;
+position:fixed;
+transform:translate(-50%,-50%);
+pointer-events:none;
+z-index:999;
+box-shadow:0 0 20px rgba(200,164,93,.6);
 }
 
-.price{
-  color:var(--gold);
-  margin-top:10px;
+/* fallback */
+.fallback{
+display:none;
+position:fixed;
+inset:0;
+background:url('https://images.unsplash.com/photo-1520975922284-9b7c3f1a7c88?auto=format&fit=crop&w=2000&q=80') center/cover;
 }
 
-/* TRUST */
-.trust{
-  display:flex;
-  gap:40px;
+.fallback::after{
+content:"";
+position:absolute;
+inset:0;
+background:rgba(0,0,0,.6);
 }
 
-.trust div{
-  flex:1;
-  padding:20px;
-  background:var(--elevated);
-  border-left:2px solid var(--gold);
-}
-
-/* TESTIMONIAL */
-.testimonial{
-  text-align:center;
-  font-style:italic;
-  color:var(--muted);
-}
-
-/* CTA */
-.final{
-  text-align:center;
-}
-
-.big-btn{
-  padding:18px 40px;
-  font-size:16px;
-  border:1px solid var(--gold);
-  background:transparent;
-  color:var(--gold);
-  cursor:pointer;
-  transition:.6s;
-}
-
-.big-btn:hover{
-  background:var(--gold);
-  color:black;
-}
-
-/* FOOTER */
-footer{
-  padding:60px;
-  text-align:center;
-  border-top:1px solid #1f1f1f;
-  color:var(--muted);
-}
-
-/* RESPONSIVE */
-@media(max-width:900px){
-  .hero h1{font-size:38px;}
-  .grid{grid-template-columns:1fr 1fr;}
-}
-@media(max-width:600px){
-  .grid{grid-template-columns:1fr;}
-}
 </style>
 </head>
 
 <body>
 
-<div class="cursor"></div>
+<div id="ui">
+  <div class="title">ARMAN DERİ</div>
+  <div class="subtitle">Deri değil, karakter üretiyoruz.</div>
 
-<!-- PRELOADER -->
-<div class="preloader" id="preloader">
-  <div class="logo">ARMAN DERİ</div>
-  <div class="bar"></div>
-</div>
-
-<!-- NAV -->
-<nav>
-  <span>ARMAN DERİ</span>
-  <span>EST. 1987</span>
-</nav>
-
-<!-- HERO -->
-<div class="hero">
-  <h1>ARMAN DERİ</h1>
-  <p>Zanaatkârlığın zamansız dili.</p>
-  <div class="cta">
+  <div class="buttons">
     <button class="btn">Koleksiyonu Keşfet</button>
-    <button class="btn">Ustalığımız</button>
+    <button class="btn">3D Deneyimi İncele</button>
   </div>
 </div>
 
-<!-- STORY -->
-<section>
-  <div class="title">Marka Hikayesi</div>
-  <div class="text">
-    1987’den bu yana her ürün, ustaların elinde şekillenen bir imzaya dönüşür.
-    Arman Deri, yalnızca ürün değil; karakter üretir.
-  </div>
-</section>
+<div class="cursor"></div>
+<div class="fallback" id="fallback"></div>
 
-<!-- COLLECTION -->
-<section>
-  <div class="title">Koleksiyon</div>
-  <div class="grid">
-    <div class="card"><h3>Deri Ceket</h3><div class="price">€890</div></div>
-    <div class="card"><h3>El Çantası</h3><div class="price">€1,250</div></div>
-    <div class="card"><h3>Yelek</h3><div class="price">€620</div></div>
-    <div class="card"><h3>Çocuk</h3><div class="price">€299</div></div>
-  </div>
-</section>
-
-<!-- TRUST -->
-<section>
-  <div class="title">Ustalık</div>
-  <div class="trust">
-    <div>%100 Full Grain Leather</div>
-    <div>El Dikişi Zanaatkârlık</div>
-    <div>Ömür Boyu Dayanıklılık</div>
-  </div>
-</section>
-
-<!-- TESTIMONIAL -->
-<section>
-  <div class="testimonial">
-    “Bu siteye girince kaliteyi hissediyorsunuz.”
-  </div>
-</section>
-
-<!-- FINAL CTA -->
-<section class="final">
-  <button class="big-btn">Koleksiyonu Keşfet</button>
-</section>
-
-<footer>
-  Instagram · TikTok · info@armanderi.com
-</footer>
+<!-- THREE.JS -->
+<script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
 
 <script>
 /* =========================
-   PRELOADER
+   BASIC SETUP
 ========================= */
-window.addEventListener("load",()=>{
-  setTimeout(()=>{
-    document.getElementById("preloader").style.opacity="0";
-    document.getElementById("preloader").style.pointerEvents="none";
-  },2200);
-});
+let scene, camera, renderer, mesh;
+let mouseX = 0, mouseY = 0;
+let targetX = 0, targetY = 0;
+
+/* detect WebGL */
+function webglAvailable(){
+try{
+const canvas = document.createElement("canvas");
+return !!(window.WebGLRenderingContext &&
+(canvas.getContext("webgl") || canvas.getContext("experimental-webgl")));
+}catch(e){return false;}
+}
 
 /* =========================
-   CUSTOM CURSOR
+   INIT 3D SCENE
 ========================= */
-const cursor = document.querySelector(".cursor");
+if(webglAvailable()){
+
+scene = new THREE.Scene();
+
+camera = new THREE.PerspectiveCamera(
+45,
+window.innerWidth/window.innerHeight,
+0.1,
+1000
+);
+
+camera.position.z = 3;
+
+renderer = new THREE.WebGLRenderer({antialias:true,alpha:true});
+renderer.setSize(window.innerWidth, window.innerHeight);
+document.body.appendChild(renderer.domElement);
+
+/* LIGHTS */
+const light = new THREE.DirectionalLight(0xc8a45d, 1.2);
+light.position.set(2,2,2);
+scene.add(light);
+
+const ambient = new THREE.AmbientLight(0x222222);
+scene.add(ambient);
+
+/* LEATHER SHADER MATERIAL */
+const uniforms = {
+u_time:{value:0},
+u_mouse:{value:new THREE.Vector2()}
+};
+
+const vertexShader = `
+varying vec2 vUv;
+varying float vWave;
+uniform float u_time;
+uniform vec2 u_mouse;
+
+void main(){
+vUv = uv;
+
+vec3 pos = position;
+
+float wave = sin(pos.x*3.0 + u_time)*0.05;
+pos.z += wave;
+
+vWave = wave;
+
+gl_Position = projectionMatrix * modelViewMatrix * vec4(pos,1.0);
+}
+`;
+
+const fragmentShader = `
+varying vec2 vUv;
+varying float vWave;
+uniform float u_time;
+
+void main(){
+
+vec3 base = vec3(0.05,0.05,0.05);
+vec3 gold = vec3(0.78,0.64,0.36);
+
+float grain = fract(sin(dot(vUv.xy, vec2(12.9898,78.233))) * 43758.5453);
+
+float mixVal = smoothstep(0.2,0.8,vUv.x + vUv.y*0.3);
+
+vec3 color = mix(base, gold, mixVal);
+
+color += grain*0.03;
+color += vWave*0.2;
+
+gl_FragColor = vec4(color,1.0);
+}
+`;
+
+const geometry = new THREE.PlaneGeometry(3,3,128,128);
+
+const material = new THREE.ShaderMaterial({
+uniforms,
+vertexShader,
+fragmentShader
+});
+
+mesh = new THREE.Mesh(geometry, material);
+scene.add(mesh);
+
+/* MOUSE MOVE */
 document.addEventListener("mousemove",(e)=>{
-  cursor.style.left = e.clientX + "px";
-  cursor.style.top = e.clientY + "px";
+mouseX = (e.clientX/window.innerWidth)-0.5;
+mouseY = (e.clientY/window.innerHeight)-0.5;
+document.querySelector(".cursor").style.left = e.clientX+"px";
+document.querySelector(".cursor").style.top = e.clientY+"px";
 });
+
+/* SCROLL DEPTH */
+window.addEventListener("scroll",()=>{
+camera.position.z = 3 + window.scrollY*0.002;
+});
+
+/* ANIMATE */
+function animate(){
+requestAnimationFrame(animate);
+
+targetX += (mouseX - targetX)*0.05;
+targetY += (mouseY - targetY)*0.05;
+
+mesh.rotation.y = targetX*0.5;
+mesh.rotation.x = targetY*0.3;
+
+uniforms.u_time.value += 0.02;
+uniforms.u_mouse.value.set(mouseX,mouseY);
+
+renderer.render(scene,camera);
+}
+animate();
+
+/* RESIZE */
+window.addEventListener("resize",()=>{
+camera.aspect = window.innerWidth/window.innerHeight;
+camera.updateProjectionMatrix();
+renderer.setSize(window.innerWidth,window.innerHeight);
+});
+
+}
 
 /* =========================
-   SCROLL FADE (Luxury reveal)
+   FALLBACK MODE
 ========================= */
-const observer = new IntersectionObserver(entries=>{
-  entries.forEach(entry=>{
-    if(entry.isIntersecting){
-      entry.target.style.opacity=1;
-      entry.target.style.transform="translateY(0)";
-    }
-  });
-});
+else{
+document.getElementById("fallback").style.display="block";
+}
 
-document.querySelectorAll("section").forEach(sec=>{
-  sec.style.opacity=0;
-  sec.style.transform="translateY(40px)";
-  sec.style.transition="1.2s ease";
-  observer.observe(sec);
+/* =========================
+   MICRO UX
+========================= */
+document.querySelectorAll(".btn").forEach(btn=>{
+btn.addEventListener("mouseenter",()=>{
+btn.style.boxShadow="0 0 20px rgba(200,164,93,0.4)";
+});
 });
 </script>
 
