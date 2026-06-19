@@ -1,239 +1,99 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Arman Deri | Virtual Boutique</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Arman Deri</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 
 <style>
-:root{
-  --black:#0A0A0A;
-  --surface:#111;
-  --gold:#C8A45D;
-  --text:#EDEDED;
-  --muted:#8A8A8A;
-}
+*{margin:0;padding:0;box-sizing:border-box;font-family:Inter;}
+body{background:#0a0a0a;color:#fff;overflow-x:hidden;}
 
-*{margin:0;padding:0;box-sizing:border-box;}
-body{
-font-family:system-ui;
-background:var(--black);
-color:var(--text);
-overflow-x:hidden;
-}
-
-/* =====================
-   GLOBAL UI
-===================== */
 header{
-position:fixed;
-top:0;left:0;right:0;
-display:flex;
-justify-content:space-between;
-padding:20px 30px;
-z-index:1000;
-backdrop-filter:blur(12px);
-background:rgba(10,10,10,.5);
-border-bottom:1px solid #1c1c1c;
+position:fixed;top:0;width:100%;
+display:flex;justify-content:space-between;
+padding:20px 40px;
+background:rgba(10,10,10,0.7);
+backdrop-filter:blur(10px);
+z-index:10;
 }
 
-.logo{letter-spacing:4px;font-weight:500;}
-.cart{
-cursor:pointer;
-color:var(--gold);
-}
+.logo{font-family:'Playfair Display';font-size:22px;letter-spacing:2px;}
 
-/* =====================
-   HOME
-===================== */
-#home{
+nav button{
+background:none;border:none;color:#fff;
+margin-left:20px;cursor:pointer;opacity:0.7;
+transition:0.3s;
+}
+nav button:hover{opacity:1;color:#c8a45d;}
+
+section{display:none;padding:120px 40px;}
+.active{display:block;}
+
+.hero{
 height:100vh;
 display:flex;
 flex-direction:column;
 justify-content:center;
 align-items:center;
 text-align:center;
-transition:0.8s;
 }
 
-h1{
-font-size:52px;
-letter-spacing:4px;
+.hero h1{
+font-family:'Playfair Display';
+font-size:60px;
+letter-spacing:3px;
 }
 
-p{color:var(--muted);margin-top:10px;}
+.hero p{margin:20px 0;opacity:0.7;}
 
-.actions{
-margin-top:40px;
-display:flex;
-gap:15px;
-}
-
-button{
-padding:12px 20px;
-border:1px solid var(--gold);
-background:transparent;
-color:var(--gold);
+.btn{
+padding:12px 24px;
+margin:10px;
+border:1px solid #c8a45d;
+background:none;
+color:#fff;
 cursor:pointer;
-transition:.5s;
+transition:0.3s;
 }
 
-button:hover{
-background:var(--gold);
-color:black;
-transform:translateY(-2px);
+.btn:hover{
+background:#c8a45d;
+color:#000;
 }
 
-/* =====================
-   STORE MODE
-===================== */
-#store{
-display:none;
-height:100vh;
-grid-template-columns:260px 1fr;
-}
-
-.sidebar{
-background:#0d0d0d;
-padding:20px;
-border-right:1px solid #1c1c1c;
-}
-
-.cat{
-padding:10px;
-cursor:pointer;
-color:var(--muted);
-transition:.4s;
-}
-
-.cat:hover,
-.cat.active{
-color:var(--gold);
-transform:translateX(5px);
-}
-
-.products{
-padding:40px;
+.grid{
 display:grid;
-grid-template-columns:repeat(3,1fr);
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
 gap:20px;
 }
 
 .card{
-background:#111;
+background:#151515;
 padding:20px;
-border:1px solid #1c1c1c;
+border-radius:10px;
+transition:0.3s;
 cursor:pointer;
-transition:.5s;
-opacity:0;
-transform:translateY(20px);
-animation:fadeIn .6s forwards;
 }
 
 .card:hover{
-border-color:var(--gold);
 transform:translateY(-5px);
+border:1px solid #c8a45d;
 }
 
-.price{color:var(--gold);margin-top:10px;}
-
-@keyframes fadeIn{
-to{opacity:1;transform:translateY(0);}
-}
-
-/* =====================
-   WALKTHROUGH
-===================== */
-#walk{
-display:none;
-height:100vh;
-justify-content:center;
-align-items:center;
-flex-direction:column;
-text-align:center;
-}
-
-.scene{
-font-size:28px;
-margin-bottom:20px;
-}
-
-.nav{
-display:flex;
-gap:20px;
-}
-
-/* =====================
-   STORY MODE
-===================== */
-#story{
-display:none;
-height:100vh;
-justify-content:center;
-align-items:center;
-text-align:center;
-flex-direction:column;
-}
-
-.storyText{
-font-size:26px;
-max-width:600px;
-}
-
-/* =====================
-   PRODUCT DETAIL
-===================== */
-#detail{
-display:none;
+.cart{
 position:fixed;
-inset:0;
-background:rgba(0,0,0,.95);
-justify-content:center;
-align-items:center;
-flex-direction:column;
-z-index:2000;
-}
-
-#detail img{
-width:300px;
-height:300px;
-object-fit:cover;
-border:1px solid var(--gold);
-}
-
-#detail h2{margin-top:20px;}
-
-#detail button{
-margin-top:20px;
-}
-
-/* =====================
-   CART
-===================== */
-#cartPanel{
-position:fixed;
-right:-320px;
-top:0;
-width:300px;
-height:100vh;
-background:#111;
-border-left:1px solid #222;
-transition:.6s;
+right:20px;
+top:80px;
+background:#151515;
 padding:20px;
-z-index:1500;
+width:250px;
+display:none;
 }
 
-#cartPanel.open{right:0;}
-
-.cartItem{
-padding:10px;
-border-bottom:1px solid #222;
-color:var(--muted);
-}
-
-/* ACTIVE TRANSITION */
-.hidden{display:none !important;}
-
+.cart.active{display:block;}
 </style>
 </head>
 
@@ -241,216 +101,93 @@ color:var(--muted);
 
 <header>
 <div class="logo">ARMAN DERİ</div>
-<div class="cart" onclick="toggleCart()">🛒 <span id="cartCount">0</span></div>
+<nav>
+<button onclick="show('home')">Home</button>
+<button onclick="show('store')">Mağaza</button>
+<button onclick="show('story')">Hikaye</button>
+<button onclick="toggleCart()">Sepet (<span id="cartCount">0</span>)</button>
+</nav>
 </header>
 
 <!-- HOME -->
-<section id="home">
+<section id="home" class="active">
+<div class="hero">
 <h1>ARMAN DERİ</h1>
-<p>Deri değil, karakter üretiyoruz.</p>
-
-<div class="actions">
-<button onclick="openStore()">Koleksiyonu Keşfet</button>
-<button onclick="openWalk()">Mağazayı Gez</button>
-<button onclick="openStory()">Ustalık Hikayesi</button>
+<p>Zanaatkârlığın en saf hali</p>
+<button class="btn" onclick="show('store')">Koleksiyonu Keşfet</button>
+<button class="btn" onclick="show('story')">Hikayemiz</button>
 </div>
 </section>
 
 <!-- STORE -->
 <section id="store">
-<div class="sidebar">
-<div class="cat active" onclick="filter('all')">Tümü</div>
-<div class="cat" onclick="filter('ceket')">Deri Ceketler</div>
-<div class="cat" onclick="filter('canta')">Çantalar</div>
-<div class="cat" onclick="filter('yelek')">Yelek</div>
-</div>
-
-<div class="products" id="products"></div>
-</section>
-
-<!-- WALK -->
-<section id="walk">
-<div class="scene" id="sceneText">Vitrin Girişi</div>
-<div class="nav">
-<button onclick="prevScene()">Prev</button>
-<button onclick="nextScene()">Next</button>
-</div>
+<h2 style="font-family:'Playfair Display'">Koleksiyon</h2>
+<div class="grid" id="productGrid"></div>
 </section>
 
 <!-- STORY -->
 <section id="story">
-<div class="storyText" id="storyText">1987’den beri ustaların sessiz elleri...</div>
-<button onclick="nextStory()">Devam</button>
+<h2 style="font-family:'Playfair Display'">Hikayemiz</h2>
+<p style="max-width:600px;opacity:0.7;margin-top:20px;">
+1987’den beri el işçiliği ile üretilen deri ürünler...
+Her parça bir ustanın imzasını taşır.
+</p>
 </section>
 
-<!-- PRODUCT DETAIL -->
-<div id="detail">
-<img id="detailImg" src="">
-<h2 id="detailTitle"></h2>
-<p id="detailPrice"></p>
-<button onclick="addToCart()">Sepete Ekle</button>
-<button onclick="closeDetail()">Geri</button>
-</div>
-
 <!-- CART -->
-<div id="cartPanel">
-<h3 style="color:#C8A45D;">Sepet</h3>
+<div class="cart" id="cartBox">
+<h4>Sepet</h4>
 <div id="cartItems"></div>
 </div>
 
 <script>
-
-/* =====================
-   STATE ENGINE
-===================== */
-let cart = [];
-let currentFilter = "all";
-let selectedProduct = null;
-
-/* PRODUCTS */
-const products = [
-{name:"Deri Ceket",price:"€890",type:"ceket",img:"https://images.unsplash.com/photo-1520975922284-9b7c3f1a7c88"},
-{name:"El Çantası",price:"€1250",type:"canta",img:"https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f"},
-{name:"Premium Yelek",price:"€620",type:"yelek",img:"https://images.unsplash.com/photo-1520975922284-9b7c3f1a7c88"}
+const products=[
+{id:1,name:"Deri Ceket",price:1200},
+{id:2,name:"Deri Çanta",price:800},
+{id:3,name:"Cüzdan",price:300},
+{id:4,name:"Kemer",price:200}
 ];
 
-/* =====================
-   NAVIGATION SYSTEM
-===================== */
-function show(section){
-["home","store","walk","story"].forEach(s=>{
-document.getElementById(s).style.display="none";
-});
-document.getElementById(section).style.display =
-(section==="store") ? "grid" : "flex";
+let cart=[];
+
+function show(view){
+document.querySelectorAll('section').forEach(s=>s.classList.remove('active'));
+document.getElementById(view).classList.add('active');
 }
 
-/* HOME ACTIONS */
-function openStore(){
-show("store");
-renderProducts();
-}
-
-function openWalk(){
-show("walk");
-}
-
-function openStory(){
-show("story");
-}
-
-/* =====================
-   STORE LOGIC
-===================== */
 function renderProducts(){
-const wrap = document.getElementById("products");
-wrap.innerHTML="";
-
-products
-.filter(p=>currentFilter==="all"||p.type===currentFilter)
-.forEach(p=>{
-const div=document.createElement("div");
-div.className="card";
-div.innerHTML=`
-<div style="height:160px;background:url(${p.img}) center/cover"></div>
-<h4>${p.name}</h4>
-<div class="price">${p.price}</div>
-`;
-div.onclick=()=>openDetail(p);
-wrap.appendChild(div);
+let grid=document.getElementById("productGrid");
+grid.innerHTML="";
+products.forEach(p=>{
+grid.innerHTML+=`
+<div class="card">
+<h3>${p.name}</h3>
+<p>${p.price} €</p>
+<button class="btn" onclick="add(${p.id})">Sepete Ekle</button>
+</div>`;
 });
 }
 
-function filter(type){
-currentFilter=type;
-document.querySelectorAll(".cat").forEach(c=>c.classList.remove("active"));
-event.target.classList.add("active");
-renderProducts();
-}
-
-/* =====================
-   DETAIL VIEW
-===================== */
-function openDetail(p){
-selectedProduct=p;
-document.getElementById("detailImg").src=p.img;
-document.getElementById("detailTitle").innerText=p.name;
-document.getElementById("detailPrice").innerText=p.price;
-document.getElementById("detail").style.display="flex";
-}
-
-function closeDetail(){
-document.getElementById("detail").style.display="none";
-}
-
-function addToCart(){
-cart.push(selectedProduct);
+function add(id){
+let item=products.find(p=>p.id===id);
+cart.push(item);
 document.getElementById("cartCount").innerText=cart.length;
-updateCart();
-closeDetail();
+renderCart();
 }
 
-function updateCart(){
-const wrap=document.getElementById("cartItems");
-wrap.innerHTML="";
-cart.forEach(i=>{
-const d=document.createElement("div");
-d.className="cartItem";
-d.innerText=i.name+" "+i.price;
-wrap.appendChild(d);
+function renderCart(){
+let box=document.getElementById("cartItems");
+box.innerHTML="";
+cart.forEach(c=>{
+box.innerHTML+=`<p>${c.name} - ${c.price}€</p>`;
 });
 }
 
-/* =====================
-   CART PANEL
-===================== */
 function toggleCart(){
-document.getElementById("cartPanel").classList.toggle("open");
+document.getElementById("cartBox").classList.toggle("active");
 }
 
-/* =====================
-   WALKTHROUGH MODE
-===================== */
-const scenes=[
-"Vitrin Girişi",
-"Deri Ceket Koleksiyonu",
-"Ustalık Atölyesi",
-"Premium Spotlight",
-"Checkout Zone"
-];
-let sceneIndex=0;
-
-function updateScene(){
-document.getElementById("sceneText").innerText=scenes[sceneIndex];
-}
-
-function nextScene(){
-sceneIndex=(sceneIndex+1)%scenes.length;
-updateScene();
-}
-
-function prevScene(){
-sceneIndex=(sceneIndex-1+scenes.length)%scenes.length;
-updateScene();
-}
-
-/* =====================
-   STORY MODE
-===================== */
-const stories=[
-"1987’den beri ustaların sessiz elleri...",
-"Her ürün bir karakter taşır...",
-"Deri yaşar, nefes alır...",
-"Zanaatkârlık bir imzadır."
-];
-let storyIndex=0;
-
-function nextStory(){
-storyIndex++;
-if(storyIndex>=stories.length)storyIndex=0;
-document.getElementById("storyText").innerText=stories[storyIndex];
-}
-
+renderProducts();
 </script>
 
 </body>
