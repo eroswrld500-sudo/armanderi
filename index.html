@@ -4,297 +4,206 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ARMAN DERİ | Haute Couture Leather</title>
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    
+    <!-- Tailwind CSS (Ultra Lüks Stil İçin) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Alpine.js (Tüm Tıklamaları ve Fonksiyonları Sıfır Hatayla Çalıştırmak İçin) -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: { gold: '#c5a880', dark: '#0a0a0a' },
+                    fontFamily: { cinzel: ['Cinzel', 'serif'], montserrat: ['Montserrat', 'sans-serif'] }
+                }
+            }
+        }
+    </script>
     <style>
-        :root {
-            --gold: #c5a880;
-            --black: #0a0a0a;
-            --grey: #777777;
-            --border: #e5e5e5;
-            --smooth: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        * { margin: 0; padding: 0; box-sizing: border-box; outline: none; }
-        body { font-family: 'Montserrat', sans-serif; background: #fff; color: #111; overflow-x: hidden; -webkit-font-smoothing: antialiased; }
-        .container { max-width: 1400px; margin: 0 auto; padding: 0 30px; }
-        
-        /* HEADER */
-        header { position: fixed; top: 0; left: 0; width: 100%; background: rgba(255,255,255,0.95); backdrop-filter: blur(15px); border-bottom: 1px solid rgba(0,0,0,0.05); z-index: 1000; }
-        .nav-container { display: flex; justify-content: space-between; align-items: center; height: 90px; }
-        .logo { font-family: 'Cinzel', serif; font-size: 26px; font-weight: 700; letter-spacing: 3px; text-decoration: none; color: #111; }
-        .logo span { color: var(--gold); }
-        .nav-right { display: flex; align-items: center; gap: 30px; }
-        
-        /* AUTH & USER */
-        .btn-auth-trigger { background: none; border: none; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; cursor: pointer; color: #111; position: relative; padding: 5px 0; }
-        .btn-auth-trigger::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 1px; background: var(--gold); transition: var(--smooth); }
-        .btn-auth-trigger:hover::after { width: 100%; }
-        .user-menu { display: flex; align-items: center; gap: 15px; font-size: 11px; font-weight: 700; letter-spacing: 1px; }
-        .user-name { color: var(--gold); text-transform: uppercase; }
-        .btn-logout { background: none; border: none; color: #ff3b30; font-size: 10px; font-weight: 700; cursor: pointer; text-transform: uppercase; }
-        
-        /* CART BUTTON */
-        .cart-btn { background: none; border: none; cursor: pointer; position: relative; display: flex; align-items: center; width: 35px; height: 35px; }
-        .cart-btn svg { width: 22px; height: 22px; fill: none; stroke: #111; stroke-width: 1.5; transition: var(--smooth); }
-        .cart-btn:hover svg { stroke: var(--gold); }
-        .cart-badge { position: absolute; top: 0; right: 0; background: #111; color: #fff; font-size: 9px; font-weight: 700; width: 16px; height: 16px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
-
-        /* HERO */
-        #hero { padding: 200px 0 100px 0; background: #fafafa; text-align: center; }
-        .hero-subtitle { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 5px; color: var(--gold); margin-bottom: 15px; }
-        .hero-title { font-family: 'Cinzel', serif; font-size: clamp(36px, 5vw, 65px); font-weight: 400; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 20px; }
-        .hero-title span { font-weight: 900; }
-        .hero-desc { font-size: 14px; color: var(--grey); max-width: 600px; margin: 0 auto; line-height: 1.8; font-weight: 300; }
-
-        /* FILTERS */
-        .filter-section { padding: 60px 0 20px 0; border-top: 1px solid var(--border); display: flex; flex-direction: column; align-items: center; gap: 20px; }
-        .filter-group { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
-        .btn-filter { background: none; border: 1px solid var(--border); padding: 10px 24px; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; cursor: pointer; transition: var(--smooth); }
-        .btn-filter.active, .btn-filter:hover { background: #111; color: #fff; border-color: #111; }
-        .btn-sub { background: none; border: none; padding: 5px 15px; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; color: var(--grey); cursor: pointer; position: relative; transition: var(--smooth); }
-        .btn-sub::after { content: ''; position: absolute; bottom: 0; left: 50%; width: 0; height: 1px; background: var(--gold); transition: var(--smooth); transform: translateX(-50%); }
-        .btn-sub.active, .btn-sub:hover { color: #111; }
-        .btn-sub.active::after { width: 15px; }
-
-        /* PRODUCTS GRID */
-        .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 40px; padding: 40px 0 100px 0; }
-        .product-card { background: #fff; border: 1px solid rgba(0,0,0,0.02); padding: 15px; display: flex; flex-direction: column; transition: var(--smooth); }
-        .product-card:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rgba(0,0,0,0.05); border-color: var(--gold); }
-        .img-container { aspect-ratio: 3/4; background: #f5f5f5; overflow: hidden; margin-bottom: 20px; }
-        .img-container img { width: 100%; height: 100%; object-fit: cover; transition: transform 1s ease; }
-        .product-card:hover img { transform: scale(1.05); }
-        .prod-meta { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 15px; }
-        .prod-cat { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; color: var(--gold); }
-        .prod-name { font-family: 'Cinzel', serif; font-size: 18px; font-weight: 700; text-transform: uppercase; margin-top: 3px; }
-        .prod-target { font-size: 11px; color: var(--grey); margin-top: 3px; }
-        .prod-price { font-size: 16px; font-weight: 700; }
-        .btn-add-cart { width: 100%; padding: 14px; background: none; border: 1px solid #111; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; cursor: pointer; transition: var(--smooth); }
-        .product-card:hover .btn-add-cart { background: #111; color: #fff; }
-
-        /* CART DRAWER */
-        .cart-drawer { position: fixed; top: 0; right: -450px; width: 450px; height: 100vh; background: #fff; box-shadow: -15px 0 45px rgba(0,0,0,0.08); z-index: 2000; transition: var(--smooth); display: flex; flex-direction: column; }
-        .cart-drawer.open { right: 0; }
-        .cart-header { padding: 30px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
-        .cart-header h3 { font-family: 'Cinzel', serif; font-size: 20px; text-transform: uppercase; letter-spacing: 1.5px; }
-        .close-cart { background: none; border: none; font-size: 26px; cursor: pointer; }
-        .cart-items { flex: 1; overflow-y: auto; padding: 30px; }
-        .cart-item { display: flex; gap: 15px; align-items: center; padding-bottom: 20px; margin-bottom: 20px; border-bottom: 1px solid var(--border); }
-        .cart-item img { width: 60px; height: 80px; object-fit: cover; }
-        .cart-item-details { flex: 1; }
-        .cart-item-name { font-family: 'Cinzel', serif; font-size: 13px; font-weight: 700; text-transform: uppercase; }
-        .cart-item-price { font-size: 12px; color: var(--gold); font-weight: 600; margin-top: 3px; }
-        .btn-remove { background: none; border: none; color: #ff3b30; font-size: 10px; font-weight: 700; text-transform: uppercase; cursor: pointer; margin-top: 5px; }
-        .cart-footer { padding: 30px; border-top: 1px solid var(--border); background: #fafafa; }
-        .cart-total { display: flex; justify-content: space-between; font-size: 16px; font-weight: 700; margin-bottom: 20px; }
-        .btn-checkout { width: 100%; padding: 18px; background: #111; color: #fff; border: none; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; cursor: pointer; transition: var(--smooth); }
-        .btn-checkout:hover { background: var(--gold); }
-
-        /* AUTH MODAL */
-        .auth-modal { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.95); width: 420px; background: #fff; border: 1px solid var(--border); padding: 40px; z-index: 3000; box-shadow: 0 30px 80px rgba(0,0,0,0.1); display: none; flex-direction: column; transition: var(--smooth); }
-        .auth-modal.active { display: flex; transform: translate(-50%, -50%) scale(1); }
-        .auth-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
-        .auth-tabs { display: flex; gap: 20px; }
-        .auth-tab { background: none; border: none; font-family: 'Cinzel', serif; font-size: 16px; font-weight: 700; color: var(--grey); cursor: pointer; text-transform: uppercase; padding-bottom: 5px; }
-        .auth-tab.active { color: #111; border-bottom: 2px solid var(--gold); }
-        .close-auth { background: none; border: none; font-size: 26px; cursor: pointer; }
-        .auth-form { display: flex; flex-direction: column; gap: 20px; }
-        .auth-form.hidden { display: none; }
-        .form-group { display: flex; flex-direction: column; gap: 6px; }
-        .form-group label { font-size: 10px; text-transform: uppercase; letter-spacing: 1px; font-weight: 700; }
-        .form-input { padding: 12px; border: 1px solid var(--border); font-family: 'Montserrat', sans-serif; font-size: 13px; background: #fafafa; transition: var(--smooth); }
-        .form-input:focus { border-color: #111; background: #fff; }
-        .btn-submit { background: #111; color: #fff; border: none; padding: 15px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; cursor: pointer; margin-top: 10px; transition: var(--smooth); }
-        .btn-submit:hover { background: var(--gold); }
-
-        /* OVERLAY */
-        .global-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.4); backdrop-filter: blur(4px); z-index: 1500; display: none; }
-        .global-overlay.active { display: block; }
-
-        /* FOOTER */
-        footer { background: var(--black); color: #fff; padding: 60px 0; text-align: center; }
-        footer p { font-size: 11px; opacity: 0.4; letter-spacing: 1px; margin-top: 10px; }
-
-        @media (max-width: 768px) {
-            .nav-container { height: 75px; }
-            .logo { font-size: 20px; }
-            #hero { padding: 150px 0 70px 0; }
-            .cart-drawer { width: 100%; right: -100%; }
-            .auth-modal { width: 90%; padding: 25px; }
-        }
+        body { font-family: 'Montserrat', sans-serif; }
     </style>
 </head>
-<body>
-
-    <div class="global-overlay" id="globalOverlay"></div>
-
-    <!-- AUTH MODAL -->
-    <div class="auth-modal" id="authModal">
-        <div class="auth-header">
-            <div class="auth-tabs">
-                <button class="auth-tab active" id="tabLogin">Giriş</button>
-                <button class="auth-tab" id="tabRegister">Kayıt</button>
-            </div>
-            <button class="close-auth" id="closeAuth">&times;</button>
-        </div>
-        <form class="auth-form" id="loginForm">
-            <div class="form-group">
-                <label>E-Posta</label>
-                <input type="email" class="form-input" id="loginEmail" required placeholder="ornek@mail.com">
-            </div>
-            <div class="form-group">
-                <label>Şifre</label>
-                <input type="password" class="form-input" id="loginPassword" required placeholder="••••••••">
-            </div>
-            <button type="submit" class="btn-submit">Giriş Yap</button>
-        </form>
-        <form class="auth-form hidden" id="registerForm">
-            <div class="form-group">
-                <label>Ad Soyad</label>
-                <input type="text" class="form-input" id="regName" required placeholder="Ahmet Arman">
-            </div>
-            <div class="form-group">
-                <label>E-Posta</label>
-                <input type="email" class="form-input" id="regEmail" required placeholder="ornek@mail.com">
-            </div>
-            <div class="form-group">
-                <label>Şifre</label>
-                <input type="password" class="form-input" id="regPassword" required placeholder="En az 6 karakter" minlength="6">
-            </div>
-            <button type="submit" class="btn-submit">Kayıt Ol</button>
-        </form>
-    </div>
-
-    <!-- CART DRAWER -->
-    <div class="cart-drawer" id="cartDrawer">
-        <div class="cart-header">
-            <h3>Sepetiniz</h3>
-            <button class="close-cart" id="closeCart">&times;</button>
-        </div>
-        <div class="cart-items" id="cartItems"></div>
-        <div class="cart-footer">
-            <div class="cart-total">
-                <span>Toplam:</span>
-                <span id="cartTotal">₺0</span>
-            </div>
-            <button class="btn-checkout" id="checkoutBtn">Ödemeye Geç (Stripe)</button>
-        </div>
-    </div>
+<body class="bg-white text-neutral-900 antialiased" x-data="{
+    cart: [],
+    cartOpen: false,
+    authOpen: false,
+    authTab: 'login',
+    activeCat: 'all',
+    activeTarget: 'all',
+    products: [
+        { id: 1, cat: 'mont', target: 'erkek', name: 'Classic Biker', price: 8499, img: 'https://images.unsplash.com/photo-1551028719-00167b16eac5?q=80&w=600' },
+        { id: 2, cat: 'mont', target: 'kadin', name: 'Slim Bomber', price: 7999, img: 'https://images.unsplash.com/photo-1521223890158-f9f7c3d5d504?q=80&w=600' },
+        { id: 3, cat: 'mont', target: 'cocuk', name: 'Mini Rebel', price: 4599, img: 'https://images.unsplash.com/photo-1519457431-44ccd64a579b?q=80&w=600' },
+        { id: 4, cat: 'yelek', target: 'erkek', name: 'Gothic Vest', price: 5499, img: 'https://images.unsplash.com/photo-1617137968427-85924c800a22?q=80&w=600' },
+        { id: 5, cat: 'yelek', target: 'kadin', name: 'Boho Fringe', price: 4999, img: 'https://images.unsplash.com/photo-1485462537746-965f33f7f6a7?q=80&w=600' },
+        { id: 6, cat: 'sapka', target: 'erkek', name: 'Flat Cap', price: 1899, img: 'https://images.unsplash.com/photo-1534215754734-18e55d13ce35?q=80&w=600' }
+    ],
+    addToCart(p) {
+        let exist = this.cart.find(item => item.id === p.id);
+        if (exist) { exist.qty++ } else { this.cart.push({...p, qty: 1}) }
+        this.cartOpen = true;
+    },
+    removeFromCart(id) {
+        this.cart = this.cart.filter(item => item.id !== id);
+    },
+    get total() {
+        return this.cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+    },
+    get cartCount() {
+        return this.cart.reduce((sum, item) => sum + item.qty, 0);
+    }
+}">
 
     <!-- HEADER -->
-    <header>
-        <div class="container nav-container">
-            <a href="#" class="logo">ARMAN<span>.</span>DERİ</a>
-            <div class="nav-right">
-                <div id="userArea">
-                    <button class="btn-auth-trigger" id="authBtn">Giriş Yap</button>
-                </div>
-                <button class="cart-btn" id="cartBtn">
-                    <svg viewBox="0 0 24 24">
+    <header class="fixed top-0 left-0 w-full bg-white/90 backdrop-blur-md border-b border-neutral-100 z-50">
+        <div class="max-w-7xl mx-auto px-6 h-24 flex justify-between items-center">
+            <a href="#" class="font-cinzel text-2xl font-bold tracking-[4px]">ARMAN<span class="text-gold">.</span>DERİ</a>
+            <div class="flex items-center gap-8">
+                <button @click="authOpen = true" class="text-xs font-bold uppercase tracking-widest hover:text-gold transition-colors">Giriş Yap</button>
+                <button @click="cartOpen = true" class="relative p-2">
+                    <svg class="w-6 h-6 stroke-current fill-none stroke-[1.5]" viewBox="0 0 24 24">
                         <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4H6zM3 6h18M16 10a4 4 0 01-8 0" />
                     </svg>
-                    <span class="cart-badge" id="cartBadge">0</span>
+                    <span x-show="cartCount > 0" x-text="cartCount" class="absolute -top-1 -right-1 bg-dark text-white text-[9px] font-bold w-5 h-5 rounded-full flex items-center justify-center"></span>
                 </button>
             </div>
         </div>
     </header>
 
-    <!-- HERO -->
-    <section id="hero">
-        <div class="container">
-            <span class="hero-subtitle">Haute Couture Leather</span>
-            <h1 class="hero-title">ZAMANSIZ<br><span>PREMİUM STİL.</span></h1>
-            <p class="hero-desc">En üst kalite el işçiliğiyle üretilen modern deri mont, yelek ve şapka koleksiyonu.</p>
+    <!-- HERO SECTION -->
+    <section class="pt-44 pb-20 bg-neutral-50 text-center">
+        <div class="max-w-3xl mx-auto px-6">
+            <span class="text-xs font-bold uppercase tracking-[6px] text-gold block mb-4">Haute Couture Leather</span>
+            <h1 class="font-cinzel text-5xl md:text-7xl font-light tracking-wide uppercase mb-6 leading-tight">ZAMANSIZ<br><span class="font-black text-dark">PREMİUM STİL.</span></h1>
+            <p class="text-neutral-500 font-light text-sm md:text-base leading-relaxed max-w-xl mx-auto">En üst kalite el işçiliğiyle üretilen modern deri mont, yelek ve şapka koleksiyonu.</p>
         </div>
     </section>
 
     <!-- FILTERS -->
-    <div class="filter-section container">
-        <div class="filter-group">
-            <button class="btn-filter active" data-cat="all">Tüm Ürünler</button>
-            <button class="btn-filter" data-cat="mont">Deri Mont</button>
-            <button class="btn-filter" data-cat="yelek">Deri Yelek</button>
-            <button class="btn-filter" data-cat="sapka">Deri Şapka</button>
+    <section class="max-w-7xl mx-auto px-6 pt-16 flex flex-col items-center gap-6 border-t border-neutral-100">
+        <div class="flex flex-wrap gap-3 justify-center">
+            <template x-for="c in [['all','Tüm Ürünler'], ['mont','Deri Mont'], ['yelek','Deri Yelek'], ['sapka','Deri Şapka']]">
+                <button @click="activeCat = c[0]" :class="activeCat === c[0] ? 'bg-dark text-white border-dark' : 'border-neutral-200 hover:border-dark'" class="border px-6 py-2.5 text-xs font-bold uppercase tracking-widest transition-all" x-text="c[1]"></button>
+            </template>
         </div>
-        <div class="filter-group">
-            <button class="btn-sub active" data-target="all">Herkes İçin</button>
-            <button class="btn-sub" data-target="erkek">Erkek</button>
-            <button class="btn-sub" data-target="kadin">Kadın</button>
-            <button class="btn-sub" data-target="cocuk">Çocuk</button>
+        <div class="flex gap-6 justify-center">
+            <template x-for="t in [['all','Herkes İçin'], ['erkek','Erkek'], ['kadin','Kadın'], ['cocuk','Çocuk']]">
+                <button @click="activeTarget = t[0]" :class="activeTarget === t[0] ? 'text-dark border-b border-gold' : 'text-neutral-400'" class="pb-1 text-xs font-bold uppercase tracking-widest hover:text-dark transition-all" x-text="t[1]"></button>
+            </template>
+        </div>
+    </section>
+
+    <!-- PRODUCTS GRID -->
+    <main class="max-w-7xl mx-auto px-6 py-12">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <template x-for="p in products" :key="p.id">
+                <div x-show="(activeCat === 'all' || p.cat === activeCat) && (activeTarget === 'all' || p.target === activeTarget)" class="group border border-neutral-50 p-4 flex flex-col hover:shadow-xl hover:border-gold/30 transition-all duration-500 bg-white">
+                    <div class="aspect-[3/4] bg-neutral-100 overflow-hidden mb-6">
+                        <img :src="p.img" :alt="p.name" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                    </div>
+                    <div class="flex justify-between items-start mb-6">
+                        <div>
+                            <span class="text-[10px] font-bold uppercase tracking-widest text-gold" x-text="'Deri ' + p.cat"></span>
+                            <h3 class="font-cinzel text-xl font-bold uppercase mt-1" x-text="p.name"></h3>
+                            <span class="text-[11px] text-neutral-400 block mt-1" x-text="p.target.toUpperCase() + ' KOLEKSİYONU'"></span>
+                        </div>
+                        <span class="text-lg font-bold" x-text="'₺' + p.price.toLocaleString('tr-TR')"></span>
+                    </div>
+                    <button @click="addToCart(p)" class="w-full py-4 border border-dark text-xs font-bold uppercase tracking-widest hover:bg-dark hover:text-white transition-all duration-300">Sepete Ekle</button>
+                </div>
+            </template>
+        </div>
+    </main>
+
+    <!-- CART DRAWER -->
+    <div x-show="cartOpen" class="fixed inset-0 z-50 overflow-hidden" style="display: none;">
+        <div class="absolute inset-0 bg-black/40 backdrop-blur-sm" @click="cartOpen = false"></div>
+        <div class="absolute inset-y-0 right-0 max-w-full flex">
+            <div class="w-screen max-w-md bg-white shadow-2xl flex flex-col">
+                <div class="p-6 border-b border-neutral-100 flex justify-between items-center">
+                    <h3 class="font-cinzel text-xl font-bold uppercase tracking-wider">Sepetiniz</h3>
+                    <button @click="cartOpen = false" class="text-2xl hover:text-gold">&times;</button>
+                </div>
+                <div class="flex-1 overflow-y-auto p-6 space-y-6">
+                    <template x-show="cart.length === 0">
+                        <p class="text-center text-neutral-400 py-12">Sepetiniz henüz boş.</p>
+                    </template>
+                    <template x-for="item in cart" :key="item.id">
+                        <div class="flex gap-4 items-center border-b border-neutral-100 pb-4">
+                            <img :src="item.img" class="w-16 h-20 object-cover bg-neutral-50">
+                            <div class="flex-1">
+                                <h4 class="font-cinzel text-sm font-bold uppercase" x-text="item.name"></h4>
+                                <p class="text-xs text-gold font-semibold mt-1" x-text="item.qty + ' Adet x ₺' + item.price.toLocaleString('tr-TR')"></p>
+                                <button @click="removeFromCart(item.id)" class="text-[10px] font-bold text-red-500 uppercase mt-2 tracking-wider">Kaldır</button>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+                <div class="p-6 border-t border-neutral-100 bg-neutral-50">
+                    <div class="flex justify-between text-lg font-bold mb-6">
+                        <span>Toplam:</span>
+                        <span x-text="'₺' + total.toLocaleString('tr-TR')"></span>
+                    </div>
+                    <button class="w-full py-4 bg-dark text-white text-xs font-bold uppercase tracking-widest hover:bg-gold transition-colors">Ödemeye Geç (Stripe)</button>
+                </div>
+            </div>
         </div>
     </div>
 
-    <!-- PRODUCTS -->
-    <section class="container">
-        <div class="products-grid" id="productsGrid"></div>
-    </section>
+    <!-- AUTH MODAL -->
+    <div x-show="authOpen" class="fixed inset-0 z-50 flex items-center justify-center p-4" style="display: none;">
+        <div class="absolute inset-0 bg-black/40 backdrop-blur-sm" @click="authOpen = false"></div>
+        <div class="bg-white max-w-md w-full p-8 shadow-2xl relative z-10">
+            <button @click="authOpen = false" class="absolute top-4 right-4 text-2xl hover:text-gold">&times;</button>
+            <div class="flex gap-6 border-b border-neutral-100 mb-8">
+                <button @click="authTab = 'login'" :class="authTab === 'login' ? 'text-dark border-b-2 border-gold' : 'text-neutral-400'" class="pb-2 font-cinzel text-lg font-bold uppercase">Giriş</button>
+                <button @click="authTab = 'register'" :class="authTab === 'register' ? 'text-dark border-b-2 border-gold' : 'text-neutral-400'" class="pb-2 font-cinzel text-lg font-bold uppercase">Kayıt</button>
+            </div>
+            
+            <!-- Login Form -->
+            <form x-show="authTab === 'login'" class="space-y-5">
+                <div class="flex flex-col gap-2">
+                    <label class="text-[10px] font-bold uppercase tracking-wider">E-Posta</label>
+                    <input type="email" required class="p-3 border border-neutral-200 bg-neutral-50 focus:bg-white focus:border-dark text-sm outline-none" placeholder="ornek@mail.com">
+                </div>
+                <div class="flex flex-col gap-2">
+                    <label class="text-[10px] font-bold uppercase tracking-wider">Şifre</label>
+                    <input type="password" required class="p-3 border border-neutral-200 bg-neutral-50 focus:bg-white focus:border-dark text-sm outline-none" placeholder="••••••••">
+                </div>
+                <button type="submit" class="w-full py-4 bg-dark text-white text-xs font-bold uppercase tracking-widest hover:bg-gold transition-colors">Giriş Yap</button>
+            </form>
+
+            <!-- Register Form -->
+            <form x-show="authTab === 'register'" class="space-y-5" style="display: none;">
+                <div class="flex flex-col gap-2">
+                    <label class="text-[10px] font-bold uppercase tracking-wider">Ad Soyad</label>
+                    <input type="text" required class="p-3 border border-neutral-200 bg-neutral-50 focus:bg-white focus:border-dark text-sm outline-none" placeholder="Ahmet Arman">
+                </div>
+                <div class="flex flex-col gap-2">
+                    <label class="text-[10px] font-bold uppercase tracking-wider">E-Posta</label>
+                    <input type="email" required class="p-3 border border-neutral-200 bg-neutral-50 focus:bg-white focus:border-dark text-sm outline-none" placeholder="ornek@mail.com">
+                </div>
+                <div class="flex flex-col gap-2">
+                    <label class="text-[10px] font-bold uppercase tracking-wider">Şifre</label>
+                    <input type="password" required minlength="6" class="p-3 border border-neutral-200 bg-neutral-50 focus:bg-white focus:border-dark text-sm outline-none" placeholder="En az 6 karakter">
+                </div>
+                <button type="submit" class="w-full py-4 bg-dark text-white text-xs font-bold uppercase tracking-widest hover:bg-gold transition-colors">Kayıt Ol</button>
+            </form>
+        </div>
+    </div>
 
     <!-- FOOTER -->
-    <footer>
-        <div class="container">
-            <a href="#" class="logo" style="color:#fff;">ARMAN<span>.</span>DERİ</a>
-            <p>&copy; 2024 ARMAN DERİ. Tüm Hakları Saklıdır. Luxury Experience.</p>
+    <footer class="bg-dark text-white py-16 text-center">
+        <div class="max-w-7xl mx-auto px-6">
+            <a href="#" class="font-cinzel text-2xl font-bold tracking-[4px] text-white block mb-4">ARMAN<span class="text-gold">.</span>DERİ</a>
+            <p class="text-xs text-neutral-500 tracking-wider">&copy; 2024 ARMAN DERİ. Tüm Hakları Saklıdır. Luxury Experience.</p>
         </div>
     </footer>
 
-    <!-- SCRIPT -->
-    <script>
-        // --- SUPABASE BAĞLANTISI ---
-        const SUPABASE_URL = 'https://YAZILACAK_SUPABASE_URL.supabase.co'; // Kendi Supabase URL'nizi buraya yazın
-        const SUPABASE_KEY = 'sb_publishable_LThyUAglHADMOZHFwBqRgA_zG2Nwtz8';
-        const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-
-        // --- ÜRÜN VERİLERİ (Dinamik Render için) ---
-        const products = [
-            { id: 1, cat: 'mont', target: 'erkek', name: 'Classic Biker', price: 8499, img: 'https://images.unsplash.com/photo-1551028719-00167b16eac5?q=80&w=600' },
-            { id: 2, cat: 'mont', target: 'kadin', name: 'Slim Bomber', price: 7999, img: 'https://images.unsplash.com/photo-1521223890158-f9f7c3d5d504?q=80&w=600' },
-            { id: 3, cat: 'mont', target: 'cocuk', name: 'Mini Rebel', price: 4599, img: 'https://images.unsplash.com/photo-1519457431-44ccd64a579b?q=80&w=600' },
-            { id: 4, cat: 'yelek', target: 'erkek', name: 'Gothic Vest', price: 5499, img: 'https://images.unsplash.com/photo-1617137968427-85924c800a22?q=80&w=600' },
-            { id: 5, cat: 'yelek', target: 'kadin', name: 'Boho Fringe', price: 4999, img: 'https://images.unsplash.com/photo-1485462537746-965f33f7f6a7?q=80&w=600' },
-            { id: 6, cat: 'sapka', target: 'erkek', name: 'Flat Cap', price: 1899, img: 'https://images.unsplash.com/photo-1534215754734-18e55d13ce35?q=80&w=600' }
-        ];
-
-        let cart = [];
-        let activeCat = 'all';
-        let activeTarget = 'all';
-
-        // --- DOM SELECTION ---
-        const productsGrid = document.getElementById('productsGrid');
-        const cartItemsContainer = document.getElementById('cartItems');
-        const cartTotal = document.getElementById('cartTotal');
-        const cartBadge = document.getElementById('cartBadge');
-        const cartDrawer = document.getElementById('cartDrawer');
-        const authModal = document.getElementById('authModal');
-        const globalOverlay = document.getElementById('globalOverlay');
-
-        // --- RENDER PRODUCTS ---
-        function renderProducts() {
-            productsGrid.innerHTML = '';
-            const filtered = products.filter(p => {
-                const catMatch = activeCat === 'all' || p.cat === activeCat;
-                const targetMatch = activeTarget === 'all' || p.target === activeTarget;
-                return catMatch && targetMatch;
-            });
-
-            if(filtered.length === 0) {
-                productsGrid.innerHTML = `<p style="grid-column:1/-1; text-align:center; color:var(--grey); padding: 50px 0;">Aradığınız kriterlerde ürün bulunamadı.</p>`;
-                return;
-            }
-
-            filtered.forEach(p => {
-                const card = document.createElement('div');
-                card.className = 'product-card';
-                card.innerHTML = `
-                    <div class="img-container">
-                        <img src="${p.img}" alt="${p.name}">
-                    </div>
-                    <div class="prod-meta">
-                        <div>
-                            <span class="prod-cat">Deri ${p.cat}</span>
-                            <h3 class="prod-name">${p.name}</h3>
-                            <span class="prod-target">${p.target.toUpperCase()} KOLEKSİYONU</span>
-                        </div>
-                        <span class="prod-price">₺${p.price.toLocaleString('tr-TR')}</span>
-                    </div>
-                    <button class="btn-add-cart" onclick
+</body>
+</html>
