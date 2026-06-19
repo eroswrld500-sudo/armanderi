@@ -30,15 +30,15 @@ body {
     to { opacity: 1; transform: translateY(0); }
 }
 
-/* --- 4. Üst Menü (Navbar) Tasarımı (Siyah Arka Plan Güncellemesi) --- */
+/* --- 4. Üst Menü (Navbar) Tasarımı (Görsele Birebir Uygun) --- */
 .site-header {
-    background-color: rgba(13, 13, 13, 0.95); /* Derin siyah arka plan, yarı saydam */
-    backdrop-filter: blur(10px); /* Arka planı hafif bulanıklaştırma */
+    background-color: var(--color-cream); /* Görseldeki gibi açık, lüks krem arka plan */
     position: sticky;
     top: 0;
     width: 100%;
     z-index: 1000;
-    border-bottom: 1px solid rgba(197, 160, 89, 0.2); /* Siyah üzerine ince altın/bronz çizgi */
+    /* Menünün sayfa içeriğine karışmaması için çok ince bir gölge/çizgi */
+    border-bottom: 1px solid rgba(0, 0, 0, 0.03); 
     transition: all 0.3s ease;
 }
 
@@ -51,19 +51,19 @@ body {
     align-items: center;
 }
 
-/* Tıklanabilir ve Şık Logo */
+/* Görseldeki gibi Siyah ve Asil Logo */
 .brand-logo {
     font-family: var(--font-heading);
     font-size: 1.8rem;
     font-weight: 600;
-    color: var(--color-cream); /* Siyah arka planda öne çıkması için Krem renk */
+    color: var(--color-black); /* Yazı rengi derin siyah */
     text-decoration: none;
     letter-spacing: 1px;
     transition: color 0.3s ease;
 }
 
 .brand-logo:hover {
-    color: var(--color-gold); /* Mikro etkileşim: logoya gelince zarif renk değişimi */
+    color: var(--color-gold); /* Mikro etkileşim */
 }
 
 .nav-links {
@@ -74,7 +74,7 @@ body {
 
 .nav-links a {
     text-decoration: none;
-    color: var(--color-cream); /* Menü linkleri krem rengi */
+    color: var(--color-anthracite); /* Menü yazıları antrasit/siyah tonlarında */
     font-size: 0.85rem;
     font-weight: 500;
     text-transform: uppercase;
@@ -91,7 +91,7 @@ body {
     height: 1px;
     bottom: -5px;
     left: 0;
-    background-color: var(--color-gold); /* Altın rengi vurgu çizgisi */
+    background-color: var(--color-gold);
     transition: width 0.3s ease;
 }
 
