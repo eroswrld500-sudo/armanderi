@@ -1,49 +1,59 @@
-/* Reset ve Temel Ayarlar */
+/* Temel Reset */
 * { margin: 0; padding: 0; box-sizing: border-box; }
+
 body { 
-    font-family: 'Montserrat', sans-serif; 
-    background-color: #fcfcfc; /* Kirli Beyaz */
-    color: #1a1a1a; /* Antrasit */
-    line-height: 1.6;
+    background-color: #000000; /* Derin siyah zemin */
+    color: #ffffff;           /* Saf beyaz metin */
+    font-family: 'Inter', sans-serif;
+    line-height: 1.5;
+    overflow-x: hidden;
 }
 
-/* Navbar: Sticky ve Minimalist */
+/* Navbar - Minimalist & Keskin */
 .navbar {
     position: sticky;
     top: 0;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 2rem 5%;
-    background: rgba(252, 252, 252, 0.95);
-    backdrop-filter: blur(10px);
+    padding: 2.5rem 8%;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(20px); /* Lüks cam etkisi */
     z-index: 1000;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* Çok ince sınır */
 }
 
 .logo {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.5rem;
-    letter-spacing: 2px;
+    font-family: 'Cinzel', serif; /* Lüks Serif font */
+    font-size: 1.8rem;
+    letter-spacing: 0.4rem;
     cursor: pointer;
+    transition: opacity 0.3s ease;
 }
+
+.logo:hover { opacity: 0.7; }
 
 .nav-links { display: flex; list-style: none; }
-.nav-links li { margin-left: 2rem; }
+.nav-links li { margin-left: 4rem; }
 .nav-links a {
     text-decoration: none;
-    color: #1a1a1a;
-    font-size: 0.9rem;
+    color: #ffffff;
+    font-size: 0.75rem;
+    letter-spacing: 0.2rem;
     text-transform: uppercase;
-    letter-spacing: 1px;
-    transition: color 0.3s ease;
+    transition: all 0.4s ease;
+    opacity: 0.6;
 }
-.nav-links a:hover { color: #b8860b; } /* Altın rengi vurgu */
 
-/* Footer: Sade ve Asil */
+.nav-links a:hover { opacity: 1; }
+
+/* Footer - Sade ve Sessiz */
 .footer {
     text-align: center;
-    padding: 3rem;
-    font-size: 0.8rem;
-    color: #555;
-    border-top: 1px solid #eee;
+    padding: 4rem;
+    font-size: 0.7rem;
+    letter-spacing: 0.3rem;
+    text-transform: uppercase;
+    opacity: 0.4;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
