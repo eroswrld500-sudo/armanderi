@@ -1,0 +1,28 @@
+:root {
+  --black: #0A0A0A;
+  --gold: #C8A45D;
+  --white: #FFFFFF;
+  --gray: #A0A0A0;
+  --font-heading: 'Playfair Display', serif;
+  --font-body: 'Inter', sans-serif;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { 
+  background-color: var(--black); 
+  color: var(--white); 
+  font-family: var(--font-body);
+  transition: opacity 0.5s ease;
+}
+
+/* Luxury UI Components */
+.navbar { padding: 2rem; display: flex; justify-content: space-between; align-items: center; }
+.btn-gold { background: var(--gold); color: var(--black); padding: 12px 24px; border: none; cursor: pointer; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
+
+.product-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; padding: 40px; }
+.card { cursor: pointer; transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
+.card:hover { transform: translateY(-10px); }
+
+/* Cart Drawer (Silent Motion) */
+.cart-drawer { position: fixed; right: -400px; top: 0; width: 400px; height: 100%; background: #111; z-index: 1000; transition: right 0.4s cubic-bezier(0.77, 0, 0.175, 1); padding: 2rem; }
+.cart-drawer.open { right: 0; }
