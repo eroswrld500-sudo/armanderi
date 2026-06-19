@@ -3,209 +3,200 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Arman Deri | Luxury Leather Craft</title>
 
-<!-- Premium Fonts -->
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<title>Arman Deri | Luxury Craftsmanship</title>
+
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Cinzel:wght@400;600&display=swap" rel="stylesheet">
 
 <style>
-/* =======================
-   ROOT DESIGN SYSTEM
-======================= */
+/* =========================
+   LUXURY DESIGN SYSTEM
+========================= */
 :root{
   --black:#0A0A0A;
-  --surface:#151515;
-  --surface-2:#222;
+  --surface:#111111;
+  --elevated:#1C1C1C;
   --gold:#C8A45D;
-  --white:#F5F5F5;
+  --white:#EDEDED;
+  --muted:#8A8A8A;
 }
 
 *{margin:0;padding:0;box-sizing:border-box;}
-html{scroll-behavior:smooth;}
-body{
+html,body{
   background:var(--black);
   color:var(--white);
   font-family:Inter, sans-serif;
   overflow-x:hidden;
+  scroll-behavior:smooth;
 }
 
-/* =======================
-   CUSTOM CURSOR
-======================= */
+/* Custom Cursor */
 .cursor{
-  position:fixed;
-  width:12px;height:12px;
-  border-radius:50%;
+  width:8px;height:8px;
   background:var(--gold);
+  border-radius:50%;
+  position:fixed;
   pointer-events:none;
-  mix-blend-mode:difference;
-  transform:translate(-50%,-50%);
   z-index:9999;
-  box-shadow:0 0 20px var(--gold);
+  mix-blend-mode:screen;
+  box-shadow:0 0 15px rgba(200,164,93,.6);
+  transform:translate(-50%,-50%);
 }
 
-/* =======================
-   PRELOADER
-======================= */
-#preloader{
+/* PRELOADER */
+.preloader{
   position:fixed;
   inset:0;
   background:var(--black);
   display:flex;
   flex-direction:column;
-  align-items:center;
   justify-content:center;
-  z-index:99999;
+  align-items:center;
+  z-index:10000;
 }
 
-.loader-line{
-  width:200px;
+.logo{
+  font-family:Cinzel, serif;
+  letter-spacing:6px;
+  font-size:22px;
+  color:var(--white);
+  opacity:0;
+  animation:fadeIn 1.5s forwards;
+}
+
+.bar{
+  width:180px;
   height:1px;
-  background:#333;
+  background:#222;
   margin-top:20px;
+  position:relative;
   overflow:hidden;
 }
-
-.loader-line::after{
-  content:'';
-  display:block;
+.bar::after{
+  content:"";
+  position:absolute;
+  left:-100%;
+  width:100%;
   height:100%;
-  width:40%;
   background:var(--gold);
-  animation:load 2s infinite;
+  animation:load 2s forwards;
 }
 
-@keyframes load{
-  0%{transform:translateX(-100%);}
-  100%{transform:translateX(250%);}
-}
+@keyframes load{to{left:100%;}}
+@keyframes fadeIn{to{opacity:1;}}
 
-/* =======================
-   NAVBAR
-======================= */
+/* NAV */
 nav{
   position:fixed;
   top:0;
   width:100%;
-  padding:20px 50px;
+  padding:24px 40px;
   display:flex;
   justify-content:space-between;
   align-items:center;
-  z-index:999;
   backdrop-filter:blur(10px);
-  background:rgba(10,10,10,0.4);
+  background:rgba(10,10,10,.4);
+  z-index:1000;
 }
 
-nav h1{
+nav span{
   font-family:Cinzel;
-  letter-spacing:4px;
+  letter-spacing:3px;
   font-size:14px;
-  color:var(--gold);
 }
 
-nav a{
-  color:var(--white);
-  margin-left:20px;
-  text-decoration:none;
-  font-size:13px;
-  opacity:0.8;
-}
-
-/* =======================
-   HERO
-======================= */
+/* HERO */
 .hero{
   height:100vh;
-  position:relative;
   display:flex;
-  align-items:center;
+  flex-direction:column;
   justify-content:center;
+  align-items:center;
   text-align:center;
-  overflow:hidden;
+  position:relative;
+  background:url('https://images.unsplash.com/photo-1520975922284-9b7c3f1a7c88?auto=format&fit=crop&w=2000&q=80') center/cover;
 }
 
-.hero video{
-  position:absolute;
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  opacity:0.4;
-}
-
-.overlay{
+.hero::after{
+  content:"";
   position:absolute;
   inset:0;
-  background:radial-gradient(circle,transparent,black 70%);
+  background:rgba(0,0,0,.65);
 }
 
 .hero h1{
   font-family:Cinzel;
-  font-size:72px;
-  letter-spacing:10px;
+  font-size:64px;
+  letter-spacing:4px;
   z-index:2;
 }
 
 .hero p{
-  margin-top:10px;
-  opacity:0.7;
+  margin-top:12px;
+  color:var(--muted);
+  z-index:2;
+  font-size:16px;
+}
+
+.cta{
+  margin-top:30px;
+  display:flex;
+  gap:20px;
+  z-index:2;
 }
 
 .btn{
-  margin-top:30px;
-  padding:12px 28px;
+  padding:12px 24px;
   border:1px solid var(--gold);
+  color:var(--gold);
   background:transparent;
-  color:var(--white);
   cursor:pointer;
-  transition:0.4s;
+  transition:.6s;
+  letter-spacing:1px;
 }
 
 .btn:hover{
   background:var(--gold);
   color:black;
-  box-shadow:0 0 20px var(--gold);
 }
 
-/* =======================
-   SECTIONS
-======================= */
+/* SECTIONS */
 section{
   padding:120px 10%;
 }
 
 .title{
   font-family:Cinzel;
-  color:var(--gold);
+  font-size:32px;
   margin-bottom:20px;
-  letter-spacing:3px;
 }
 
-/* STORY */
-.story p{
-  max-width:600px;
-  opacity:0.8;
-  line-height:1.7;
+.text{
+  color:var(--muted);
+  line-height:1.8;
+  max-width:700px;
 }
 
 /* COLLECTION */
 .grid{
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-  gap:30px;
+  grid-template-columns:repeat(4,1fr);
+  gap:20px;
 }
 
 .card{
   background:var(--surface);
   padding:20px;
   border:1px solid #1f1f1f;
-  transition:0.4s;
+  transition:.6s;
   position:relative;
+  overflow:hidden;
 }
 
 .card:hover{
   transform:translateY(-10px);
   border-color:var(--gold);
-  box-shadow:0 10px 40px rgba(200,164,93,0.2);
 }
 
 .card h3{
@@ -213,84 +204,66 @@ section{
   margin-bottom:10px;
 }
 
-.card span{
-  font-size:12px;
-  opacity:0.6;
+.price{
+  color:var(--gold);
+  margin-top:10px;
 }
 
-/* FEATURES */
-.features{
+/* TRUST */
+.trust{
   display:flex;
-  gap:30px;
+  gap:40px;
 }
 
-.feature{
+.trust div{
   flex:1;
-  background:var(--surface);
-  padding:30px;
-  border-left:2px solid var(--gold);
-}
-
-/* TESTIMONIALS */
-.slider{
-  display:flex;
-  overflow-x:auto;
-  gap:20px;
-}
-
-.testimonial{
-  min-width:300px;
-  background:var(--surface);
   padding:20px;
+  background:var(--elevated);
   border-left:2px solid var(--gold);
+}
+
+/* TESTIMONIAL */
+.testimonial{
+  text-align:center;
+  font-style:italic;
+  color:var(--muted);
 }
 
 /* CTA */
-.cta{
+.final{
   text-align:center;
-  padding:150px 10%;
-  background:linear-gradient(180deg,var(--black),#111);
 }
 
-.cta h2{
-  font-family:Cinzel;
-  font-size:40px;
-}
-
-.cta button{
-  margin-top:30px;
-  padding:16px 40px;
-  border:none;
-  background:var(--gold);
+.big-btn{
+  padding:18px 40px;
+  font-size:16px;
+  border:1px solid var(--gold);
+  background:transparent;
+  color:var(--gold);
   cursor:pointer;
+  transition:.6s;
+}
+
+.big-btn:hover{
+  background:var(--gold);
+  color:black;
 }
 
 /* FOOTER */
 footer{
-  padding:40px;
+  padding:60px;
   text-align:center;
-  border-top:1px solid #222;
-  font-size:12px;
-  opacity:0.6;
+  border-top:1px solid #1f1f1f;
+  color:var(--muted);
 }
 
-/* ANIMATIONS */
-.fade{
-  opacity:0;
-  transform:translateY(30px);
-  transition:1s;
+/* RESPONSIVE */
+@media(max-width:900px){
+  .hero h1{font-size:38px;}
+  .grid{grid-template-columns:1fr 1fr;}
 }
-
-.fade.show{
-  opacity:1;
-  transform:translateY(0);
-}
-
-/* MOBILE */
-@media(max-width:768px){
-  .hero h1{font-size:40px;}
-  nav{padding:15px;}
-  .features{flex-direction:column;}
+@media(max-width:600px){
+  .grid{grid-template-columns:1fr;}
 }
 </style>
 </head>
@@ -300,112 +273,110 @@ footer{
 <div class="cursor"></div>
 
 <!-- PRELOADER -->
-<div id="preloader">
-  <h1 style="font-family:Cinzel; color:#C8A45D;">ARMAN DERİ</h1>
-  <div class="loader-line"></div>
+<div class="preloader" id="preloader">
+  <div class="logo">ARMAN DERİ</div>
+  <div class="bar"></div>
 </div>
 
 <!-- NAV -->
 <nav>
-  <h1>ARMAN DERİ</h1>
-  <div>
-    <a href="#story">Hikaye</a>
-    <a href="#collection">Koleksiyon</a>
-    <a href="#cta">Keşfet</a>
-  </div>
+  <span>ARMAN DERİ</span>
+  <span>EST. 1987</span>
 </nav>
 
 <!-- HERO -->
 <div class="hero">
-  <video autoplay muted loop>
-    <source src="https://assets.mixkit.co/videos/preview/mixkit-handmade-leather-work-39810-large.mp4">
-  </video>
-  <div class="overlay"></div>
-
-  <div>
-    <h1>ARMAN DERİ</h1>
-    <p>El işçiliği ile zamansız lüks</p>
+  <h1>ARMAN DERİ</h1>
+  <p>Zanaatkârlığın zamansız dili.</p>
+  <div class="cta">
     <button class="btn">Koleksiyonu Keşfet</button>
+    <button class="btn">Ustalığımız</button>
   </div>
 </div>
 
 <!-- STORY -->
-<section id="story" class="story fade">
-  <h2 class="title">MARKA HİKAYESİ</h2>
-  <p>1987’den beri ustalıkla işlenen deri. Her ürün bir karakter taşır, her dikiş bir hikaye anlatır.</p>
+<section>
+  <div class="title">Marka Hikayesi</div>
+  <div class="text">
+    1987’den bu yana her ürün, ustaların elinde şekillenen bir imzaya dönüşür.
+    Arman Deri, yalnızca ürün değil; karakter üretir.
+  </div>
 </section>
 
 <!-- COLLECTION -->
-<section id="collection" class="fade">
-  <h2 class="title">KOLEKSİYON</h2>
-
+<section>
+  <div class="title">Koleksiyon</div>
   <div class="grid">
-    <div class="card"><h3>Ceketler</h3><span>El yapımı</span></div>
-    <div class="card"><h3>Çantalar</h3><span>Full grain deri</span></div>
-    <div class="card"><h3>Yelekler</h3><span>Usta işçilik</span></div>
-    <div class="card"><h3>Çocuk Koleksiyonu</h3><span>Premium seri</span></div>
+    <div class="card"><h3>Deri Ceket</h3><div class="price">€890</div></div>
+    <div class="card"><h3>El Çantası</h3><div class="price">€1,250</div></div>
+    <div class="card"><h3>Yelek</h3><div class="price">€620</div></div>
+    <div class="card"><h3>Çocuk</h3><div class="price">€299</div></div>
   </div>
 </section>
 
-<!-- FEATURES -->
-<section class="fade">
-  <h2 class="title">MALZEME KALİTESİ</h2>
-
-  <div class="features">
-    <div class="feature">%100 Full Grain Deri</div>
-    <div class="feature">El Dikişi Ustalığı</div>
-    <div class="feature">Ömür Boyu Dayanıklılık</div>
+<!-- TRUST -->
+<section>
+  <div class="title">Ustalık</div>
+  <div class="trust">
+    <div>%100 Full Grain Leather</div>
+    <div>El Dikişi Zanaatkârlık</div>
+    <div>Ömür Boyu Dayanıklılık</div>
   </div>
 </section>
 
-<!-- TESTIMONIALS -->
-<section class="fade">
-  <h2 class="title">MÜŞTERİ YORUMLARI</h2>
-
-  <div class="slider">
-    <div class="testimonial">“Kaliteyi ilk dokunuşta hissediyorsunuz.”</div>
-    <div class="testimonial">“Gerçek lüks budur.”</div>
-    <div class="testimonial">“Site bile premium hissettiriyor.”</div>
+<!-- TESTIMONIAL -->
+<section>
+  <div class="testimonial">
+    “Bu siteye girince kaliteyi hissediyorsunuz.”
   </div>
 </section>
 
-<!-- CTA -->
-<section id="cta" class="cta fade">
-  <h2>ARMAN DERİ KOLEKSİYONUNU KEŞFET</h2>
-  <button>ALIŞVERİŞE BAŞLA</button>
+<!-- FINAL CTA -->
+<section class="final">
+  <button class="big-btn">Koleksiyonu Keşfet</button>
 </section>
 
 <footer>
-  © 2026 Arman Deri — All rights reserved
+  Instagram · TikTok · info@armanderi.com
 </footer>
 
 <script>
-// PRELOADER
-window.addEventListener("load", () => {
-  setTimeout(() => {
-    document.getElementById("preloader").style.opacity = "0";
-    document.getElementById("preloader").style.pointerEvents = "none";
-  }, 2000);
+/* =========================
+   PRELOADER
+========================= */
+window.addEventListener("load",()=>{
+  setTimeout(()=>{
+    document.getElementById("preloader").style.opacity="0";
+    document.getElementById("preloader").style.pointerEvents="none";
+  },2200);
 });
 
-// CURSOR
+/* =========================
+   CUSTOM CURSOR
+========================= */
 const cursor = document.querySelector(".cursor");
-document.addEventListener("mousemove", (e)=>{
+document.addEventListener("mousemove",(e)=>{
   cursor.style.left = e.clientX + "px";
   cursor.style.top = e.clientY + "px";
 });
 
-// SCROLL REVEAL
+/* =========================
+   SCROLL FADE (Luxury reveal)
+========================= */
 const observer = new IntersectionObserver(entries=>{
   entries.forEach(entry=>{
     if(entry.isIntersecting){
-      entry.target.classList.add("show");
+      entry.target.style.opacity=1;
+      entry.target.style.transform="translateY(0)";
     }
   });
 });
 
-document.querySelectorAll(".fade").forEach(el=>{
-  observer.observe(el);
+document.querySelectorAll("section").forEach(sec=>{
+  sec.style.opacity=0;
+  sec.style.transform="translateY(40px)";
+  sec.style.transition="1.2s ease";
+  observer.observe(sec);
 });
 </script>
 
