@@ -1,11 +1,15 @@
-/* --- LÜKS MARKA DEĞİŞKENLERİ --- */
+/* --- 1. Lüks & Sade Renk Paleti ve Tipografi --- */
 :root {
-    --dark-charcoal: #0a0a0a;
-    --soft-white: #F9F9F7;
-    --taupe: #A39171; /* Çok ince, lüks bir taba/altın tonu */
+    --color-black: #0d0d0d;       /* Derin Siyah */
+    --color-anthracite: #1a1a1a;  /* Antrasit */
+    --color-cream: #Faf8f5;       /* Zengin Krem/Kirli Beyaz */
+    --color-gold: #c5a059;        /* Zarif, İnce Altın/Bronz */
+    
+    --font-heading: 'Playfair Display', serif; /* Asil ve Klasik */
+    --font-body: 'Montserrat', sans-serif;     /* Modern ve Okunaklı */
 }
 
-/* --- SIFIRLAMA VE TEMEL --- */
+/* --- 2. Temel Sıfırlama (Reset) & Kasa Yapısı --- */
 * {
     margin: 0;
     padding: 0;
@@ -13,145 +17,179 @@
 }
 
 body {
-    background-color: var(--dark-charcoal);
-    color: var(--soft-white);
-    font-family: 'Inter', sans-serif;
-    -webkit-font-smoothing: antialiased; /* Fontların jilet gibi keskin durması için */
-    overflow-x: hidden;
+    font-family: var(--font-body);
+    background-color: var(--color-cream);
+    color: var(--color-anthracite);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased; /* Fontların daha pürüzsüz görünmesi için */
 }
 
-/* --- SİNEMATİK ANİMASYONLAR --- */
-@keyframes fadeUp {
-    from { opacity: 0; transform: translateY(30px); }
+/* --- 3. Animasyonlar (Yumuşak Geçişler) --- */
+@keyframes softFadeIn {
+    from { opacity: 0; transform: translateY(15px); }
     to { opacity: 1; transform: translateY(0); }
 }
 
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-}
-
-/* --- SİMETRİK NAVBAR --- */
-.navbar {
-    position: fixed;
+/* --- 4. Üst Menü (Navbar) Tasarımı --- */
+.site-header {
+    background-color: rgba(250, 248, 245, 0.95); /* Yarı saydam krem, lüks his */
+    backdrop-filter: blur(10px); /* Arka planı hafif bulanıklaştırma */
+    position: sticky;
     top: 0;
     width: 100%;
-    padding: 40px 5vw;
-    display: grid;
-    grid-template-columns: 1fr auto 1fr;
-    align-items: center;
     z-index: 1000;
-    background: linear-gradient(to bottom, rgba(10,10,10,0.8) 0%, rgba(10,10,10,0) 100%); /* Sadece en üste zarif bir gölge */
-    animation: fadeIn 2s ease-out;
+    border-bottom: 1px solid rgba(197, 160, 89, 0.1); /* Çok ince bronz çizgi */
+    transition: all 0.3s ease;
 }
 
-.nav-left { display: flex; gap: 50px; }
-.nav-right { display: flex; gap: 50px; justify-content: flex-end; }
-
-.nav-link {
-    font-family: 'Inter', sans-serif;
-    font-size: 10px;
-    font-weight: 300;
-    text-transform: uppercase;
-    letter-spacing: 3px;
-    color: rgba(255, 255, 255, 0.6);
-    text-decoration: none;
-    transition: color 0.5s ease;
-}
-
-.nav-link:hover {
-    color: #fff;
-}
-
-/* --- LOGO TASARIMI --- */
-.logo-container {
-    text-align: center;
+.nav-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 1.5rem 5%;
     display: flex;
-    flex-direction: column;
+    justify-content: space-between;
     align-items: center;
 }
 
-.logo {
-    font-family: 'Cinzel', serif;
-    font-size: 32px;
-    letter-spacing: 10px;
-    color: #fff;
+/* Tıklanabilir ve Şık Logo */
+.brand-logo {
+    font-family: var(--font-heading);
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: var(--color-black);
     text-decoration: none;
-    margin-right: -10px; /* Letter-spacing simetrisini düzeltmek için */
+    letter-spacing: 1px;
+    transition: color 0.3s ease;
 }
 
-.logo-sub {
-    font-family: 'Inter', sans-serif;
-    font-size: 8px;
-    letter-spacing: 12px;
-    color: var(--taupe);
-    margin-top: 5px;
-    margin-right: -12px;
+.brand-logo:hover {
+    color: var(--color-gold); /* Mikro etkileşim: logoya gelince zarif renk değişimi */
 }
 
-/* --- KARŞILAMA EKRANI (HERO) --- */
-.hero {
-    height: 100vh;
-    /* Şimdilik lüks ve derin bir doku veriyoruz, buraya resim gelecek */
-    background: radial-gradient(circle at center, #1f1f1f 0%, var(--dark-charcoal) 100%);
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 3rem;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: var(--color-anthracite);
+    font-size: 0.85rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    transition: color 0.3s ease;
+    position: relative;
+}
+
+/* İnce Çizgi (Underline) Hover Efekti */
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    width: 0%;
+    height: 1px;
+    bottom: -5px;
+    left: 0;
+    background-color: var(--color-gold);
+    transition: width 0.3s ease;
+}
+
+.nav-links a:hover {
+    color: var(--color-gold);
+}
+
+.nav-links a:hover::after {
+    width: 100%;
+}
+
+/* --- 5. Sayfa İçeriği & Geçici Hero (Animasyonlu) --- */
+.page-content {
+    min-height: 80vh;
+    animation: softFadeIn 1.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+.placeholder-hero {
     display: flex;
     flex-direction: column;
+    align-items: center;
     justify-content: center;
-    align-items: center;
+    height: 70vh;
     text-align: center;
-    padding: 0 20px;
+    padding: 0 5%;
 }
 
-.subtitle {
-    font-family: 'Inter', sans-serif;
-    font-size: 10px;
-    letter-spacing: 6px;
-    color: var(--taupe);
-    margin-bottom: 25px;
-    opacity: 0;
-    animation: fadeUp 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) forwards 0.2s;
+.placeholder-hero h1 {
+    font-family: var(--font-heading);
+    font-size: 3.5rem;
+    color: var(--color-black);
+    font-weight: 500;
+    margin-bottom: 1rem;
 }
 
-.title {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 5vw; /* Ekran boyutuna göre kendini mükemmel ayarlar */
+.placeholder-hero p {
+    font-size: 1.1rem;
     font-weight: 300;
-    line-height: 1.05;
-    margin-bottom: 35px;
-    opacity: 0;
-    animation: fadeUp 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) forwards 0.4s;
+    color: var(--color-anthracite);
+    max-width: 600px;
 }
 
-.description {
-    font-family: 'Inter', sans-serif;
-    font-size: 14px;
-    font-weight: 200;
-    letter-spacing: 1.5px;
-    color: rgba(255, 255, 255, 0.5);
-    max-width: 450px;
-    margin: 0 auto 50px auto;
-    line-height: 1.8;
-    opacity: 0;
-    animation: fadeUp 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) forwards 0.6s;
+/* --- 6. Alt Bilgi (Footer) Tasarımı --- */
+.site-footer {
+    background-color: var(--color-black);
+    color: var(--color-cream);
+    text-align: center;
+    padding: 5rem 5% 2rem;
 }
 
-/* --- LÜKS BUTON TASARIMI --- */
-.btn-primary {
-    display: inline-block;
-    padding: 20px 45px;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    color: #fff;
+.footer-logo {
+    font-family: var(--font-heading);
+    font-size: 2rem;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    color: var(--color-cream);
+}
+
+.footer-tagline {
+    font-size: 0.9rem;
+    font-weight: 300;
+    color: var(--color-gold);
+    letter-spacing: 2px;
+    margin-bottom: 3rem;
+}
+
+.footer-links {
+    margin-bottom: 2rem;
+}
+
+.footer-links a {
+    color: rgba(250, 248, 245, 0.7);
     text-decoration: none;
-    font-size: 10px;
-    text-transform: uppercase;
-    letter-spacing: 4px;
-    transition: all 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
-    opacity: 0;
-    animation: fadeUp 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) forwards 0.8s;
+    font-size: 0.85rem;
+    margin: 0 1rem;
+    transition: color 0.3s ease;
 }
 
-.btn-primary:hover {
-    background-color: #fff;
-    color: var(--dark-charcoal);
-    border-color: #fff;
+.footer-links a:hover {
+    color: var(--color-gold);
+}
+
+.copyright {
+    font-size: 0.75rem;
+    color: rgba(250, 248, 245, 0.4);
+    border-top: 1px solid rgba(250, 248, 245, 0.1);
+    padding-top: 2rem;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+/* --- 7. Responsive (Mobil) Düzenlemeleri --- */
+@media screen and (max-width: 768px) {
+    .nav-links {
+        display: none; /* Mobilde şimdilik menüyü gizliyoruz, hamburger menü eklenecek */
+    }
+    
+    .placeholder-hero h1 {
+        font-size: 2.5rem;
+    }
 }
