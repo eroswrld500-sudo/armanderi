@@ -6,101 +6,132 @@
 }
 
 body {
-    font-family: 'Montserrat', sans-serif;
-    color: #222;
-    background-color: #fafafa;
+    font-family: 'Jost', sans-serif; /* Modern, temiz, minimalist metin fontu */
+    color: #1a1a1a;
+    background-color: #fbfbfb;
     line-height: 1.6;
+    -webkit-font-smoothing: antialiased; /* Yazıların daha pürüzsüz görünmesi için */
 }
 
-h1, h2, h3, .logo {
-    font-family: 'Playfair Display', serif;
+h1, h2, h3 {
+    font-family: 'Cormorant Garamond', serif; /* Zarif, lüks başlık fontu */
 }
 
-/* --- ÜST MENÜ (NAVBAR) --- */
+/* --- ÜST MENÜ (NAVBAR) - MODERN & STICKY --- */
 .navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 30px 10%;
-    background-color: #fff;
+    padding: 25px 8%;
+    background-color: rgba(255, 255, 255, 0.9); /* Hafif saydam arka plan */
+    backdrop-filter: blur(10px); /* Modern buzlu cam efekti */
+    position: fixed; /* Sayfayı kaydırırken menü hep üstte kalır */
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    border-bottom: 1px solid rgba(0,0,0,0.05); /* Çok ince, zarif bir alt çizgi */
 }
 
 .logo {
-    font-size: 24px;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 26px;
     font-weight: 600;
-    letter-spacing: 2px;
+    letter-spacing: 3px;
     color: #000;
+    text-decoration: none; /* Alt çizgiyi kaldırır */
+    transition: opacity 0.3s ease;
+}
+
+.logo:hover {
+    opacity: 0.7; /* Üzerine gelince hafif solma efekti */
 }
 
 .nav-links {
     list-style: none;
     display: flex;
-    gap: 40px;
+    gap: 45px;
 }
 
 .nav-links a {
     text-decoration: none;
-    color: #555;
-    font-size: 14px;
+    color: #333;
+    font-size: 13px;
+    font-weight: 400;
     text-transform: uppercase;
-    letter-spacing: 1px;
-    transition: color 0.3s ease;
+    letter-spacing: 1.5px;
+    position: relative; /* Alt çizgi animasyonu için gerekli */
+    padding-bottom: 5px;
 }
 
-.nav-links a:hover {
-    color: #000;
+/* Linklerin altına fareyle gelince kayan çizgi animasyonu */
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 1px;
+    bottom: 0;
+    left: 0;
+    background-color: #000;
+    transition: width 0.4s ease;
+}
+
+.nav-links a:hover::after {
+    width: 100%;
 }
 
 /* --- KARŞILAMA ALANI (HERO) --- */
 .hero {
-    height: 80vh;
+    height: 100vh; /* Tam ekran yüksekliği */
     display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
-    background-color: #111; /* Buraya ileride şık bir deri arka plan görseli koyacağız */
+    background-color: #111; 
     color: #fff;
     padding: 0 20px;
+    margin-top: 0; /* Menü fixed olduğu için margin sıfırlandı */
 }
 
 .hero-content h1 {
-    font-size: 48px;
+    font-size: 56px;
     font-weight: 400;
-    margin-bottom: 20px;
-    letter-spacing: 1px;
+    margin-bottom: 15px;
+    letter-spacing: 2px;
 }
 
 .hero-content p {
     font-weight: 300;
     font-size: 16px;
-    margin-bottom: 40px;
-    color: #ccc;
+    margin-bottom: 45px;
+    color: #d1d1d1;
     letter-spacing: 1px;
 }
 
 /* --- BUTONLAR --- */
 .btn {
     text-decoration: none;
-    padding: 15px 40px;
-    background-color: #fff;
-    color: #111;
-    font-size: 14px;
+    padding: 16px 45px;
+    background-color: transparent;
+    color: #fff;
+    border: 1px solid #fff; /* İnce zarif çerçeve */
+    font-size: 13px;
     text-transform: uppercase;
     letter-spacing: 2px;
-    transition: background-color 0.3s, color 0.3s;
+    transition: all 0.4s ease;
 }
 
 .btn:hover {
-    background-color: #d4af37; /* Lüks Altın/Taba Rengi */
-    color: #fff;
+    background-color: #fff;
+    color: #111;
 }
 
 /* --- ALT BİLGİ (FOOTER) --- */
 footer {
     text-align: center;
-    padding: 40px 20px;
+    padding: 50px 20px;
     background-color: #fff;
-    font-size: 12px;
-    color: #777;
+    font-size: 13px;
+    color: #999;
     letter-spacing: 1px;
+    border-top: 1px solid rgba(0,0,0,0.05);
 }
