@@ -1,195 +1,49 @@
-/* --- 1. Lüks & Sade Renk Paleti ve Tipografi --- */
-:root {
-    --color-black: #0d0d0d;       /* Derin Siyah */
-    --color-anthracite: #1a1a1a;  /* Antrasit */
-    --color-cream: #Faf8f5;       /* Zengin Krem/Kirli Beyaz */
-    --color-gold: #c5a059;        /* Zarif, İnce Altın/Bronz */
-    
-    --font-heading: 'Playfair Display', serif; /* Asil ve Klasik */
-    --font-body: 'Montserrat', sans-serif;     /* Modern ve Okunaklı */
-}
-
-/* --- 2. Temel Sıfırlama (Reset) & Kasa Yapısı --- */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    font-family: var(--font-body);
-    background-color: var(--color-cream);
-    color: var(--color-anthracite);
+/* Reset ve Temel Ayarlar */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { 
+    font-family: 'Montserrat', sans-serif; 
+    background-color: #fcfcfc; /* Kirli Beyaz */
+    color: #1a1a1a; /* Antrasit */
     line-height: 1.6;
-    -webkit-font-smoothing: antialiased; /* Fontların daha pürüzsüz görünmesi için */
 }
 
-/* --- 3. Animasyonlar (Yumuşak Geçişler) --- */
-@keyframes softFadeIn {
-    from { opacity: 0; transform: translateY(15px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-/* --- 4. Üst Menü (Navbar) Tasarımı (Görsele Birebir Uygun) --- */
-.site-header {
-    background-color: var(--color-cream); /* Görseldeki gibi açık, lüks krem arka plan */
+/* Navbar: Sticky ve Minimalist */
+.navbar {
     position: sticky;
     top: 0;
-    width: 100%;
-    z-index: 1000;
-    /* Menünün sayfa içeriğine karışmaması için çok ince bir gölge/çizgi */
-    border-bottom: 1px solid rgba(0, 0, 0, 0.03); 
-    transition: all 0.3s ease;
-}
-
-.nav-container {
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 1.5rem 5%;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding: 2rem 5%;
+    background: rgba(252, 252, 252, 0.95);
+    backdrop-filter: blur(10px);
+    z-index: 1000;
 }
 
-/* Görseldeki gibi Siyah ve Asil Logo */
-.brand-logo {
-    font-family: var(--font-heading);
-    font-size: 1.8rem;
-    font-weight: 600;
-    color: var(--color-black); /* Yazı rengi derin siyah */
+.logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    letter-spacing: 2px;
+    cursor: pointer;
+}
+
+.nav-links { display: flex; list-style: none; }
+.nav-links li { margin-left: 2rem; }
+.nav-links a {
     text-decoration: none;
+    color: #1a1a1a;
+    font-size: 0.9rem;
+    text-transform: uppercase;
     letter-spacing: 1px;
     transition: color 0.3s ease;
 }
+.nav-links a:hover { color: #b8860b; } /* Altın rengi vurgu */
 
-.brand-logo:hover {
-    color: var(--color-gold); /* Mikro etkileşim */
-}
-
-.nav-links {
-    list-style: none;
-    display: flex;
-    gap: 3rem;
-}
-
-.nav-links a {
-    text-decoration: none;
-    color: var(--color-anthracite); /* Menü yazıları antrasit/siyah tonlarında */
-    font-size: 0.85rem;
-    font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    transition: color 0.3s ease;
-    position: relative;
-}
-
-/* İnce Çizgi (Underline) Hover Efekti */
-.nav-links a::after {
-    content: '';
-    position: absolute;
-    width: 0%;
-    height: 1px;
-    bottom: -5px;
-    left: 0;
-    background-color: var(--color-gold);
-    transition: width 0.3s ease;
-}
-
-.nav-links a:hover {
-    color: var(--color-gold);
-}
-
-.nav-links a:hover::after {
-    width: 100%;
-}
-
-/* --- 5. Sayfa İçeriği & Geçici Hero (Animasyonlu) --- */
-.page-content {
-    min-height: 80vh;
-    animation: softFadeIn 1.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
-}
-
-.placeholder-hero {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 70vh;
+/* Footer: Sade ve Asil */
+.footer {
     text-align: center;
-    padding: 0 5%;
-}
-
-.placeholder-hero h1 {
-    font-family: var(--font-heading);
-    font-size: 3.5rem;
-    color: var(--color-black);
-    font-weight: 500;
-    margin-bottom: 1rem;
-}
-
-.placeholder-hero p {
-    font-size: 1.1rem;
-    font-weight: 300;
-    color: var(--color-anthracite);
-    max-width: 600px;
-}
-
-/* --- 6. Alt Bilgi (Footer) Tasarımı --- */
-.site-footer {
-    background-color: var(--color-black);
-    color: var(--color-cream);
-    text-align: center;
-    padding: 5rem 5% 2rem;
-}
-
-.footer-logo {
-    font-family: var(--font-heading);
-    font-size: 2rem;
-    font-weight: 500;
-    margin-bottom: 0.5rem;
-    color: var(--color-cream);
-}
-
-.footer-tagline {
-    font-size: 0.9rem;
-    font-weight: 300;
-    color: var(--color-gold);
-    letter-spacing: 2px;
-    margin-bottom: 3rem;
-}
-
-.footer-links {
-    margin-bottom: 2rem;
-}
-
-.footer-links a {
-    color: rgba(250, 248, 245, 0.7);
-    text-decoration: none;
-    font-size: 0.85rem;
-    margin: 0 1rem;
-    transition: color 0.3s ease;
-}
-
-.footer-links a:hover {
-    color: var(--color-gold);
-}
-
-.copyright {
-    font-size: 0.75rem;
-    color: rgba(250, 248, 245, 0.4);
-    border-top: 1px solid rgba(250, 248, 245, 0.1);
-    padding-top: 2rem;
-    max-width: 800px;
-    margin: 0 auto;
-}
-
-/* --- 7. Responsive (Mobil) Düzenlemeleri --- */
-@media screen and (max-width: 768px) {
-    .nav-links {
-        display: none; /* Mobilde şimdilik menüyü gizliyoruz, hamburger menü eklenecek */
-    }
-    
-    .placeholder-hero h1 {
-        font-size: 2.5rem;
-    }
+    padding: 3rem;
+    font-size: 0.8rem;
+    color: #555;
+    border-top: 1px solid #eee;
 }
