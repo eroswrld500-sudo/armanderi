@@ -2,14 +2,14 @@
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 body { 
-    background-color: #000000; /* Derin siyah zemin */
-    color: #ffffff;           /* Saf beyaz metin */
+    background-color: #000000; 
+    color: #ffffff; 
     font-family: 'Inter', sans-serif;
     line-height: 1.5;
     overflow-x: hidden;
 }
 
-/* Navbar - Minimalist & Keskin */
+/* Navbar - Minimalist & Sabit */
 .navbar {
     position: sticky;
     top: 0;
@@ -18,13 +18,13 @@ body {
     align-items: center;
     padding: 2.5rem 8%;
     background: rgba(0, 0, 0, 0.8);
-    backdrop-filter: blur(20px); /* Lüks cam etkisi */
+    backdrop-filter: blur(20px);
     z-index: 1000;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* Çok ince sınır */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .logo {
-    font-family: 'Cinzel', serif; /* Lüks Serif font */
+    font-family: 'Cinzel', serif;
     font-size: 1.8rem;
     letter-spacing: 0.4rem;
     cursor: pointer;
@@ -44,10 +44,53 @@ body {
     transition: all 0.4s ease;
     opacity: 0.6;
 }
-
 .nav-links a:hover { opacity: 1; }
 
-/* Footer - Sade ve Sessiz */
+/* Hero Section */
+.hero {
+    height: 80vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 0 5%;
+}
+
+.hero-title {
+    font-family: 'Cinzel', serif;
+    font-size: 5rem;
+    letter-spacing: 1rem;
+    margin-bottom: 1.5rem;
+    animation: fadeIn 2s ease-in;
+}
+
+.hero-subtitle {
+    font-size: 0.9rem;
+    letter-spacing: 0.6rem;
+    text-transform: uppercase;
+    opacity: 0.7;
+    margin-bottom: 4rem;
+    animation: fadeIn 3s ease-in;
+}
+
+.cta-button {
+    display: inline-block;
+    padding: 1.2rem 3rem;
+    border: 1px solid #ffffff;
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 0.8rem;
+    letter-spacing: 0.3rem;
+    transition: all 0.5s ease;
+    text-transform: uppercase;
+}
+
+.cta-button:hover {
+    background-color: #ffffff;
+    color: #000000;
+}
+
+/* Footer */
 .footer {
     text-align: center;
     padding: 4rem;
@@ -56,4 +99,16 @@ body {
     text-transform: uppercase;
     opacity: 0.4;
     border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Animasyonlar */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Responsive - Mobil Uyumu */
+@media (max-width: 768px) {
+    .hero-title { font-size: 2.5rem; letter-spacing: 0.5rem; }
+    .nav-links { display: none; } /* Mobil için menü gizleme (opsiyonel) */
 }
