@@ -44,3 +44,42 @@ body {
     text-transform: uppercase;
     opacity: 0.3;
 }
+
+/* Koleksiyon Bölümü */
+.collection {
+    padding: 6rem 8%;
+}
+
+.section-title {
+    font-family: 'Cinzel', serif;
+    font-size: 1.2rem;
+    letter-spacing: 0.5rem;
+    text-align: center;
+    margin-bottom: 4rem;
+    opacity: 0.8;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 3rem;
+}
+
+.grid-item {
+    height: 450px;
+    background-color: #111; /* Görseller gelene kadar placeholder */
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1), opacity 0.6s ease;
+    cursor: pointer;
+}
+
+/* Hover Efekti: Lüks geçiş */
+.grid-item:hover {
+    transform: translateY(-10px);
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+/* Responsive Düzen */
+@media (max-width: 768px) {
+    .grid-container { grid-template-columns: 1fr; }
+}
