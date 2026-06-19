@@ -3,263 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Arman Deri | Lüks ve Zarafetin Buluşması</title>
+    <title>Arman Deri</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
-    
-    <style>
-        /* Temel Sıfırlamalar ve Renkler */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        :root {
-            --bg-color: #ffffff;
-            --text-color: #1a1a1a;
-            --accent-color: #b89742; /* Lüks Altın/Şampanya Tonu */
-            --light-gray: #f9f9f9;
-        }
-        body {
-            font-family: 'Montserrat', sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            line-height: 1.6;
-        }
-        h1, h2, h3 {
-            font-family: 'Cinzel', serif;
-            letter-spacing: 2px;
-        }
-
-        /* Navigasyon Barı */
-        header {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            background-color: rgba(255, 255, 255, 0.95);
-            border-bottom: 1px solid #eee;
-            z-index: 1000;
-        }
-        .nav-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px;
-        }
-        .logo {
-            font-size: 24px;
-            font-weight: 700;
-            color: var(--text-color);
-            text-decoration: none;
-            letter-spacing: 4px;
-        }
-        .nav-links {
-            display: flex;
-            list-style: none;
-        }
-        .nav-links li {
-            margin-left: 30px;
-        }
-        .nav-links a {
-            text-decoration: none;
-            color: var(--text-color);
-            font-size: 13px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            transition: color 0.3s;
-        }
-        .nav-links a:hover {
-            color: var(--accent-color);
-        }
-
-        /* Hero (Giriş) Bölümü */
-        .hero {
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://images.unsplash.com/photo-1547949003-9792a18a2601?q=80&w=1920') no-repeat center center/cover;
-            color: white;
-            padding: 20px;
-            margin-top: 0;
-        }
-        .hero-content h1 {
-            font-size: 3rem;
-            margin-bottom: 20px;
-            text-transform: uppercase;
-        }
-        .hero-content p {
-            font-size: 1.2rem;
-            margin-bottom: 30px;
-            font-weight: 300;
-            letter-spacing: 1px;
-        }
-        .btn {
-            display: inline-block;
-            padding: 12px 35px;
-            border: 1px solid white;
-            color: white;
-            text-decoration: none;
-            text-transform: uppercase;
-            font-size: 12px;
-            letter-spacing: 2px;
-            transition: all 0.3s ease;
-        }
-        .btn:hover {
-            background-color: white;
-            color: var(--text-color);
-        }
-
-        /* Hakkımızda / Vizyon (Halka Arz Odaklı) */
-        .section {
-            padding: 100px 20px;
-            max-width: 900px;
-            margin: 0 auto;
-            text-align: center;
-        }
-        .section h2 {
-            font-size: 2rem;
-            margin-bottom: 30px;
-            position: relative;
-            display: inline-block;
-        }
-        .section h2::after {
-            content: '';
-            display: block;
-            width: 50px;
-            height: 1px;
-            background: var(--accent-color);
-            margin: 15px auto 0 auto;
-        }
-        .section p {
-            font-size: 1.1rem;
-            color: #555;
-            font-weight: 300;
-        }
-
-        /* Koleksiyon / Ürünler Özet */
-        .koleksiyon-bg {
-            background-color: var(--light-gray);
-        }
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
-            max-width: 1200px;
-            margin: 40px auto 0 auto;
-            padding: 0 20px;
-        }
-        .grid-item {
-            background: white;
-            border: 1px solid #eee;
-            overflow: hidden;
-            transition: transform 0.3s;
-        }
-        .grid-item:hover {
-            transform: translateY(-5px);
-        }
-        .grid-img {
-            width: 100%;
-            height: 350px;
-            object-fit: cover;
-        }
-        .grid-info {
-            padding: 20px;
-            text-align: center;
-        }
-        .grid-info h3 {
-            font-size: 1.2rem;
-            margin-bottom: 100px; /* Sade dursun diye alt boşluk */
-            margin-bottom: 10px;
-        }
-
-        /* Footer */
-        footer {
-            background-color: #111;
-            color: #888;
-            padding: 50px 20px;
-            text-align: center;
-            font-size: 12px;
-            letter-spacing: 1px;
-        }
-        footer p {
-            margin-bottom: 10px;
-        }
-        footer a {
-            color: var(--accent-color);
-            text-decoration: none;
-        }
-
-        /* Mobil Uyum */
-        @media (max-width: 768px) {
-            .nav-links { display: none; } /* Basitlik adına mobilde menüyü gizledim, geliştirilebilir */
-            .hero-content h1 { font-size: 2rem; }
-        }
-    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <header>
-        <div class="nav-container">
-            <a href="#" class="logo">ARMAN DERI</a>
+    <header class="navbar">
+        <div class="logo">ARMAN DERİ</div>
+        <nav>
             <ul class="nav-links">
-                <li><a href="#koleksiyon">Koleksiyon</a></li>
-                <li><a href="#vizyon">Yatırımcı İlişkileri</a></li>
-                <li><a href="#kurumsal">Kurumsal</a></li>
-                <li><a href="#iletisim">İletişim</a></li>
+                <li><a href="#">Koleksiyon</a></li>
+                <li><a href="#">Hakkımızda</a></li>
+                <li><a href="#">İletişim</a></li>
             </ul>
-        </div>
+        </nav>
     </header>
 
     <section class="hero">
         <div class="hero-content">
-            <h1>Zarafetin Köklü Dokunuşu</h1>
-            <p>Sürdürülebilir lüks, küresel vizyonla buluşuyor.</p>
-            <a href="#kurumsal" class="btn">Keşfedin</a>
+            <h1>Emek ile yapılan ürünler.</h1>
+            <p>Ustalık ve emek.</p>
+            <a href="#" class="btn">Koleksiyonu Keşfet</a>
         </div>
-    </section>
-
-    <section id="kurumsal" class="section">
-        <h2>Geleceğe Yatırım</h2>
-        <p>Arman Deri, nesiller boyu aktarılan zanaatkarlık mirasını, modern ve şeffaf kurumsal yönetim ilkeleriyle birleştiriyor. Küresel pazardaki büyüme ivmemizi, yakın gelecekteki halka arz vizyonumuzla taçlandırarak yatırımcılarımıza değer üretmeyi hedefliyoruz.</p>
-    </section>
-
-    <section id="koleksiyon" class="section koleksiyon-bg" style="max-width: 100%;">
-        <h2>Öne Çıkan Seriler</h2>
-        <div class="grid">
-            <div class="grid-item">
-                <img src="https://images.unsplash.com/photo-1548036328-c9fa89d128fa?q=80&w=600" alt="Çanta" class="grid-img">
-                <div class="grid-info">
-                    <h3>Signature Çanta Serisi</h3>
-                </div>
-            </div>
-            <div class="grid-item">
-                <img src="https://images.unsplash.com/photo-1551537482-f2075a1d41f2?q=80&w=600" alt="Ceket" class="grid-img">
-                <div class="grid-info">
-                    <h3>Giyilebilir Lüks</h3>
-                </div>
-            </div>
-            <div class="grid-item">
-                <img src="https://images.unsplash.com/photo-1624222247344-550fb8ef5582?q=80&w=600" alt="Aksesuar" class="grid-img">
-                <div class="grid-info">
-                    <h3>Premium Aksesuar</h3>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="vizyon" class="section">
-        <h2>...</h2>
-        <p>...</p>
     </section>
 
     <footer>
-        <p>&copy; 2026 Arman Deri A.Ş. Tüm Hakları Saklıdır.</p>
-        <p>Lüksün ve Güvenin Adresi.</p>
+        <p>&copy; 2026 Arman Deri. Tüm hakları saklıdır.</p>
     </footer>
 
 </body>
