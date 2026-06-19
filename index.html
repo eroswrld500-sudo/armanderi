@@ -1,193 +1,282 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Arman Deri</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="Premium minimal luxury web experience" />
+<title>NOIR — Premium Experience</title>
 
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:Inter;}
-body{background:#0a0a0a;color:#fff;overflow-x:hidden;}
-
-header{
-position:fixed;top:0;width:100%;
-display:flex;justify-content:space-between;
-padding:20px 40px;
-background:rgba(10,10,10,0.7);
-backdrop-filter:blur(10px);
-z-index:10;
+/* =========================
+   DESIGN TOKENS (LUXURY SYSTEM)
+========================= */
+:root {
+  --bg: #0b0c10;
+  --fg: #f5f5f7;
+  --muted: rgba(245,245,247,0.65);
+  --card: rgba(255,255,255,0.06);
+  --accent: #d6b46d; /* luxury gold */
+  --radius: 18px;
+  --max: 1200px;
+  --transition: 0.6s cubic-bezier(.2,.8,.2,1);
 }
 
-.logo{font-family:'Playfair Display';font-size:22px;letter-spacing:2px;}
-
-nav button{
-background:none;border:none;color:#fff;
-margin-left:20px;cursor:pointer;opacity:0.7;
-transition:0.3s;
-}
-nav button:hover{opacity:1;color:#c8a45d;}
-
-section{display:none;padding:120px 40px;}
-.active{display:block;}
-
-.hero{
-height:100vh;
-display:flex;
-flex-direction:column;
-justify-content:center;
-align-items:center;
-text-align:center;
+[data-theme="light"] {
+  --bg: #f5f5f7;
+  --fg: #0b0c10;
+  --muted: rgba(0,0,0,0.55);
+  --card: rgba(0,0,0,0.05);
 }
 
-.hero h1{
-font-family:'Playfair Display';
-font-size:60px;
-letter-spacing:3px;
+/* =========================
+   BASE RESET
+========================= */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-.hero p{margin:20px 0;opacity:0.7;}
-
-.btn{
-padding:12px 24px;
-margin:10px;
-border:1px solid #c8a45d;
-background:none;
-color:#fff;
-cursor:pointer;
-transition:0.3s;
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", Inter, sans-serif;
+  background: var(--bg);
+  color: var(--fg);
+  overflow-x: hidden;
+  transition: background var(--transition), color var(--transition);
 }
 
-.btn:hover{
-background:#c8a45d;
-color:#000;
+/* =========================
+   LAYOUT SYSTEM
+========================= */
+.container {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 0 24px;
 }
 
-.grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-gap:20px;
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px 0;
 }
 
-.card{
-background:#151515;
-padding:20px;
-border-radius:10px;
-transition:0.3s;
-cursor:pointer;
+.logo {
+  letter-spacing: 6px;
+  font-weight: 300;
+  font-size: 14px;
+  color: var(--fg);
 }
 
-.card:hover{
-transform:translateY(-5px);
-border:1px solid #c8a45d;
+.menu {
+  display: flex;
+  gap: 28px;
+  font-size: 13px;
+  color: var(--muted);
 }
 
-.cart{
-position:fixed;
-right:20px;
-top:80px;
-background:#151515;
-padding:20px;
-width:250px;
-display:none;
+.menu a {
+  text-decoration: none;
+  color: inherit;
+  transition: var(--transition);
 }
 
-.cart.active{display:block;}
+.menu a:hover {
+  color: var(--fg);
+}
+
+/* =========================
+   HERO SECTION (APPLE-STYLE SPACING)
+========================= */
+.hero {
+  height: 85vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  flex-direction: column;
+}
+
+.hero h1 {
+  font-size: clamp(40px, 6vw, 84px);
+  font-weight: 300;
+  letter-spacing: -1px;
+}
+
+.hero p {
+  margin-top: 18px;
+  max-width: 520px;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+/* =========================
+   BUTTON (LUXURY MINIMAL)
+========================= */
+.btn {
+  margin-top: 32px;
+  padding: 14px 28px;
+  border: 1px solid var(--card);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--fg);
+  cursor: pointer;
+  transition: var(--transition);
+  backdrop-filter: blur(10px);
+}
+
+.btn:hover {
+  border-color: var(--accent);
+  transform: translateY(-2px);
+}
+
+/* =========================
+   SECTIONS
+========================= */
+.section {
+  padding: 120px 0;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.card {
+  padding: 28px;
+  border-radius: var(--radius);
+  background: var(--card);
+  border: 1px solid rgba(255,255,255,0.06);
+  transition: var(--transition);
+}
+
+.card:hover {
+  transform: translateY(-6px);
+  border-color: var(--accent);
+}
+
+/* =========================
+   MICRO INTERACTIONS
+========================= */
+.fade-in {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeIn 1s forwards;
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* =========================
+   FOOTER
+========================= */
+footer {
+  padding: 60px 0;
+  text-align: center;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+@media (max-width: 900px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .menu {
+    display: none;
+  }
+}
 </style>
 </head>
 
 <body>
+<div class="container">
 
-<header>
-<div class="logo">ARMAN DERİ</div>
-<nav>
-<button onclick="show('home')">Home</button>
-<button onclick="show('store')">Mağaza</button>
-<button onclick="show('story')">Hikaye</button>
-<button onclick="toggleCart()">Sepet (<span id="cartCount">0</span>)</button>
-</nav>
-</header>
+  <!-- NAV -->
+  <nav>
+    <div class="logo">NOIR</div>
+    <div class="menu">
+      <a href="#">Vision</a>
+      <a href="#">Studio</a>
+      <a href="#">Work</a>
+      <a href="#">Contact</a>
+    </div>
+    <button class="btn" onclick="toggleTheme()">Theme</button>
+  </nav>
 
-<!-- HOME -->
-<section id="home" class="active">
-<div class="hero">
-<h1>ARMAN DERİ</h1>
-<p>Zanaatkârlığın en saf hali</p>
-<button class="btn" onclick="show('store')">Koleksiyonu Keşfet</button>
-<button class="btn" onclick="show('story')">Hikayemiz</button>
-</div>
-</section>
+  <!-- HERO -->
+  <section class="hero fade-in">
+    <h1>Design Beyond Luxury</h1>
+    <p>
+      Ultra-minimal interface design system crafted with precision, silence and spatial intelligence.
+    </p>
+    <button class="btn">Explore Experience</button>
+  </section>
 
-<!-- STORE -->
-<section id="store">
-<h2 style="font-family:'Playfair Display'">Koleksiyon</h2>
-<div class="grid" id="productGrid"></div>
-</section>
+  <!-- FEATURES -->
+  <section class="section">
+    <div class="grid">
+      <div class="card">
+        <h3>Minimal Architecture</h3>
+        <p style="color:var(--muted); margin-top:10px;">
+          Every pixel is intentional. Nothing is decorative.
+        </p>
+      </div>
 
-<!-- STORY -->
-<section id="story">
-<h2 style="font-family:'Playfair Display'">Hikayemiz</h2>
-<p style="max-width:600px;opacity:0.7;margin-top:20px;">
-1987’den beri el işçiliği ile üretilen deri ürünler...
-Her parça bir ustanın imzasını taşır.
-</p>
-</section>
+      <div class="card">
+        <h3>Performance First</h3>
+        <p style="color:var(--muted); margin-top:10px;">
+          Lightweight structure, instant load, zero friction UX.
+        </p>
+      </div>
 
-<!-- CART -->
-<div class="cart" id="cartBox">
-<h4>Sepet</h4>
-<div id="cartItems"></div>
+      <div class="card">
+        <h3>Premium Aesthetic</h3>
+        <p style="color:var(--muted); margin-top:10px;">
+          Inspired by Apple precision, Tesla clarity, Rolex prestige.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    © 2026 NOIR — All experiences are intentionally minimal.
+  </footer>
+
 </div>
 
 <script>
-const products=[
-{id:1,name:"Deri Ceket",price:1200},
-{id:2,name:"Deri Çanta",price:800},
-{id:3,name:"Cüzdan",price:300},
-{id:4,name:"Kemer",price:200}
-];
-
-let cart=[];
-
-function show(view){
-document.querySelectorAll('section').forEach(s=>s.classList.remove('active'));
-document.getElementById(view).classList.add('active');
+function toggleTheme() {
+  const root = document.documentElement;
+  const current = root.getAttribute("data-theme");
+  root.setAttribute("data-theme", current === "light" ? "dark" : "light");
 }
 
-function renderProducts(){
-let grid=document.getElementById("productGrid");
-grid.innerHTML="";
-products.forEach(p=>{
-grid.innerHTML+=`
-<div class="card">
-<h3>${p.name}</h3>
-<p>${p.price} €</p>
-<button class="btn" onclick="add(${p.id})">Sepete Ekle</button>
-</div>`;
+/* subtle scroll reveal */
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.style.opacity = 1;
+      e.target.style.transform = "translateY(0)";
+    }
+  });
 });
-}
 
-function add(id){
-let item=products.find(p=>p.id===id);
-cart.push(item);
-document.getElementById("cartCount").innerText=cart.length;
-renderCart();
-}
-
-function renderCart(){
-let box=document.getElementById("cartItems");
-box.innerHTML="";
-cart.forEach(c=>{
-box.innerHTML+=`<p>${c.name} - ${c.price}€</p>`;
+document.querySelectorAll(".card").forEach(el => {
+  el.style.opacity = 0;
+  el.style.transform = "translateY(20px)";
+  el.style.transition = "1s cubic-bezier(.2,.8,.2,1)";
+  observer.observe(el);
 });
-}
-
-function toggleCart(){
-document.getElementById("cartBox").classList.toggle("active");
-}
-
-renderProducts();
 </script>
 
 </body>
