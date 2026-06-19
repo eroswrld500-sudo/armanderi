@@ -3,280 +3,454 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-
-<title>Arman Deri | Luxury Experience Engine</title>
+<title>Arman Deri | Virtual Boutique</title>
 
 <style>
-html,body{
-margin:0;
-overflow:hidden;
-background:#0A0A0A;
+:root{
+  --black:#0A0A0A;
+  --surface:#111;
+  --gold:#C8A45D;
+  --text:#EDEDED;
+  --muted:#8A8A8A;
+}
+
+*{margin:0;padding:0;box-sizing:border-box;}
+body{
 font-family:system-ui;
-color:#EDEDED;
+background:var(--black);
+color:var(--text);
+overflow-x:hidden;
 }
 
-/* UI LAYER */
-#ui{
+/* =====================
+   GLOBAL UI
+===================== */
+header{
 position:fixed;
-inset:0;
-pointer-events:none;
-z-index:10;
-}
-
-.title{
-position:absolute;
-top:50%;
-left:50%;
-transform:translate(-50%,-60%);
-text-align:center;
-letter-spacing:4px;
-font-family:serif;
-font-size:54px;
-opacity:0.9;
-}
-
-.subtitle{
-position:absolute;
-top:58%;
-left:50%;
-transform:translateX(-50%);
-color:#8A8A8A;
-font-size:14px;
-}
-
-.buttons{
-position:absolute;
-bottom:80px;
-left:50%;
-transform:translateX(-50%);
+top:0;left:0;right:0;
 display:flex;
-gap:20px;
-pointer-events:auto;
+justify-content:space-between;
+padding:20px 30px;
+z-index:1000;
+backdrop-filter:blur(12px);
+background:rgba(10,10,10,.5);
+border-bottom:1px solid #1c1c1c;
 }
 
-.btn{
-border:1px solid #C8A45D;
-background:transparent;
-color:#C8A45D;
-padding:12px 22px;
+.logo{letter-spacing:4px;font-weight:500;}
+.cart{
 cursor:pointer;
-transition:0.6s;
-letter-spacing:1px;
+color:var(--gold);
 }
 
-.btn:hover{
-background:#C8A45D;
-color:#000;
+/* =====================
+   HOME
+===================== */
+#home{
+height:100vh;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+text-align:center;
+transition:0.8s;
+}
+
+h1{
+font-size:52px;
+letter-spacing:4px;
+}
+
+p{color:var(--muted);margin-top:10px;}
+
+.actions{
+margin-top:40px;
+display:flex;
+gap:15px;
+}
+
+button{
+padding:12px 20px;
+border:1px solid var(--gold);
+background:transparent;
+color:var(--gold);
+cursor:pointer;
+transition:.5s;
+}
+
+button:hover{
+background:var(--gold);
+color:black;
 transform:translateY(-2px);
 }
 
-/* CURSOR */
-.cursor{
-width:10px;height:10px;
-border-radius:50%;
-background:#C8A45D;
-position:fixed;
-transform:translate(-50%,-50%);
-pointer-events:none;
-z-index:999;
-box-shadow:0 0 20px rgba(200,164,93,.6);
+/* =====================
+   STORE MODE
+===================== */
+#store{
+display:none;
+height:100vh;
+grid-template-columns:260px 1fr;
 }
 
-/* fallback */
-.fallback{
+.sidebar{
+background:#0d0d0d;
+padding:20px;
+border-right:1px solid #1c1c1c;
+}
+
+.cat{
+padding:10px;
+cursor:pointer;
+color:var(--muted);
+transition:.4s;
+}
+
+.cat:hover,
+.cat.active{
+color:var(--gold);
+transform:translateX(5px);
+}
+
+.products{
+padding:40px;
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:20px;
+}
+
+.card{
+background:#111;
+padding:20px;
+border:1px solid #1c1c1c;
+cursor:pointer;
+transition:.5s;
+opacity:0;
+transform:translateY(20px);
+animation:fadeIn .6s forwards;
+}
+
+.card:hover{
+border-color:var(--gold);
+transform:translateY(-5px);
+}
+
+.price{color:var(--gold);margin-top:10px;}
+
+@keyframes fadeIn{
+to{opacity:1;transform:translateY(0);}
+}
+
+/* =====================
+   WALKTHROUGH
+===================== */
+#walk{
+display:none;
+height:100vh;
+justify-content:center;
+align-items:center;
+flex-direction:column;
+text-align:center;
+}
+
+.scene{
+font-size:28px;
+margin-bottom:20px;
+}
+
+.nav{
+display:flex;
+gap:20px;
+}
+
+/* =====================
+   STORY MODE
+===================== */
+#story{
+display:none;
+height:100vh;
+justify-content:center;
+align-items:center;
+text-align:center;
+flex-direction:column;
+}
+
+.storyText{
+font-size:26px;
+max-width:600px;
+}
+
+/* =====================
+   PRODUCT DETAIL
+===================== */
+#detail{
 display:none;
 position:fixed;
 inset:0;
-background:url('https://images.unsplash.com/photo-1520975922284-9b7c3f1a7c88?auto=format&fit=crop&w=2000&q=80') center/cover;
+background:rgba(0,0,0,.95);
+justify-content:center;
+align-items:center;
+flex-direction:column;
+z-index:2000;
 }
 
-.fallback::after{
-content:"";
-position:absolute;
-inset:0;
-background:rgba(0,0,0,.6);
+#detail img{
+width:300px;
+height:300px;
+object-fit:cover;
+border:1px solid var(--gold);
 }
+
+#detail h2{margin-top:20px;}
+
+#detail button{
+margin-top:20px;
+}
+
+/* =====================
+   CART
+===================== */
+#cartPanel{
+position:fixed;
+right:-320px;
+top:0;
+width:300px;
+height:100vh;
+background:#111;
+border-left:1px solid #222;
+transition:.6s;
+padding:20px;
+z-index:1500;
+}
+
+#cartPanel.open{right:0;}
+
+.cartItem{
+padding:10px;
+border-bottom:1px solid #222;
+color:var(--muted);
+}
+
+/* ACTIVE TRANSITION */
+.hidden{display:none !important;}
 
 </style>
 </head>
 
 <body>
 
-<div id="ui">
-  <div class="title">ARMAN DERİ</div>
-  <div class="subtitle">Deri değil, karakter üretiyoruz.</div>
+<header>
+<div class="logo">ARMAN DERİ</div>
+<div class="cart" onclick="toggleCart()">🛒 <span id="cartCount">0</span></div>
+</header>
 
-  <div class="buttons">
-    <button class="btn">Koleksiyonu Keşfet</button>
-    <button class="btn">3D Deneyimi İncele</button>
-  </div>
+<!-- HOME -->
+<section id="home">
+<h1>ARMAN DERİ</h1>
+<p>Deri değil, karakter üretiyoruz.</p>
+
+<div class="actions">
+<button onclick="openStore()">Koleksiyonu Keşfet</button>
+<button onclick="openWalk()">Mağazayı Gez</button>
+<button onclick="openStory()">Ustalık Hikayesi</button>
+</div>
+</section>
+
+<!-- STORE -->
+<section id="store">
+<div class="sidebar">
+<div class="cat active" onclick="filter('all')">Tümü</div>
+<div class="cat" onclick="filter('ceket')">Deri Ceketler</div>
+<div class="cat" onclick="filter('canta')">Çantalar</div>
+<div class="cat" onclick="filter('yelek')">Yelek</div>
 </div>
 
-<div class="cursor"></div>
-<div class="fallback" id="fallback"></div>
+<div class="products" id="products"></div>
+</section>
 
-<!-- THREE.JS -->
-<script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
+<!-- WALK -->
+<section id="walk">
+<div class="scene" id="sceneText">Vitrin Girişi</div>
+<div class="nav">
+<button onclick="prevScene()">Prev</button>
+<button onclick="nextScene()">Next</button>
+</div>
+</section>
+
+<!-- STORY -->
+<section id="story">
+<div class="storyText" id="storyText">1987’den beri ustaların sessiz elleri...</div>
+<button onclick="nextStory()">Devam</button>
+</section>
+
+<!-- PRODUCT DETAIL -->
+<div id="detail">
+<img id="detailImg" src="">
+<h2 id="detailTitle"></h2>
+<p id="detailPrice"></p>
+<button onclick="addToCart()">Sepete Ekle</button>
+<button onclick="closeDetail()">Geri</button>
+</div>
+
+<!-- CART -->
+<div id="cartPanel">
+<h3 style="color:#C8A45D;">Sepet</h3>
+<div id="cartItems"></div>
+</div>
 
 <script>
-/* =========================
-   BASIC SETUP
-========================= */
-let scene, camera, renderer, mesh;
-let mouseX = 0, mouseY = 0;
-let targetX = 0, targetY = 0;
 
-/* detect WebGL */
-function webglAvailable(){
-try{
-const canvas = document.createElement("canvas");
-return !!(window.WebGLRenderingContext &&
-(canvas.getContext("webgl") || canvas.getContext("experimental-webgl")));
-}catch(e){return false;}
+/* =====================
+   STATE ENGINE
+===================== */
+let cart = [];
+let currentFilter = "all";
+let selectedProduct = null;
+
+/* PRODUCTS */
+const products = [
+{name:"Deri Ceket",price:"€890",type:"ceket",img:"https://images.unsplash.com/photo-1520975922284-9b7c3f1a7c88"},
+{name:"El Çantası",price:"€1250",type:"canta",img:"https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f"},
+{name:"Premium Yelek",price:"€620",type:"yelek",img:"https://images.unsplash.com/photo-1520975922284-9b7c3f1a7c88"}
+];
+
+/* =====================
+   NAVIGATION SYSTEM
+===================== */
+function show(section){
+["home","store","walk","story"].forEach(s=>{
+document.getElementById(s).style.display="none";
+});
+document.getElementById(section).style.display =
+(section==="store") ? "grid" : "flex";
 }
 
-/* =========================
-   INIT 3D SCENE
-========================= */
-if(webglAvailable()){
-
-scene = new THREE.Scene();
-
-camera = new THREE.PerspectiveCamera(
-45,
-window.innerWidth/window.innerHeight,
-0.1,
-1000
-);
-
-camera.position.z = 3;
-
-renderer = new THREE.WebGLRenderer({antialias:true,alpha:true});
-renderer.setSize(window.innerWidth, window.innerHeight);
-document.body.appendChild(renderer.domElement);
-
-/* LIGHTS */
-const light = new THREE.DirectionalLight(0xc8a45d, 1.2);
-light.position.set(2,2,2);
-scene.add(light);
-
-const ambient = new THREE.AmbientLight(0x222222);
-scene.add(ambient);
-
-/* LEATHER SHADER MATERIAL */
-const uniforms = {
-u_time:{value:0},
-u_mouse:{value:new THREE.Vector2()}
-};
-
-const vertexShader = `
-varying vec2 vUv;
-varying float vWave;
-uniform float u_time;
-uniform vec2 u_mouse;
-
-void main(){
-vUv = uv;
-
-vec3 pos = position;
-
-float wave = sin(pos.x*3.0 + u_time)*0.05;
-pos.z += wave;
-
-vWave = wave;
-
-gl_Position = projectionMatrix * modelViewMatrix * vec4(pos,1.0);
+/* HOME ACTIONS */
+function openStore(){
+show("store");
+renderProducts();
 }
+
+function openWalk(){
+show("walk");
+}
+
+function openStory(){
+show("story");
+}
+
+/* =====================
+   STORE LOGIC
+===================== */
+function renderProducts(){
+const wrap = document.getElementById("products");
+wrap.innerHTML="";
+
+products
+.filter(p=>currentFilter==="all"||p.type===currentFilter)
+.forEach(p=>{
+const div=document.createElement("div");
+div.className="card";
+div.innerHTML=`
+<div style="height:160px;background:url(${p.img}) center/cover"></div>
+<h4>${p.name}</h4>
+<div class="price">${p.price}</div>
 `;
-
-const fragmentShader = `
-varying vec2 vUv;
-varying float vWave;
-uniform float u_time;
-
-void main(){
-
-vec3 base = vec3(0.05,0.05,0.05);
-vec3 gold = vec3(0.78,0.64,0.36);
-
-float grain = fract(sin(dot(vUv.xy, vec2(12.9898,78.233))) * 43758.5453);
-
-float mixVal = smoothstep(0.2,0.8,vUv.x + vUv.y*0.3);
-
-vec3 color = mix(base, gold, mixVal);
-
-color += grain*0.03;
-color += vWave*0.2;
-
-gl_FragColor = vec4(color,1.0);
-}
-`;
-
-const geometry = new THREE.PlaneGeometry(3,3,128,128);
-
-const material = new THREE.ShaderMaterial({
-uniforms,
-vertexShader,
-fragmentShader
+div.onclick=()=>openDetail(p);
+wrap.appendChild(div);
 });
-
-mesh = new THREE.Mesh(geometry, material);
-scene.add(mesh);
-
-/* MOUSE MOVE */
-document.addEventListener("mousemove",(e)=>{
-mouseX = (e.clientX/window.innerWidth)-0.5;
-mouseY = (e.clientY/window.innerHeight)-0.5;
-document.querySelector(".cursor").style.left = e.clientX+"px";
-document.querySelector(".cursor").style.top = e.clientY+"px";
-});
-
-/* SCROLL DEPTH */
-window.addEventListener("scroll",()=>{
-camera.position.z = 3 + window.scrollY*0.002;
-});
-
-/* ANIMATE */
-function animate(){
-requestAnimationFrame(animate);
-
-targetX += (mouseX - targetX)*0.05;
-targetY += (mouseY - targetY)*0.05;
-
-mesh.rotation.y = targetX*0.5;
-mesh.rotation.x = targetY*0.3;
-
-uniforms.u_time.value += 0.02;
-uniforms.u_mouse.value.set(mouseX,mouseY);
-
-renderer.render(scene,camera);
-}
-animate();
-
-/* RESIZE */
-window.addEventListener("resize",()=>{
-camera.aspect = window.innerWidth/window.innerHeight;
-camera.updateProjectionMatrix();
-renderer.setSize(window.innerWidth,window.innerHeight);
-});
-
 }
 
-/* =========================
-   FALLBACK MODE
-========================= */
-else{
-document.getElementById("fallback").style.display="block";
+function filter(type){
+currentFilter=type;
+document.querySelectorAll(".cat").forEach(c=>c.classList.remove("active"));
+event.target.classList.add("active");
+renderProducts();
 }
 
-/* =========================
-   MICRO UX
-========================= */
-document.querySelectorAll(".btn").forEach(btn=>{
-btn.addEventListener("mouseenter",()=>{
-btn.style.boxShadow="0 0 20px rgba(200,164,93,0.4)";
+/* =====================
+   DETAIL VIEW
+===================== */
+function openDetail(p){
+selectedProduct=p;
+document.getElementById("detailImg").src=p.img;
+document.getElementById("detailTitle").innerText=p.name;
+document.getElementById("detailPrice").innerText=p.price;
+document.getElementById("detail").style.display="flex";
+}
+
+function closeDetail(){
+document.getElementById("detail").style.display="none";
+}
+
+function addToCart(){
+cart.push(selectedProduct);
+document.getElementById("cartCount").innerText=cart.length;
+updateCart();
+closeDetail();
+}
+
+function updateCart(){
+const wrap=document.getElementById("cartItems");
+wrap.innerHTML="";
+cart.forEach(i=>{
+const d=document.createElement("div");
+d.className="cartItem";
+d.innerText=i.name+" "+i.price;
+wrap.appendChild(d);
 });
-});
+}
+
+/* =====================
+   CART PANEL
+===================== */
+function toggleCart(){
+document.getElementById("cartPanel").classList.toggle("open");
+}
+
+/* =====================
+   WALKTHROUGH MODE
+===================== */
+const scenes=[
+"Vitrin Girişi",
+"Deri Ceket Koleksiyonu",
+"Ustalık Atölyesi",
+"Premium Spotlight",
+"Checkout Zone"
+];
+let sceneIndex=0;
+
+function updateScene(){
+document.getElementById("sceneText").innerText=scenes[sceneIndex];
+}
+
+function nextScene(){
+sceneIndex=(sceneIndex+1)%scenes.length;
+updateScene();
+}
+
+function prevScene(){
+sceneIndex=(sceneIndex-1+scenes.length)%scenes.length;
+updateScene();
+}
+
+/* =====================
+   STORY MODE
+===================== */
+const stories=[
+"1987’den beri ustaların sessiz elleri...",
+"Her ürün bir karakter taşır...",
+"Deri yaşar, nefes alır...",
+"Zanaatkârlık bir imzadır."
+];
+let storyIndex=0;
+
+function nextStory(){
+storyIndex++;
+if(storyIndex>=stories.length)storyIndex=0;
+document.getElementById("storyText").innerText=stories[storyIndex];
+}
+
 </script>
 
 </body>
